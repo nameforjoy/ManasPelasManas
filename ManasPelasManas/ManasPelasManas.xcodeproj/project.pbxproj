@@ -12,6 +12,8 @@
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
+		8D1C176A230DC4EE00B868BB /* MakeRoute.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */; };
+		8D1C176C230DC62300B868BB /* StartPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1C176B230DC62300B868BB /* StartPointViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		15A6A8EC230C11A1004E537D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MakeRoute.storyboard; sourceTree = "<group>"; };
+		8D1C176B230DC62300B868BB /* StartPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPointViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				15A6A8EC230C11A1004E537D /* Assets.xcassets */,
 				15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */,
 				15A6A8F1230C11A1004E537D /* Info.plist */,
+				8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */,
+				8D1C176B230DC62300B868BB /* StartPointViewController.swift */,
 			);
 			path = ManasPelasManas;
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1C176A230DC4EE00B868BB /* MakeRoute.storyboard in Resources */,
 				15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */,
 				15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */,
 				15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */,
@@ -137,6 +144,7 @@
 			files = (
 				15A6A8E8230C11A0004E537D /* ViewController.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
+				8D1C176C230DC62300B868BB /* StartPointViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +291,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 54KAL6GMBX;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -300,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 54KAL6GMBX;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
