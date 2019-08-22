@@ -16,6 +16,7 @@
 		B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07D230DECD4007BDA06 /* InfoViewController.swift */; };
 		B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07F230DECF3007BDA06 /* RoutesViewController.swift */; };
 		B376D083230DEEAB007BDA06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D082230DEEAB007BDA06 /* ViewController.swift */; };
+		B376D085230EE9F7007BDA06 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		B376D07D230DECD4007BDA06 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B376D07F230DECF3007BDA06 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		B376D082230DEEAB007BDA06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				15A6A8E9230C11A0004E537D /* Main.storyboard */,
+				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D081230DECFD007BDA06 /* View Controllers */,
 				15A6A8E5230C11A0004E537D /* AppDelegate.swift */,
 				15A6A8EC230C11A1004E537D /* Assets.xcassets */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B376D085230EE9F7007BDA06 /* LocationSearchTable.swift in Sources */,
 				B376D083230DEEAB007BDA06 /* ViewController.swift in Sources */,
 				B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
