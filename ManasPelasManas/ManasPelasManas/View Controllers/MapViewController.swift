@@ -10,125 +10,176 @@ import UIKit
 import MapKit
 import CoreLocation
 
+// MARK: HandleMapSearch protocol
+// Delegate the interaction between the MapViewController and the search adress table
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
+// MARK: MapViewController
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var radiusView: UIImageView!
+    
     let locationManager = CLLocationManager()
-    
+    let mapRegionDegreeRange: Double = 0.02
     var resultSearchController: UISearchController? = nil
-    
     var selectedPin: MKPlacemark? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        mapView.delegate = self
         
-        //Corelocation setup
+        // Sets up CoreLocation and centers map
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        if let location = locationManager.location {
-            zoomTo(location: location)
-        }
+        centerMapOnUserLocation()
         
-        //SEARCH BAR E TABLEVIEW SETUP
+        // MARK: Adress Search configuration
         
-        //trazendo a tableViewController do storyboard pro código
-        //por isso foi importante ter um storyboard ID na tableViewController
+        // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // Instantiates the TableViewController that will show the adress results
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
-        //definindo a view de resultados como a tableViewController
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        //definindo a tableViewController também como updater
-        resultSearchController?.searchResultsUpdater = locationSearchTable
-        
-        //criando a searchBar, definindo tamanho, texto exibido e encaixando ela na navigationBar
-        let searchBar = resultSearchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder =  "Entre com seu endereço..."
-        navigationItem.titleView =  resultSearchController?.searchBar
-        
-        //comportamento visual da searchcontroller
-        //evitar que a navbar suma durante a apresentação da tableViewController, queremos ela o tempo todo
-        resultSearchController?.hidesNavigationBarDuringPresentation = false
-        //transparencia bonitinha
-        resultSearchController?.dimsBackgroundDuringPresentation = true
-        //não deixar a tableViewController tomar conta da VC inteira (se não esconderia a navbar/searchbar sumisse de qualquer jeito
-        definesPresentationContext = true
-    
-        //associando a mapView da searchController sendo a mesma daqui
-        // pra que? pra busca ficar preferencial às proximidades
+        // Instantiates our search controller and displays its results on the TableView instantiated above
+        self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        // Sets the TableView as the results updater as well
+        self.resultSearchController?.searchResultsUpdater = locationSearchTable
+        // Sets this ViewController mapView as the results table mapView
         locationSearchTable.mapView = mapView
         
-        //DELEGATE MANUAL
-        locationSearchTable.handleMapSearchDelegate = self
+        // CREATES AND CONFIGURES THE SEARCHBAR
+        // Make  searchBar from the searchController created above
+        let searchBar = self.resultSearchController!.searchBar
+        // Defines searchBar appearence
+        searchBar.sizeToFit()
+        searchBar.placeholder =  "Entre com seu endereço..."
+        self.navigationItem.titleView =  self.resultSearchController?.searchBar
         
+        // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
+        // Prevents the NavigationBar from being  hidden when  showing the TableView
+        self.resultSearchController?.hidesNavigationBarDuringPresentation = false
+        // Sets recults table background transparency
+        self.resultSearchController?.dimsBackgroundDuringPresentation = true
+        // Makes this ViewController the presentation context for the results table, preventing it from overlapping the searchBar
+        self.definesPresentationContext = true
+        
+        // Sets delegate to handle map search with the HandleMapSearch protocol
+        locationSearchTable.handleMapSearchDelegate = self
     }
     
-}
-
-
-
-extension MapViewController: MKMapViewDelegate {
-    
-    //delegate  functions
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        //código pra quando a usuária scrollar o mapa
+    // MARK: Actions
+    // Gets center and radius of circle over the mapView
+    @IBAction func getCircleRegion(_ sender: Any) {
+        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        
+        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
+        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
+        
+        let distance: Double = center.distance(from: edge)
+        print("Radius is \(distance)m")
     }
 }
 
+// MARK: CLLocationManager extension
+// Handles user authorization and location functions
 extension MapViewController: CLLocationManagerDelegate {
     
-    //funções do tutorial estavam em um swift antigo
-    //lebrar de usar autocomplete em vez de ctrl c ctrl v
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestLocation()
-        }
-    }
-    
+    // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            zoomTo(location: location)
+            zoomMapTo(location: location)
         }
     }
     
-    func zoomTo(location: CLLocation)
-    {
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    // Zooms in to a certain map region
+    func zoomMapTo(location: CLLocation) {
+        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region =  MKCoordinateRegion(center: location.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
     
+    // Centers map on user current location
+    func centerMapOnUserLocation() {
+        locationManager.requestLocation()
+        if let location = locationManager.location {
+            zoomMapTo(location: location)
+        } else {
+            presentAlert()
+        }
+    }
+    
+    // Shows error message
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: \(error.localizedDescription)")
     }
-
+    
+    // Hamdles changes in authorization status
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            self.activateLocationServices()
+        } else if status == .denied || status == .restricted {
+            self.presentAlert()
+        } else {
+            self.locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    // Starts location services
+    func activateLocationServices() {
+        // We need a high accuracy since our user is by foot, but  not too  much so that too much battery is consumed
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+    }
+    
+    // Presents alert if location is turned off
+    func presentAlert() {
+        let alertController = UIAlertController (title: "Localização", message: "Seus serviços de localização encontram-se desativados para esse app. Utilizamos  esse serviço para facilitar sua definição  de rota, porém o app pode ser utilizado sem ele normalmente. Caso deseje habilitar sua localização nesse app, basta ligar  esse serviço em suas Configurações.", preferredStyle: .alert)
+        
+        // Adds settings button action
+        let settingsAction = UIAlertAction(title: "Configurações", style: .default) { (_) -> Void in
+            
+            // Gets the URL for this app's Settings
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            // Opens URL when clicking the button
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (sucess) in
+                    print("Settings opened: \(sucess)") // Prints true
+                })
+            }
+        }
+        // Adds Cancel button action
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        // Presents Alert
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
+// MARK: HandleMapSearch extension
+// Instantiates the protocol at the beginning of this ducoment to pass address search information
 extension MapViewController: HandleMapSearch {
+    
     func dropPinZoomIn(placemark: MKPlacemark) {
         selectedPin = placemark
-        
-        //limpar mapa --> se a gente for fazer o ponto de destino junto, não vai rolar
+        // Removes all previous annotations
         mapView.removeAnnotations(mapView.annotations)
-    
+        
+        // Adds annotation in the  given placemark
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
         mapView.addAnnotation(annotation)
         
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        // Shows corresponding map region
+        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }

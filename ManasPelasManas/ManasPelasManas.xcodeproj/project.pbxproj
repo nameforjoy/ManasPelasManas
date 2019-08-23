@@ -17,8 +17,6 @@
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
-		8D1C176A230DC4EE00B868BB /* MakeRoute.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */; };
-		8D1C176C230DC62300B868BB /* StartPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1C176B230DC62300B868BB /* StartPointViewController.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
 		B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07B230DECC7007BDA06 /* MapViewController.swift */; };
 		B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07D230DECD4007BDA06 /* InfoViewController.swift */; };
@@ -39,8 +37,6 @@
 		15A6A8EC230C11A1004E537D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MakeRoute.storyboard; sourceTree = "<group>"; };
-		8D1C176B230DC62300B868BB /* StartPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartPointViewController.swift; path = ../StartPointViewController.swift; sourceTree = "<group>"; };
 		B376D079230DEC86007BDA06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B376D07B230DECC7007BDA06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B376D07D230DECD4007BDA06 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +103,6 @@
 				B376D079230DEC86007BDA06 /* ProfileViewController.swift */,
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
-				8D1C176B230DC62300B868BB /* StartPointViewController.swift */,
 				B376D07D230DECD4007BDA06 /* InfoViewController.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
 			);
@@ -118,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				15A6A8E9230C11A0004E537D /* Main.storyboard */,
-				8D1C1769230DC4EE00B868BB /* MakeRoute.storyboard */,
 				15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
@@ -182,7 +176,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D1C176A230DC4EE00B868BB /* MakeRoute.storyboard in Resources */,
 				15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */,
 				15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */,
 				15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */,
@@ -200,7 +193,6 @@
 				B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */,
 				1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
-				8D1C176C230DC62300B868BB /* StartPointViewController.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
 				B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */,
@@ -355,7 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2M7ZQ8AZ57;
+				DEVELOPMENT_TEAM = 54KAL6GMBX;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -374,7 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2M7ZQ8AZ57;
+				DEVELOPMENT_TEAM = 54KAL6GMBX;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

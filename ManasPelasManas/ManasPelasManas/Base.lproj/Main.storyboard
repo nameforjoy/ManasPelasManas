@@ -85,19 +85,37 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dNF-N3-aaR">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="raio-local" translatesAutoresizingMaskIntoConstraints="NO" id="yvX-ml-zGz">
+                                <rect key="frame" x="41.5" y="160.5" width="331" height="580"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afd-eV-mjx">
+                                <rect key="frame" x="188" y="779" width="38" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="getCircleRegion:" destination="3sw-Ev-MV3" eventType="touchUpInside" id="oBp-fw-INz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="afd-eV-mjx" firstAttribute="centerX" secondItem="FDu-n5-qYA" secondAttribute="centerX" id="C7K-3m-Q5y"/>
+                            <constraint firstItem="yvX-ml-zGz" firstAttribute="centerX" secondItem="dNF-N3-aaR" secondAttribute="centerX" id="Gwg-cY-dPT"/>
                             <constraint firstItem="FDu-n5-qYA" firstAttribute="trailing" secondItem="dNF-N3-aaR" secondAttribute="trailing" id="RZB-Bt-ZjI"/>
+                            <constraint firstItem="afd-eV-mjx" firstAttribute="bottom" secondItem="dNF-N3-aaR" secondAttribute="bottom" id="YI4-NK-3Ny"/>
                             <constraint firstItem="dNF-N3-aaR" firstAttribute="top" secondItem="FDu-n5-qYA" secondAttribute="top" id="f5i-6R-9ej"/>
                             <constraint firstItem="FDu-n5-qYA" firstAttribute="bottom" secondItem="dNF-N3-aaR" secondAttribute="bottom" id="he4-ZJ-BoN"/>
                             <constraint firstItem="dNF-N3-aaR" firstAttribute="leading" secondItem="FDu-n5-qYA" secondAttribute="leading" id="oi9-Qq-9DH"/>
+                            <constraint firstItem="yvX-ml-zGz" firstAttribute="height" secondItem="dNF-N3-aaR" secondAttribute="height" multiplier="0.8" id="s3F-hh-En0"/>
+                            <constraint firstItem="yvX-ml-zGz" firstAttribute="centerY" secondItem="dNF-N3-aaR" secondAttribute="centerY" id="tM1-R3-FUN"/>
+                            <constraint firstItem="yvX-ml-zGz" firstAttribute="width" secondItem="dNF-N3-aaR" secondAttribute="width" multiplier="0.8" id="zVh-YX-O0f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FDu-n5-qYA"/>
                     </view>
                     <navigationItem key="navigationItem" id="qCt-Ol-qGM"/>
                     <connections>
                         <outlet property="mapView" destination="dNF-N3-aaR" id="XMa-dJ-UA0"/>
+                        <outlet property="radiusView" destination="yvX-ml-zGz" id="0EU-5y-x9g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Tn-Rq-6BH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -146,7 +164,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Thz-Gz-hZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2529" y="840"/>
+            <point key="canvasLocation" x="2529" y="828"/>
         </scene>
         <!--Info-->
         <scene sceneID="hoH-AU-RWA">
@@ -222,6 +240,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="raio-local" width="971" height="971"/>
         <image name="user" width="718" height="720"/>
     </resources>
 </document>
