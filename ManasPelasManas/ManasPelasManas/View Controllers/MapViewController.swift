@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var radiusView: UIImageView!
     
     let locationManager = CLLocationManager()
+    let mapRegionDegreeRange: Double = 0.02
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
     
@@ -33,36 +34,49 @@ class MapViewController: UIViewController {
         locationManager.delegate = self
         centerMapOnUserLocation()
         
-        //SEARCH BAR E TABLEVIEW SETUP
+        // MARK: Adress Search configuration
         
-        //trazendo a tableViewController do storyboard pro código
-        //por isso foi importante ter um storyboard ID na tableViewController
+        // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // Instantiates the TableViewController that will show the adress results
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
-        //definindo a view de resultados como a tableViewController
+        // Instantiates our search controller and displays its results on the TableView instantiated above
         self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        //definindo a tableViewController também como updater
+        // Sets the TableView as the results updater as well
         self.resultSearchController?.searchResultsUpdater = locationSearchTable
-        
-        //criando a searchBar, definindo tamanho, texto exibido e encaixando ela na navigationBar
-        let searchBar = self.resultSearchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder =  "Entre com seu endereço..."
-        navigationItem.titleView =  self.resultSearchController?.searchBar
-        
-        //comportamento visual da searchcontroller
-        //evitar que a navbar suma durante a apresentação da tableViewController, queremos ela o tempo todo
-        self.resultSearchController?.hidesNavigationBarDuringPresentation = false
-        //transparencia bonitinha
-        self.resultSearchController?.dimsBackgroundDuringPresentation = true
-        //não deixar a tableViewController tomar conta da VC inteira (se não esconderia a navbar/searchbar sumisse de qualquer jeito
-        definesPresentationContext = true
-    
-        //associando a mapView da searchController sendo a mesma daqui
-        // pra que? pra busca ficar preferencial às proximidades
+        // Sets this ViewController mapView as the results table mapView
         locationSearchTable.mapView = mapView
         
-        //DELEGATE MANUAL
+        // CREATES AND CONFIGURES THE SEARCHBAR
+        // Make  searchBar from the searchController created above
+        let searchBar = self.resultSearchController!.searchBar
+        // Defines searchBar appearence
+        searchBar.sizeToFit()
+        searchBar.placeholder =  "Entre com seu endereço..."
+        self.navigationItem.titleView =  self.resultSearchController?.searchBar
+        
+        // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
+        // Prevents the NavigationBar from being  hidden when  showing the TableView
+        self.resultSearchController?.hidesNavigationBarDuringPresentation = false
+        // Sets recults table background transparency
+        self.resultSearchController?.dimsBackgroundDuringPresentation = true
+        // Makes this ViewController the presentation context for the results table, preventing it from overlapping the searchBar
+        self.definesPresentationContext = true
+        
+        // Sets delegate to handle map search with the HandleMapSearch protocol
         locationSearchTable.handleMapSearchDelegate = self
+    }
+    
+    // MARK: Actions
+    // Gets center and radius of circle over the mapView
+    @IBAction func getCircleRegion(_ sender: Any) {
+        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        
+        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
+        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
+        
+        let distance: Double = center.distance(from: edge)
+        print("Radius is \(distance)m")
     }
 }
 
@@ -79,7 +93,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     // Zooms in to a certain map region
     func zoomMapTo(location: CLLocation) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region =  MKCoordinateRegion(center: location.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
@@ -152,20 +166,20 @@ extension MapViewController: HandleMapSearch {
     
     func dropPinZoomIn(placemark: MKPlacemark) {
         selectedPin = placemark
-        
-        // limpar mapa --> se a gente for fazer o ponto de destino junto, não vai rolar
+        // Removes all previous annotations
         mapView.removeAnnotations(mapView.annotations)
         
+        // Adds annotation in the  given placemark
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
         mapView.addAnnotation(annotation)
         
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        // Shows corresponding map region
+        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
