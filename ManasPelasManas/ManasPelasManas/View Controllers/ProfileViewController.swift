@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User {
+class UserTest {
     var name: String
     var age: String
     var bio: String
@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myDescription: UILabel!
     @IBOutlet weak var myBio: UILabel!
     
-    var user = User(name: "Brenda Santos", age: "22", bio: "Sou professora, natural de Belém -PA, e atualmente moro em Campinas -SP. Sou tranquila, adoro natureza e conhecer pessoas novas, fazer amigos e conhecer lugares novos. Acho interessante a idéia do coachsurfing, além de poder ter a oportunidade de conhecer pessoas, fazer amizades. Acredito no coachsurfing!", pictureName: "user")
+    var user = UserTest(name: "Brenda Santos", age: "22", bio: "Sou professora, natural de Belém -PA, e atualmente moro em Campinas -SP. Sou tranquila, adoro natureza e conhecer pessoas novas, fazer amigos e conhecer lugares novos. Acho interessante a idéia do coachsurfing, além de poder ter a oportunidade de conhecer pessoas, fazer amizades. Acredito no coachsurfing!", pictureName: "user")
     
     override func viewDidLoad() {
         super.viewDidLoad()
