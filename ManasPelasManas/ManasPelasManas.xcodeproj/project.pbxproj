@@ -12,6 +12,7 @@
 		1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1F9230EB3AB00C0DF60 /* Journey.swift */; };
 		1511D1FC230EB47400C0DF60 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FB230EB47400C0DF60 /* Status.swift */; };
 		1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FD230EB6C000C0DF60 /* LoadData.swift */; };
+		1511D200230EF32500C0DF60 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FF230EF32500C0DF60 /* Test.swift */; };
 		15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A6A8E5230C11A0004E537D /* AppDelegate.swift */; };
 		15A6A8E8230C11A0004E537D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A6A8E7230C11A0004E537D /* ViewController.swift */; };
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		1511D1F9230EB3AB00C0DF60 /* Journey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journey.swift; sourceTree = "<group>"; };
 		1511D1FB230EB47400C0DF60 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		1511D1FD230EB6C000C0DF60 /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
+		1511D1FF230EF32500C0DF60 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		15A6A8E2230C11A0004E537D /* ManasPelasManas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManasPelasManas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A6A8E5230C11A0004E537D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15A6A8E7230C11A0004E537D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 				1511D1F9230EB3AB00C0DF60 /* Journey.swift */,
 				1511D1FB230EB47400C0DF60 /* Status.swift */,
 				1511D1FD230EB6C000C0DF60 /* LoadData.swift */,
+				1511D1FF230EF32500C0DF60 /* Test.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
+				1511D200230EF32500C0DF60 /* Test.swift in Sources */,
 				1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 			);
@@ -311,7 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KDP22XDFSU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,7 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KDP22XDFSU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

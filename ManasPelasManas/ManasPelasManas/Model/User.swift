@@ -12,15 +12,15 @@ class User {
     var userId: Int
     var name: String
     var bornDate: Date
-    var autenticated: Bool
+    var authenticated: Bool
     var photo: String
     var journeys: [Journey]
     
-    init (userId: Int, name: String, bornDate: Date, photo: String, autenticated: Bool) {
+    init (userId: Int, name: String, bornDate: Date, photo: String, authenticated: Bool) {
         self.name = name
         self.bornDate = bornDate
         self.photo = photo
-        self.autenticated = autenticated
+        self.authenticated = authenticated
         self.userId = userId
         self.journeys = [Journey]()
     }

@@ -20,4 +20,5 @@ class Path {
         self.destiny = destiny
     }
     
+    
 }
