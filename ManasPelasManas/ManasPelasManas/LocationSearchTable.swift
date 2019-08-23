@@ -49,9 +49,10 @@ extension LocationSearchTable: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else {return}
         
-        if searchBarText.count < 4 {
-            return
-        }
+        //talvez usar regex pra pegar só quando tiver um espaço
+        
+        guard searchBarText.contains(" ") && searchBarText.count > 4 else {return}
+        
         //criando request
         let request = MKLocalSearch.Request()
         
@@ -101,5 +102,4 @@ extension LocationSearchTable {
         handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }
-
 }
