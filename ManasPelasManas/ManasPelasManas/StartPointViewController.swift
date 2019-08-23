@@ -11,8 +11,6 @@ import UIKit
 import CoreLocation
 import MapKit
 
-// Ele chama o didChangeAuthorisation quando vc seta a mesma configuração que já estava?
-
 class StartPointViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -55,28 +53,6 @@ class StartPointViewController: UIViewController {
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 2.1 * mapRange, longitudinalMeters: 2.1 * mapRange)
         self.mapView.setRegion(region, animated: true)
     }
-    
-    func presentAlert() {
-        let alertController = UIAlertController (title: "Localização", message: "Seus serviços de localização encontram-se desativados para esse app. Utilizamos  esse serviço para facilitar sua definição  de rota, porém o app pode ser utilizado sem ele normalmente. Caso deseje habilitar sua localização nesse app, basta ligar  esse serviço em suas Configurações.", preferredStyle: .alert)
-        
-        let settingsAction = UIAlertAction(title: "Configurações", style: .default) { (_) -> Void in
-            
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
-            }
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl, completionHandler: { (sucess) in
-                    print("Settings opened: \(sucess)") // Prints true
-                })
-            }
-        }
-        alertController.addAction(settingsAction)
-        let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
 }
 
 extension StartPointViewController: CLLocationManagerDelegate {
@@ -106,4 +82,26 @@ extension StartPointViewController: CLLocationManagerDelegate {
         self.initialLocation = locationCoordinates
     }
     
+    // Presents alert if location is turned off
+    func presentAlert() {
+        let alertController = UIAlertController (title: "Localização", message: "Seus serviços de localização encontram-se desativados para esse app. Utilizamos  esse serviço para facilitar sua definição  de rota, porém o app pode ser utilizado sem ele normalmente. Caso deseje habilitar sua localização nesse app, basta ligar  esse serviço em suas Configurações.", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Configurações", style: .default) { (_) -> Void in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (sucess) in
+                    print("Settings opened: \(sucess)") // Prints true
+                })
+            }
+        }
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
