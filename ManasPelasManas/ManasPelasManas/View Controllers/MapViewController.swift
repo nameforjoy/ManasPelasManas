@@ -32,6 +32,7 @@ class MapViewController: UIViewController {
         
         // Sets up CoreLocation and centers map
         locationManager.delegate = self
+        checkAuthorizationStatus()
         centerMapOnUserLocation()
         
         // MARK: Adress Search configuration
@@ -103,8 +104,6 @@ extension MapViewController: CLLocationManagerDelegate {
         locationManager.requestLocation()
         if let location = locationManager.location {
             zoomMapTo(location: location)
-        } else {
-            presentAlert()
         }
     }
     
@@ -113,16 +112,23 @@ extension MapViewController: CLLocationManagerDelegate {
         print("error:: \(error.localizedDescription)")
     }
     
+    // Checks if Location Services are enabled and if not asks for authorization
+    func checkAuthorizationStatus() {
+        if CLLocationManager.locationServicesEnabled() {
+            let status  = CLLocationManager.authorizationStatus()
+            if status == .authorizedWhenInUse || status == .authorizedAlways {
+                self.activateLocationServices()
+            } else if status == .denied || status == .restricted {
+                self.presentAlert()
+            } else {
+                self.locationManager.requestWhenInUseAuthorization()
+            }
+        }
+    }
+    
     // Hamdles changes in authorization status
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
-            self.activateLocationServices()
-        } else if status == .denied || status == .restricted {
-            self.presentAlert()
-        } else {
-            self.locationManager.requestWhenInUseAuthorization()
-        }
+        checkAuthorizationStatus()
     }
     
     // Starts location services
