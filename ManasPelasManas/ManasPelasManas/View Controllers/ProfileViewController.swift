@@ -38,5 +38,6 @@ class ProfileViewController: UIViewController {
         myBio.text = user.bio
     }
     
+
     
 }
