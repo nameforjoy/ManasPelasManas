@@ -52,8 +52,7 @@ class FullRouteViewController: UIViewController {
         annotationB!.coordinate = pointB!
     }
     
-    private func zoomTo(regionA: MKCircle, regionB: MKCircle)
-    {
+    private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
         let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
