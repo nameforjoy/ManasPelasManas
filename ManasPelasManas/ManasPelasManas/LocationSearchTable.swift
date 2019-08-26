@@ -17,9 +17,17 @@ protocol HandleMapSearch {
 
 class LocationSearchTable: UITableViewController {
     
-    var matchingItems:[MKMapItem] = []
+    var matchingItems: [MKMapItem] = []
     var mapView: MKMapView? =  nil
     var handleMapSearchDelegate: HandleMapSearch? = nil
+    var dateLastUpdated: Date = Date()
+    
+    lazy var adressSearchQeue: OperationQueue = {
+        var qeue = OperationQueue()
+        qeue.name = "Adress search results qeue"
+        qeue.maxConcurrentOperationCount = 1
+        return qeue
+    } ()
 
     // MARK: Parsing Address
     // This method was based on US Address and might not be entirely effective for our standards.
@@ -50,45 +58,74 @@ class LocationSearchTable: UITableViewController {
     }
 }
 
+// MARK: Update Search Results
 extension LocationSearchTable: UISearchResultsUpdating {
-
-    // MARK: Update Search Results
+    
     // This method is called everytime the user changes the input on the SearchBar
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else {return}
         
-        // Prevents useless requests from being made
-        guard searchBarText.contains(" ") && searchBarText.count > 4 else {return}
+        adressSearchQeue.cancelAllOperations()
         
-        // Creating Request
-        let request = MKLocalSearch.Request()
+        adressSearchQuery(searchBarText: searchBarText,
+                          mapView: mapView,
+                          completion: { (items: [MKMapItem]) -> Void in
+            self.matchingItems = items
+            self.tableView.reloadData()
+        })
+
+    }
+    
+    // Checks if the minimum time between search updates has passed
+    func shouldUpdateAdressSearch() -> Bool {
         
-        // Getting input from SearchBar
-        request.naturalLanguageQuery = searchBarText
+        // In timeIntervalSinceNow, if the date object is earlier than the current date and time, this property’s value is negative
+        let shoudUpdate: Bool = self.dateLastUpdated.timeIntervalSinceNow < -1 ? true : false
         
-        // Prioritizing results close to user's location
-        request.region = mapView.region
+        if shoudUpdate {
+            self.dateLastUpdated = Date()
+        }
+        return shoudUpdate
+    }
+    
+    // Performs the  address search
+    func adressSearchQuery(searchBarText: String, mapView: MKMapView, completion: @escaping ([MKMapItem]) -> Void) {
         
-        // Creating a LocalSearch based on the previous request
-        let search = MKLocalSearch(request: request)
-        
-        // Executing Search
-        // TODO: Improve request by using Operation Queues
-        search.start { (response, _) in
-                guard let response = response else {return}
-                self.matchingItems = response.mapItems
-                self.tableView.reloadData()
+        if shouldUpdateAdressSearch() {
+            self.adressSearchQeue.addOperation {
+                
+                // Creating Request
+                let request = MKLocalSearch.Request()
+                
+                // Getting input from SearchBar
+                request.naturalLanguageQuery = searchBarText
+                
+                // Prioritizing results close to user's location
+                request.region = mapView.region
+                
+                // Creating a LocalSearch based on the previous request
+                let search = MKLocalSearch(request: request)
+                
+                // Makes search query
+                search.start { (response, error) in
+                    guard let response = response else {return}
+                    completion(response.mapItems)
+                }
+            }
         }
     }
+    
 }
 
 extension LocationSearchTable {
     
+    // Number of cells in the TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
     
+    // Handles cell format and information
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         let selectedItem =  matchingItems[indexPath.row].placemark
@@ -97,6 +134,7 @@ extension LocationSearchTable {
         return cell
     }
     
+    // Handles cell selection
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem =  matchingItems[indexPath.row].placemark
         
