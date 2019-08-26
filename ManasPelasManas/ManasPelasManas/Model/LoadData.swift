@@ -18,16 +18,16 @@ class LoadData {
     
     init() {
         //Alguns exemplos de mock
-        self.user1 = User(userId: 1, name: "Hermione", bornDate: LoadData.createFomattedDate(date: "19/09/1979"), photo: "hermione.photo", authenticated: true)
-        self.user2 = User(userId: 2, name: "Annalise", bornDate: LoadData.createFomattedDate(date: "11/08/1965"), photo: "annalise.photo", authenticated: false)
-        self.user3 = User(userId: 3, name: "Cristina", bornDate: LoadData.createFomattedDate(date: "20/07/1971"), photo: "cristina.photo", authenticated: false)
-        self.user4 = User(userId: 4, name: "Daenerys", bornDate: LoadData.createFomattedDate(date: "23/10/1986"), photo: "daenerys.photo", authenticated: false)
+        self.user1 = User(userId: 1, name: "Hermione", bio: "Eu adoro voar nas vassouras!", bornDate: LoadData.createFomattedDate(date: "19/09/1979"), photo: "hermione.photo", authenticated: true)
+        self.user2 = User(userId: 2, name: "Annalise", bio: "Oie!", bornDate: LoadData.createFomattedDate(date: "11/08/1965"), photo: "annalise.photo", authenticated: false)
+        self.user3 = User(userId: 3, name: "Cristina", bio: "Olar!", bornDate: LoadData.createFomattedDate(date: "20/07/1971"), photo: "cristina.photo", authenticated: false)
+        self.user4 = User(userId: 4, name: "Daenerys", bio: "Dracarys", bornDate: LoadData.createFomattedDate(date: "23/10/1986"), photo: "daenerys.photo", authenticated: false)
         
         
         let cb = createCircularRegion(latitude: -22.817889, longitude: -47.068661, radius: 120, referencia: "CB")
         let moras = createCircularRegion(latitude: -22.821561, longitude: -47.088216, radius: 120, referencia: "Moradia")
-        let av3 = createCircularRegion(latitude: -22.811373, longitude: -47.075498, radius: 50, referencia: "AV3")
-        let eldorado = createCircularRegion(latitude: -22.813339, longitude: -47.061741, radius: 100, referencia: "Eldorado")
+        let av3 = createCircularRegion(latitude: -22.811373, longitude: -47.075498, radius: 500, referencia: "AV3")
+        let eldorado = createCircularRegion(latitude: -22.813339, longitude: -47.061741, radius: 1000, referencia: "Eldorado")
         let iq = createCircularRegion(latitude: -22.819317, longitude: -47.067570, radius: 100, referencia: "IQ")
         let ru = createCircularRegion(latitude: -22.817365, longitude: -47.072196, radius: 50, referencia: "RU")
         
