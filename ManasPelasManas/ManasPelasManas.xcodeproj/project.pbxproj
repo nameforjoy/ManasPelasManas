@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15012AA923144C46006617B1 /* ManasPelasManas.xcdatamodeld */; };
 		1511D1F6230EB38E00C0DF60 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1F5230EB38E00C0DF60 /* User.swift */; };
 		1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1F7230EB3A200C0DF60 /* Path.swift */; };
 		1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1F9230EB3AB00C0DF60 /* Journey.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15012AAA23144C46006617B1 /* ManasPelasManas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManasPelasManas.xcdatamodel; sourceTree = "<group>"; };
 		1511D1F5230EB38E00C0DF60 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1511D1F7230EB3A200C0DF60 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		1511D1F9230EB3AB00C0DF60 /* Journey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journey.swift; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15012AA823144BDB006617B1 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				15012AA923144C46006617B1 /* ManasPelasManas.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		1511D1F4230EB38200C0DF60 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +97,7 @@
 		15A6A8E4230C11A0004E537D /* ManasPelasManas */ = {
 			isa = PBXGroup;
 			children = (
+				15012AA823144BDB006617B1 /* Persistence */,
 				B376D08A2310251C007BDA06 /* Storyboards */,
 				B376D081230DECFD007BDA06 /* View Controllers */,
 				1511D1F4230EB38200C0DF60 /* Model */,
@@ -194,6 +205,7 @@
 				1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
+				15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
 				B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
@@ -402,6 +414,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		15012AA923144C46006617B1 /* ManasPelasManas.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				15012AAA23144C46006617B1 /* ManasPelasManas.xcdatamodel */,
+			);
+			currentVersion = 15012AAA23144C46006617B1 /* ManasPelasManas.xcdatamodel */;
+			path = ManasPelasManas.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 15A6A8DA230C11A0004E537D /* Project object */;
 }
