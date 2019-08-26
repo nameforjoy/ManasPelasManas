@@ -11,13 +11,15 @@ import Foundation
 class User {
     var userId: Int
     var name: String
+    var bio: String
     var bornDate: Date
     var authenticated: Bool
     var photo: String
     var journeys: [Journey]
     
-    init (userId: Int, name: String, bornDate: Date, photo: String, authenticated: Bool) {
+    init (userId: Int, name: String, bio: String, bornDate: Date, photo: String, authenticated: Bool) {
         self.name = name
+        self.bio = bio
         self.bornDate = bornDate
         self.photo = photo
         self.authenticated = authenticated

@@ -21,7 +21,8 @@ class LocationSearchTable: UITableViewController {
     var mapView: MKMapView? =  nil
     var handleMapSearchDelegate: HandleMapSearch? = nil
 
-    // Parses the address, turning it from an MKPlacemark into an organised String
+    // MARK: Parsing Address
+    // This method was based on US Address and might not be entirely effective for our standards.
     func parseAddress(selectedItem:MKPlacemark) -> String {
         
         // Put a space between "4" and "Melrose Place"
@@ -51,33 +52,29 @@ class LocationSearchTable: UITableViewController {
 
 extension LocationSearchTable: UISearchResultsUpdating {
 
-    // delegando o updater dos resultados para silenciar erro da MapViewController
-    //        resultSearchController?.searchResultsUpdater = locationSearchTable
+    // MARK: Update Search Results
+    // This method is called everytime the user changes the input on the SearchBar
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else {return}
         
-        //talvez usar regex pra pegar só quando tiver um espaço
+        // Prevents useless requests from being made
         guard searchBarText.contains(" ") && searchBarText.count > 4 else {return}
         
-        //criando request
+        // Creating Request
         let request = MKLocalSearch.Request()
         
-        //linkando input da busca como texto que está na searchbar
+        // Getting input from SearchBar
         request.naturalLanguageQuery = searchBarText
         
-        //filtrando resultados para área que o mapa está exibindo
+        // Prioritizing results close to user's location
         request.region = mapView.region
         
-        //efetuando a busca e colocando resultados na matchingItems
+        // Creating a LocalSearch based on the previous request
         let search = MKLocalSearch(request: request)
         
-        //os requests acontecem de forma assíncrona, e retornam resultados fora de ordem
-        //por conta disso, criar uma Queue permitiria que eu cancelasse as requests anteriores
-        //quando tivesse uma nova request
-        //let opQueue = OperationQueue()
-        //opQueue.maxConcurrentOperationCount = 1
-        
+        // Executing Search
+        // TODO: Improve request by using Operation Queues
         search.start { (response, _) in
                 guard let response = response else {return}
                 self.matchingItems = response.mapItems
@@ -101,10 +98,9 @@ extension LocationSearchTable {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print(matchingItems[indexPath.row].placemark.description)
         let selectedItem =  matchingItems[indexPath.row].placemark
         
-        //função do delegate
+        // Manual Delegate Function
         handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
         
         dismiss(animated: true, completion: nil)
