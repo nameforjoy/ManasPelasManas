@@ -10,9 +10,9 @@ import Foundation
 import MapKit
 
 class Test {
-    func checkMatchingRegion(regionA: CLCircularRegion , regionB: CLCircularRegion) -> Bool {
-        let coordA = CLLocation(latitude: regionA.center.latitude, longitude: regionA.center.longitude)
-        let coordB = CLLocation(latitude: regionB.center.latitude, longitude: regionB.center.longitude)
+    func checkMatchingRegion(regionA: MKCircle , regionB: MKCircle) -> Bool {
+        let coordA = CLLocation(latitude: regionA.coordinate.latitude, longitude: regionA.coordinate.longitude)
+        let coordB = CLLocation(latitude: regionB.coordinate.latitude, longitude: regionB.coordinate.longitude)
         let distance = coordA.distance(from: coordB)
         if(regionA.radius + regionB.radius >= distance) {
             return true
@@ -29,8 +29,8 @@ class Test {
     }
     
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-        let matchOrigin = checkMatchingRegion(regionA: journeyA.path.origin, regionB: journeyB.path.origin)
-        let matchDestiny = checkMatchingRegion(regionA: journeyA.path.destiny, regionB: journeyB.path.destiny)
+        let matchOrigin = checkMatchingRegion(regionA: journeyA.path.origin!, regionB: journeyB.path.origin!)
+        let matchDestiny = checkMatchingRegion(regionA: journeyA.path.destiny!, regionB: journeyB.path.destiny!)
         let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
         if matchOrigin && matchDestiny && matchHour {
             return true

@@ -10,48 +10,38 @@ import UIKit
 import MapKit
 
 class FullRouteViewController: UIViewController {
-    var pointA: CLLocationCoordinate2D?
-    var pointB: CLLocationCoordinate2D?
-    var regionA: CLCircularRegion?
-    var regionB: CLCircularRegion?
-    let dataSource = LoadData()
     
+    var newPath: Path?
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
-        // TODO: Display 2 annotations and 2 overlays
-
-        regionA = dataSource.user1.journeys[0].path.origin
-        regionB = dataSource.user1.journeys[0].path.destiny
-        pointA = regionA?.center
-        pointB = regionB?.center
         
-        let regionOverlayA = MKCircle(center: pointA!, radius: regionA!.radius)
-        let regionOverlayB = MKCircle(center: pointB!, radius: regionB!.radius)
+        // TODO: Display 2 annotations and 2 overlays
 
         addAnnotations()
         
         mapView.addAnnotations([annotationA!, annotationB!])
-        mapView.addOverlays([regionOverlayA, regionOverlayB])
+        mapView.addOverlays([(newPath?.origin)!, (newPath?.destiny)!])
 
-        // TODO: Zoom tofit all elements
-        zoomTo(regionA: regionOverlayA, regionB: regionOverlayB)
+        zoomTo(regionA: newPath!.origin! , regionB: newPath!.destiny!)
 
     }
     
     private func addAnnotations() {
         annotationA = MKPointAnnotation()
-        annotationA!.subtitle = "Eldorado"
-        annotationA!.coordinate = pointA!
+        annotationA!.subtitle = "Starting Point"
+        annotationA!.coordinate = (newPath?.origin!.coordinate)!
         
         annotationB = MKPointAnnotation()
-        annotationB!.subtitle = "Av. 3"
-        annotationB!.coordinate = pointB!
+        annotationB!.subtitle = "Destination Point"
+        annotationB!.coordinate = (newPath?.destiny!.coordinate)!
     }
     
+    // TODO: Zoom tofit all elements
+
     private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
         let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
