@@ -21,11 +21,17 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var radiusView: UIImageView!
+    @IBOutlet weak var radiusLabel: UILabel!
     
     let locationManager = CLLocationManager()
     let mapRegionDegreeRange: Double = 0.02
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
+    
+    //Setting Up Different Behaviors for Origin and Destination Screens
+    var firstTime: Bool = true
+    var originCircle: CLCircularRegion?
+    var destinationCircle: CLCircularRegion?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +59,8 @@ class MapViewController: UIViewController {
         // Defines searchBar appearence
         searchBar.sizeToFit()
         searchBar.placeholder =  "Entre com seu endereço..."
-        self.navigationItem.titleView =  self.resultSearchController?.searchBar
+        self.navigationItem.searchController =  self.resultSearchController!
+        //self.view.addSubview(searchBar)
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
         // Prevents the NavigationBar from being  hidden when  showing the TableView
@@ -68,16 +75,17 @@ class MapViewController: UIViewController {
     }
     
     // MARK: Actions
-    // Gets center and radius of circle over the mapView
     @IBAction func getCircleRegion(_ sender: Any) {
-        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
-        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        if firstTime {
+            originCircle = getCurrentCircularRegion()
+            navigationItem.title = "Chegada"
+            firstTime = !firstTime
+        } else
+        {
+            destinationCircle = getCurrentCircularRegion()
+            performSegue(withIdentifier: "TimeSetup", sender: sender)
+        }
         
-        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
-        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
-        
-        let distance: Double = center.distance(from: edge)
-        print("Radius is \(distance)m")
     }
 }
 
@@ -188,5 +196,30 @@ extension MapViewController: HandleMapSearch {
         let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+    }
+}
+
+// MARK: MapViewDelegate Extension
+extension MapViewController: MKMapViewDelegate {
+    
+    // This function is called everytime map region is changed by user interaction
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        radiusLabel.text = "Raio: \(Int(self.getCurrentCircularRegion().radius)) metros"
+    }
+    
+    // MARK: Defining Radius
+    func getCurrentCircularRegion() -> CLCircularRegion
+    {
+        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        
+        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
+        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
+        
+        let distance: Double = center.distance(from: edge)
+        //print("Radius is \(distance)m")
+        //radiusLabel.text = "Raio: \(distance) metros"
+        
+        return CLCircularRegion(center: center.coordinate, radius: distance, identifier: "Current")
     }
 }
