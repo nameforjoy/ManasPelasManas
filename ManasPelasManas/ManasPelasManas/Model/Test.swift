@@ -20,28 +20,44 @@ class Test {
         return false
     }
     
-    func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool{
-        //Comparar horários
+    func checkMatchTimetable(journeyA: Journey, journeyB: Journey) -> Bool {
+        let intervalA = journeyA.finalHour.timeIntervalSince(journeyA.initialHour)
+        let intervalB = journeyB.finalHour.timeIntervalSince(journeyB.initialHour)
+        let dateIntervalA = DateInterval(start: journeyA.initialHour, duration: intervalA)
+        let dateIntervalB = DateInterval(start: journeyB.initialHour, duration: intervalB)
+        return dateIntervalA.intersects(dateIntervalB)
+    }
+    
+    func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
         let matchOrigin = checkMatchingRegion(regionA: journeyA.path.origin, regionB: journeyB.path.origin)
         let matchDestiny = checkMatchingRegion(regionA: journeyA.path.destiny, regionB: journeyB.path.destiny)
-        if matchOrigin && matchDestiny {
+        let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+        if matchOrigin && matchDestiny && matchHour {
             return true
         }
         return false
     }
     
-    func searchForMatch(journey: Journey, users:[User]) {
+    
+    
+    /// Description
+    ///
+    /// - Parameters:
+    ///   - journey: journey to be compared
+    ///   - users: array of all users
+    /// - Returns: return a user in case of match and nil case of no match founded
+    func searchForMatch(journey: Journey, users:[User]) -> [User] {
+        var userMatches = [User]()
         for user in users {
             if !user.authenticated {
                 for i in 0..<user.journeys.count {
                     if compareJourneys(journeyA: journey, journeyB: user.journeys[i]) {
-                        print("Match!")
-                        print("Journeys: \(journey.journeyId) e \(user.journeys[i].journeyId)")
-                        //Retornar algoo
+                        userMatches.append(user)
                     }
                 }
             }
         }
+        return userMatches
     }
     
     

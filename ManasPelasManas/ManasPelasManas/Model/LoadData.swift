@@ -37,11 +37,11 @@ class LoadData {
         let path3 = Path(pathId: 3, origin: cb, destiny: moras)
         let path4 = Path(pathId: 4, origin: av3, destiny: ru)
         
-        let journey1 = Journey(journeyId: 1, userId: 1, path: path1, date: LoadData.createFomattedDate(date: "30/08/2019"), initialHour: createFormattedHour(hour: "07:30"), finalHour: createFormattedHour(hour: "08:00"), status: .requested)
-        let journey2 = Journey(journeyId: 2, userId: 1, path: path2, date: LoadData.createFomattedDate(date: "31/08/2019"), initialHour: createFormattedHour(hour: "20:45"), finalHour: createFormattedHour(hour: "21:30"), status: .requested)
-        let journey3 = Journey(journeyId: 3, userId: 2, path: path3, date: LoadData.createFomattedDate(date: "31/08/2019"), initialHour: createFormattedHour(hour: "20:15"), finalHour: createFormattedHour(hour: "21:15"), status: .requested)
-        let journey4 = Journey(journeyId: 4, userId: 3, path: path3, date: LoadData.createFomattedDate(date: "01/09/2019"), initialHour: createFormattedHour(hour: "20:15"), finalHour: createFormattedHour(hour: "21:15"), status: .requested)
-        let journey5 = Journey(journeyId: 5, userId: 4, path: path4, date: LoadData.createFomattedDate(date: "05/09/2019"), initialHour: createFormattedHour(hour: "14:30"), finalHour: createFormattedHour(hour: "15:00"), status: .requested)
+        let journey1 = Journey(journeyId: 1, userId: 1, path: path1, date: LoadData.createFomattedDate(date: "30/08/2019"), initialHour: createFormattedHour(hour: "30/08/2019T07:30"), finalHour: createFormattedHour(hour: "30/08/2019T08:00"), status: .requested)
+        let journey2 = Journey(journeyId: 2, userId: 1, path: path2, date: LoadData.createFomattedDate(date: "31/08/2019"), initialHour: createFormattedHour(hour: "31/08/2019T20:45"), finalHour: createFormattedHour(hour: "31/08/2019T21:30"), status: .requested)
+        let journey3 = Journey(journeyId: 3, userId: 2, path: path3, date: LoadData.createFomattedDate(date: "31/08/2019"), initialHour: createFormattedHour(hour: "31/08/2019T20:15"), finalHour: createFormattedHour(hour: "31/08/2019T21:15"), status: .requested)
+        let journey4 = Journey(journeyId: 4, userId: 3, path: path3, date: LoadData.createFomattedDate(date: "01/09/2019"), initialHour: createFormattedHour(hour: "01/09/2019T20:15"), finalHour: createFormattedHour(hour: "01/09/2019T21:15"), status: .requested)
+        let journey5 = Journey(journeyId: 5, userId: 4, path: path4, date: LoadData.createFomattedDate(date: "05/09/2019"), initialHour: createFormattedHour(hour: "05/09/2019T14:30"), finalHour: createFormattedHour(hour: "05/09/2019T15:00"), status: .requested)
         
         user1.journeys.append(journey1)
         user1.journeys.append(journey2)
@@ -52,6 +52,7 @@ class LoadData {
     }
     
 
+    //Fazer guards!!
     static func createFomattedDate(date: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
@@ -60,7 +61,7 @@ class LoadData {
     
     func createFormattedHour(hour: String) -> Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
         return (formatter.date(from: hour))!
     }
     
