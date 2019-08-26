@@ -38,8 +38,8 @@ class FullRouteViewController: UIViewController {
         mapView.addOverlays([regionOverlayA, regionOverlayB])
 
         // TODO: Zoom tofit all elements
-        
-        // Code Here
+        zoomTo(regionA: regionOverlayA, regionB: regionOverlayB)
+
     }
     
     private func addAnnotations() {
@@ -50,6 +50,13 @@ class FullRouteViewController: UIViewController {
         annotationB = MKPointAnnotation()
         annotationB!.subtitle = "Av. 3"
         annotationB!.coordinate = pointB!
+    }
+    
+    private func zoomTo(regionA: MKCircle, regionB: MKCircle)
+    {
+        let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
+        let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
     }
     
 }
