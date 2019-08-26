@@ -22,6 +22,7 @@
 		B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07D230DECD4007BDA06 /* InfoViewController.swift */; };
 		B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07F230DECF3007BDA06 /* RoutesViewController.swift */; };
 		B376D085230EE9F7007BDA06 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */; };
+		B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D08B2314114E007BDA06 /* FullRouteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		B376D07D230DECD4007BDA06 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B376D07F230DECF3007BDA06 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationSearchTable.swift; path = ../LocationSearchTable.swift; sourceTree = "<group>"; };
+		B376D08B2314114E007BDA06 /* FullRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRouteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				B376D079230DEC86007BDA06 /* ProfileViewController.swift */,
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
+				B376D08B2314114E007BDA06 /* FullRouteViewController.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
 				B376D07D230DECD4007BDA06 /* InfoViewController.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
@@ -195,6 +198,7 @@
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
+				B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */,
 				B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
