@@ -10,12 +10,6 @@ import UIKit
 import MapKit
 import CoreLocation
 
-// MARK: HandleMapSearch protocol
-// Delegate the interaction between the MapViewController and the search adress table
-protocol HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark)
-}
-
 // MARK: MapViewController
 class MapViewController: UIViewController {
     

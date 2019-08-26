@@ -9,40 +9,44 @@
 import UIKit
 import MapKit
 
+// MARK: HandleMapSearch protocol
+// Delegate the interaction between the MapViewController and the search adress table
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark: MKPlacemark)
+}
+
 class LocationSearchTable: UITableViewController {
     
     var matchingItems:[MKMapItem] = []
     var mapView: MKMapView? =  nil
-    var handleMapSearchDelegate:HandleMapSearch? = nil
+    var handleMapSearchDelegate: HandleMapSearch? = nil
 
-    //função copiada do tutorial pra parsear o endereço
-    //tem algum erro que tá fazendo ficar sem espaço entre cidade-estado
+    // Parses the address, turning it from an MKPlacemark into an organised String
     func parseAddress(selectedItem:MKPlacemark) -> String {
         
-        // put a space between "4" and "Melrose Place"
+        // Put a space between "4" and "Melrose Place"
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
-        // put a comma between street and city/state
+        // Put a comma between street and city/state
         let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
-        // put a space between "Washington" and "DC"
+        // Put a space between "Washington" and "DC"
         let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
         
         let addressLine = String(
             format: "%@%@%@%@%@%@%@",
-            // street name
+            // Street name
             selectedItem.thoroughfare ?? "",
             firstSpace,
-            // street number
+            // Street number
             selectedItem.subThoroughfare ?? "",
             comma,
-            // city
+            // City
             selectedItem.locality ?? "",
             secondSpace,
-            // state
+            // State
             selectedItem.administrativeArea ?? ""
         )
         return addressLine
     }
-    
 }
 
 extension LocationSearchTable: UISearchResultsUpdating {
@@ -50,6 +54,7 @@ extension LocationSearchTable: UISearchResultsUpdating {
     // delegando o updater dos resultados para silenciar erro da MapViewController
     //        resultSearchController?.searchResultsUpdater = locationSearchTable
     func updateSearchResults(for searchController: UISearchController) {
+        
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else {return}
         
         //talvez usar regex pra pegar só quando tiver um espaço
