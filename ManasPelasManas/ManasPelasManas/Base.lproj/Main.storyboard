@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KZd-yT-OVa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rfn-Rd-XAt">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tlr-fA-ma8" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0ud-YE-4mG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OaK-yw-SFy" secondAttribute="trailing" id="Kzk-oE-qHV"/>
@@ -170,7 +170,7 @@
         <!--Info-->
         <scene sceneID="hoH-AU-RWA">
             <objects>
-                <viewController id="ylT-E6-WJt" customClass="InfoViewController" sceneMemberID="viewController">
+                <viewController id="ylT-E6-WJt" customClass="InfoViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cJT-z1-Lv0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -186,7 +186,7 @@
         <!--Minhas Rotas-->
         <scene sceneID="oDR-cj-DgC">
             <objects>
-                <viewController id="ZDq-Eu-n9k" customClass="RoutesViewController" sceneMemberID="viewController">
+                <viewController id="ZDq-Eu-n9k" customClass="RoutesViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lqY-TU-QfZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,35 +239,56 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="124.55357142857142"/>
         </scene>
-        <!--View Controller-->
+        <!--Full Route View Controller-->
         <scene sceneID="pkE-dx-gUZ">
             <objects>
-                <viewController id="Rfn-Rd-XAt" sceneMemberID="viewController">
+                <viewController id="Rfn-Rd-XAt" customClass="FullRouteViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uP2-8d-t9S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dyK-8H-CYA">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dyK-8H-CYA">
+                                <rect key="frame" x="0.0" y="101" width="414" height="725"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Rfn-Rd-XAt" id="U1r-zd-M1F"/>
+                                </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7O-NE-d1t">
+                                <rect key="frame" x="172.5" y="747" width="69" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Confirmar">
+                                    <color key="titleColor" red="0.58105844259999995" green="0.12855249639999999" blue="0.57453137639999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ZDq-Eu-n9k" kind="show" id="pZT-2c-hjv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YcP-Yb-imN" firstAttribute="bottom" secondItem="dyK-8H-CYA" secondAttribute="bottom" id="FxC-Ft-odB"/>
+                            <constraint firstItem="YcP-Yb-imN" firstAttribute="bottom" secondItem="I7O-NE-d1t" secondAttribute="bottom" constant="36" id="eyv-In-zTZ"/>
                             <constraint firstItem="YcP-Yb-imN" firstAttribute="trailing" secondItem="dyK-8H-CYA" secondAttribute="trailing" id="oFE-C0-BVU"/>
+                            <constraint firstItem="I7O-NE-d1t" firstAttribute="centerX" secondItem="dyK-8H-CYA" secondAttribute="centerX" id="sRx-GQ-F6w"/>
                             <constraint firstItem="dyK-8H-CYA" firstAttribute="top" secondItem="YcP-Yb-imN" secondAttribute="top" id="tlL-1J-8NX"/>
                             <constraint firstItem="dyK-8H-CYA" firstAttribute="leading" secondItem="YcP-Yb-imN" secondAttribute="leading" id="txr-Te-uwg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YcP-Yb-imN"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="dyK-8H-CYA" id="XNI-Ih-Ljb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7B-yC-1iO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="1492"/>
+            <point key="canvasLocation" x="1773.913043478261" y="1491.9642857142856"/>
         </scene>
     </scenes>
     <resources>
         <image name="raio-local" width="971" height="971"/>
         <image name="user" width="718" height="720"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="pZT-2c-hjv"/>
+    </inferredMetricsTieBreakers>
 </document>

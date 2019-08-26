@@ -26,8 +26,8 @@ class LoadData {
         
         let cb = createCircularRegion(latitude: -22.817889, longitude: -47.068661, radius: 120, referencia: "CB")
         let moras = createCircularRegion(latitude: -22.821561, longitude: -47.088216, radius: 120, referencia: "Moradia")
-        let av3 = createCircularRegion(latitude: -22.811373, longitude: -47.075498, radius: 50, referencia: "AV3")
-        let eldorado = createCircularRegion(latitude: -22.813339, longitude: -47.061741, radius: 100, referencia: "Eldorado")
+        let av3 = createCircularRegion(latitude: -22.811373, longitude: -47.075498, radius: 500, referencia: "AV3")
+        let eldorado = createCircularRegion(latitude: -22.813339, longitude: -47.061741, radius: 1000, referencia: "Eldorado")
         let iq = createCircularRegion(latitude: -22.819317, longitude: -47.067570, radius: 100, referencia: "IQ")
         let ru = createCircularRegion(latitude: -22.817365, longitude: -47.072196, radius: 50, referencia: "RU")
         
