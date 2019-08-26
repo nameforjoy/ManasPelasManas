@@ -21,6 +21,7 @@ class MapViewController: UIViewController {
     let mapRegionDegreeRange: Double = 0.02
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
+    var locationReference: CLLocation? = nil // Future recentre button
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
@@ -33,7 +34,6 @@ class MapViewController: UIViewController {
         // Sets up CoreLocation and centers map
         locationManager.delegate = self
         checkAuthorizationStatus()
-        centerMapOnUserLocation()
         
         // MARK: Adress Search configuration
         
@@ -68,14 +68,18 @@ class MapViewController: UIViewController {
         locationSearchTable.handleMapSearchDelegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        centerMapOnUserLocation()
+    }
+    
     // MARK: Actions
     @IBAction func getCircleRegion(_ sender: Any) {
         if firstTime {
             originCircle = getCurrentCircularRegion()
             navigationItem.title = "Chegada"
             firstTime = !firstTime
-        } else
-        {
+        } else {
             destinationCircle = getCurrentCircularRegion()
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
@@ -90,8 +94,10 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            self.locationReference = location
             zoomMapTo(location: location)
         }
+        self.locationManager.stopUpdatingLocation()
     }
     
     // Zooms in to a certain map region
@@ -198,7 +204,9 @@ extension MapViewController: MKMapViewDelegate {
     
     // This function is called everytime map region is changed by user interaction
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        radiusLabel.text = "Raio: \(Int(self.getCurrentCircularRegion().radius)) metros"
+        
+        let radius = self.getCurrentCircularRegion().radius
+        radiusLabel.text = "Raio: \(Int(radius)) metros"
     }
     
     // MARK: Defining Radius
