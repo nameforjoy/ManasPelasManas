@@ -36,13 +36,27 @@ class Path: NSManagedObject {
         self.init(entity: entityDescription!, insertInto: nil)
     }
     
-    public func getOriginCircle() -> MKCircle {
-        let lat = originLat as! Double
-        let long = originLong as! Double
-        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        let radius = originRadius as! Double
+    public func getCircle(stage: Stage) -> MKCircle {
+        var circle: MKCircle
+        var coordinate: CLLocationCoordinate2D
+        var radius: Double
         
-        return MKCircle(center: coordinate, radius: radius)
+        switch stage {
+        case .origin:
+            let lat = originLat as! Double
+            let long = originLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        case .destiny:
+            let lat = destinyLat as! Double
+            let long = destinyLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        }
+        
+        circle = MKCircle(center: coordinate, radius: radius)
+        
+        return circle
     }
     
     
