@@ -24,16 +24,16 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="JHO-Gn-ItB">
-                                <rect key="frame" x="0.0" y="44" width="414" height="358.5"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="403"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Brenda Oliveira, 24" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlr-fA-ma8">
-                                <rect key="frame" x="20" y="422.5" width="374" height="36"/>
+                                <rect key="frame" x="20" y="467" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQE-o5-lbG">
-                                <rect key="frame" x="0.0" y="468.5" width="414" height="344.5"/>
+                                <rect key="frame" x="0.0" y="513" width="414" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAV-Hr-YL6">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
@@ -75,7 +75,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="XAV-Hr-YL6" secondAttribute="leading" id="BfC-JH-0X4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uQE-o5-lbG" secondAttribute="bottom" id="IXH-3e-PuW"/>
-                            <constraint firstItem="JHO-Gn-ItB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.4" id="LeQ-wM-tBe"/>
+                            <constraint firstItem="JHO-Gn-ItB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.45" id="LeQ-wM-tBe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uQE-o5-lbG" secondAttribute="trailing" id="MmE-Om-U8P"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XAV-Hr-YL6" secondAttribute="trailing" id="ONg-SK-8oo"/>
                             <constraint firstItem="JHO-Gn-ItB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="OTi-3q-VU3"/>
@@ -452,7 +452,7 @@
     <resources>
         <image name="ArrowIcon" width="29.5" height="50"/>
         <image name="raio-local" width="971" height="971"/>
-        <image name="user" width="718" height="720"/>
+        <image name="user" width="1000" height="667"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pZT-2c-hjv"/>
