@@ -34,6 +34,7 @@ class MapViewController: UIViewController {
         // Sets up CoreLocation and centers map
         locationManager.delegate = self
         checkAuthorizationStatus()
+        self.radiusLabel.isHidden = true
         
         // MARK: Adress Search configuration
         
@@ -65,8 +66,6 @@ class MapViewController: UIViewController {
         
         // Sets delegate to handle map search with the HandleMapSearch protocol
         locationSearchTable.handleMapSearchDelegate = self
-        
-        leftBarButton.isEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +80,6 @@ class MapViewController: UIViewController {
             newPath.origin = getCurrentCircularRegion()
             navigationItem.title = "Chegada"
             firstTime = !firstTime
-            leftBarButton.isEnabled = true
         }
         else {
             newPath.destiny = getCurrentCircularRegion()

@@ -124,7 +124,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Raio: X metros" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bO-bL-tSl">
-                                <rect key="frame" x="41" y="151" width="337" height="21"/>
+                                <rect key="frame" x="41" y="131" width="337" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -168,7 +168,46 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Tn-Rq-6BH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1773.913043478261" y="854.46428571428567"/>
+            <point key="canvasLocation" x="1774" y="1555"/>
+        </scene>
+        <!--Create Journey View Controller-->
+        <scene sceneID="Qxz-wB-fCk">
+            <objects>
+                <viewController id="lWl-qr-ior" customClass="CreateJourneyViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h3k-Mj-zHa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flW-pb-AUo">
+                                <rect key="frame" x="20" y="743" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.71556421191559227" green="0.71556421191559227" blue="0.71556421191559227" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="PEc-ks-xfw"/>
+                                </constraints>
+                                <state key="normal" title="Vamos andas juntas?">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="3sw-Ev-MV3" kind="show" id="Ebl-m9-MfV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="flW-pb-AUo" firstAttribute="leading" secondItem="AKf-57-OA3" secondAttribute="leading" constant="20" id="5by-62-2hX"/>
+                            <constraint firstItem="AKf-57-OA3" firstAttribute="bottom" secondItem="flW-pb-AUo" secondAttribute="bottom" constant="20" id="J8d-PG-Z46"/>
+                            <constraint firstItem="AKf-57-OA3" firstAttribute="trailing" secondItem="flW-pb-AUo" secondAttribute="trailing" constant="20" id="ggm-5V-6Xb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AKf-57-OA3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Yod-SE-WGt"/>
+                    <connections>
+                        <outlet property="startJourneyButton" destination="flW-pb-AUo" id="dce-fe-Ej1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5gG-zg-6tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1774" y="841"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="Yj6-jF-elJ">
@@ -212,7 +251,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Thz-Gz-hZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1022" y="854"/>
+            <point key="canvasLocation" x="1022" y="1555"/>
         </scene>
         <!--Minhas Rotas-->
         <scene sceneID="oDR-cj-DgC">
@@ -360,7 +399,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="3sw-Ev-MV3" kind="relationship" relationship="rootViewController" id="Snw-zi-f31"/>
+                        <segue destination="lWl-qr-ior" kind="relationship" relationship="rootViewController" id="FAa-nP-n2j"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEE-Ca-j4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -446,7 +485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7B-yC-1iO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="1566"/>
+            <point key="canvasLocation" x="2529" y="1555"/>
         </scene>
     </scenes>
     <resources>
