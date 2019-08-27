@@ -10,11 +10,14 @@ import Foundation
 import MapKit
 
 class Path {
-    var pathId: Int
-    var origin: CLCircularRegion
-    var destiny: CLCircularRegion
+    var pathId: Int?
+    var origin: MKCircle?
+    var destiny: MKCircle?
     
-    init (pathId: Int, origin: CLCircularRegion, destiny: CLCircularRegion) {
+    init () {
+    }
+    
+    init (pathId: Int, origin: MKCircle, destiny: MKCircle) {
         self.pathId = pathId
         self.origin = origin
         self.destiny = destiny

@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var radiusView: UIImageView!
     @IBOutlet weak var radiusLabel: UILabel!
+    @IBOutlet weak var leftBarButton: UIBarButtonItem!
     
     let locationManager = CLLocationManager()
     let mapRegionDegreeRange: Double = 0.02
@@ -25,8 +26,9 @@ class MapViewController: UIViewController {
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
-    var originCircle: CLCircularRegion?
-    var destinationCircle: CLCircularRegion?
+    //var originCircle: CLCircularRegion?
+    //var destinationCircle: CLCircularRegion?
+    var newPath: Path = Path()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +68,8 @@ class MapViewController: UIViewController {
         
         // Sets delegate to handle map search with the HandleMapSearch protocol
         locationSearchTable.handleMapSearchDelegate = self
+        
+        leftBarButton.isEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,17 +78,33 @@ class MapViewController: UIViewController {
     }
     
     // MARK: Actions
-    @IBAction func getCircleRegion(_ sender: Any) {
+    
+    @IBAction func nextButton(_ sender: Any) {
         if firstTime {
-            originCircle = getCurrentCircularRegion()
+            newPath.origin = getCurrentCircularRegion()
             navigationItem.title = "Chegada"
             firstTime = !firstTime
-        } else {
-            destinationCircle = getCurrentCircularRegion()
+            leftBarButton.isEnabled = true
+        } else
+        {
+            newPath.destiny = getCurrentCircularRegion()
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
-        
     }
+    @IBAction func backButton(_ sender: Any) {
+        firstTime = true
+        leftBarButton.isEnabled = false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TimeSetup" {
+            if let vc = segue.destination as? FullRouteViewController {
+                vc.newPath = self.newPath
+            }
+        }
+    }
+    
+    
 }
 
 // MARK: CLLocationManager extension
@@ -210,7 +230,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     // MARK: Defining Radius
-    func getCurrentCircularRegion() -> CLCircularRegion
+    func getCurrentCircularRegion() -> MKCircle
     {
         let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
         let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
@@ -222,6 +242,6 @@ extension MapViewController: MKMapViewDelegate {
         //print("Radius is \(distance)m")
         //radiusLabel.text = "Raio: \(distance) metros"
         
-        return CLCircularRegion(center: center.coordinate, radius: distance, identifier: "Current")
+        return MKCircle(center: center.coordinate, radius: distance)
     }
 }

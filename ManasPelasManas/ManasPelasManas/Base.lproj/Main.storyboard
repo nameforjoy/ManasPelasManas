@@ -97,14 +97,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afd-eV-mjx">
-                                <rect key="frame" x="347" y="779" width="51" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="next &gt;"/>
-                                <connections>
-                                    <action selector="getCircleRegion:" destination="3sw-Ev-MV3" eventType="touchUpInside" id="oBp-fw-INz"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Raio: X metros" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bO-bL-tSl">
                                 <rect key="frame" x="41" y="151" width="337" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -115,11 +107,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="afd-eV-mjx" firstAttribute="centerX" secondItem="FDu-n5-qYA" secondAttribute="centerX" multiplier="1.8" id="C7K-3m-Q5y"/>
                             <constraint firstItem="yvX-ml-zGz" firstAttribute="centerX" secondItem="dNF-N3-aaR" secondAttribute="centerX" id="Gwg-cY-dPT"/>
                             <constraint firstItem="Ka4-PM-w0N" firstAttribute="centerX" secondItem="yvX-ml-zGz" secondAttribute="centerX" id="Jsj-JK-TWM"/>
                             <constraint firstItem="FDu-n5-qYA" firstAttribute="trailing" secondItem="dNF-N3-aaR" secondAttribute="trailing" id="RZB-Bt-ZjI"/>
-                            <constraint firstItem="afd-eV-mjx" firstAttribute="bottom" secondItem="dNF-N3-aaR" secondAttribute="bottom" id="YI4-NK-3Ny"/>
                             <constraint firstItem="dNF-N3-aaR" firstAttribute="top" secondItem="FDu-n5-qYA" secondAttribute="top" id="f5i-6R-9ej"/>
                             <constraint firstItem="FDu-n5-qYA" firstAttribute="bottom" secondItem="dNF-N3-aaR" secondAttribute="bottom" id="he4-ZJ-BoN"/>
                             <constraint firstItem="dNF-N3-aaR" firstAttribute="leading" secondItem="FDu-n5-qYA" secondAttribute="leading" id="oi9-Qq-9DH"/>
@@ -130,8 +120,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FDu-n5-qYA"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Saída" id="qCt-Ol-qGM"/>
+                    <navigationItem key="navigationItem" title="Saída" id="qCt-Ol-qGM">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="tfK-Jc-bqj">
+                            <connections>
+                                <action selector="backButton:" destination="3sw-Ev-MV3" id="egt-Kf-odY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Próximo &gt;" id="Cd5-hX-I39">
+                            <connections>
+                                <action selector="nextButton:" destination="3sw-Ev-MV3" id="kFt-4o-zSn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="leftBarButton" destination="tfK-Jc-bqj" id="rXB-lH-vgU"/>
                         <outlet property="mapView" destination="dNF-N3-aaR" id="XMa-dJ-UA0"/>
                         <outlet property="radiusLabel" destination="6bO-bL-tSl" id="YCb-eM-8Nc"/>
                         <outlet property="radiusView" destination="yvX-ml-zGz" id="0EU-5y-x9g"/>
@@ -140,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Tn-Rq-6BH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="855"/>
+            <point key="canvasLocation" x="1773.913043478261" y="854.46428571428567"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="Yj6-jF-elJ">
@@ -356,7 +358,7 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="124.55357142857142"/>
         </scene>
-        <!--Full Route View Controller-->
+        <!--Horário-->
         <scene sceneID="pkE-dx-gUZ">
             <objects>
                 <viewController id="Rfn-Rd-XAt" customClass="FullRouteViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
@@ -428,6 +430,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YcP-Yb-imN"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Horário" id="OBy-K1-5zm"/>
                     <connections>
                         <outlet property="mapView" destination="dyK-8H-CYA" id="XNI-Ih-Ljb"/>
                     </connections>
