@@ -37,37 +37,42 @@ class Test {
     
     
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-        //getOriginCircle
-        let matchOrigin = checkMatchingRegion(regionA: journeyA.has_path.origin!, regionB: journeyB.path.origin!)
-        let matchDestiny = checkMatchingRegion(regionA: journeyA.has_path.destiny!, regionB: journeyB.has_path.destiny!)
+        let mkcOriginA = (journeyA.has_path?.getOriginCircle())!
+        let mkcOriginB = (journeyB.has_path?.getOriginCircle())!
+        //Get destiny
+        //let mkcDestinyA = journeyA.has_path?.
+        //let mkcDestinyA = journeyA.has_path?.
+        
+        let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
+        //let matchDestiny = checkMatchingRegion(regionA: journeyA.has_path.destiny!, regionB: journeyB.has_path.destiny!)
         let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
-        if matchOrigin && matchDestiny && matchHour {
+        if matchOrigin /*&& matchDestiny*/ && matchHour {
             return true
         }
         return false
     }
     
     
-
+//ESPERAR PARA QUANDO FOR PRECISO!!!!!!
     /// Description
     ///
     /// - Parameters:
     ///   - journey: journey to be compared
     ///   - users: array of all users
     /// - Returns: return a user in case of match and nil case of no match founded
-    func searchForMatch(journey: Journey, users:[User]) -> [User] {
-        var userMatches = [User]()
-        for user in users {
-            if !user.authenticated {
-                for i in 0..<user.journeys.count {
-                    if compareJourneys(journeyA: journey, journeyB: user.journeys[i]) {
-                        userMatches.append(user)
-                    }
-                }
-            }
-        }
-        return userMatches
-    }
+//    func searchForMatch(journey: Journey, users:[User]) -> [User] {
+//        var userMatches = [User]()
+//        for user in users {
+//            if !user.authenticated {
+//                for i in 0..< {
+//                    if compareJourneys(journeyA: journey, journeyB: user.journeys[i]) {
+//                        userMatches.append(user)
+//                    }
+//                }
+//            }
+//        }
+//        return userMatches
+//    }
 
 
 }

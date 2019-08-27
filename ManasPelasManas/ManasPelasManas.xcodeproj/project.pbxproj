@@ -22,6 +22,8 @@
 		15A31D61231557D6007241D2 /* PathDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D60231557D6007241D2 /* PathDAO.swift */; };
 		15A31D6423155EE1007241D2 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6323155EE1007241D2 /* UserServices.swift */; };
 		15A31D6623155FBE007241D2 /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6523155FBE007241D2 /* QueueManager.swift */; };
+		15A31D682315769D007241D2 /* JourneyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D672315769D007241D2 /* JourneyServices.swift */; };
+		15A31D6A23157980007241D2 /* PathServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6923157980007241D2 /* PathServices.swift */; };
 		15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A6A8E5230C11A0004E537D /* AppDelegate.swift */; };
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		15A31D60231557D6007241D2 /* PathDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathDAO.swift; sourceTree = "<group>"; };
 		15A31D6323155EE1007241D2 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		15A31D6523155FBE007241D2 /* QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
+		15A31D672315769D007241D2 /* JourneyServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyServices.swift; sourceTree = "<group>"; };
+		15A31D6923157980007241D2 /* PathServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathServices.swift; sourceTree = "<group>"; };
 		15A6A8E2230C11A0004E537D /* ManasPelasManas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManasPelasManas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A6A8E5230C11A0004E537D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15A6A8EA230C11A0004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				15A31D6323155EE1007241D2 /* UserServices.swift */,
+				15A31D672315769D007241D2 /* JourneyServices.swift */,
+				15A31D6923157980007241D2 /* PathServices.swift */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 				15A31D5523154F8B007241D2 /* CoreDataManager.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
+				15A31D6A23157980007241D2 /* PathServices.swift in Sources */,
 				15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
 				15A31D58231555D7007241D2 /* DAO.swift in Sources */,
@@ -264,6 +271,7 @@
 				15A31D5F231556B3007241D2 /* JourneyDAO.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
+				15A31D682315769D007241D2 /* JourneyServices.swift in Sources */,
 				15A31D5A231555FA007241D2 /* UserDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
