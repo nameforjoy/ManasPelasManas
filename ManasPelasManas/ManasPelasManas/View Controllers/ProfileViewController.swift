@@ -13,6 +13,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myProfilePicture: UIImageView!
     @IBOutlet weak var myDescription: UILabel!
     @IBOutlet weak var myBio: UILabel!
+    
+    
     var user: User?
     
     override func viewDidLoad() {
@@ -36,5 +38,4 @@ class ProfileViewController: UIViewController {
         
         user = User(userId: 1, name: "Brenda Santos", bio:"I'm a wandering soul and pretty happy about it. Been back from a trip around the world one year already., connecting with people through volunteer work, getting to know the countryside and the people that live in there. Seeing the world by its best side, betting in people's kindness. Volunteering in farms, getting to know great people, using couchsurfing and making friends, learning and playing some music, having great food all over the world and some good beers and spirits. ;) Very simple to keep me happy, good food, good company, good music, (good drink when possible), a place to sleep, and a smile in my face!", bornDate: date, photo: "user", authenticated: true)
     }
-    
 }
