@@ -8,20 +8,37 @@
 
 import Foundation
 import MapKit
+import CoreData
 
-class Path {
-    var pathId: Int?
-    var origin: MKCircle?
-    var destiny: MKCircle?
+class Path: NSManagedObject {
+    @NSManaged public var pathId: UUID?
+    @NSManaged public var originLat: NSNumber?
+    @NSManaged public var originLong: NSNumber?
+    @NSManaged public var originRadius: NSNumber?
+    @NSManaged public var destinyLat: NSNumber?
+    @NSManaged public var destinyLong: NSNumber?
+    @NSManaged public var destinyRadius: NSNumber?
     
-    init () {
+    
+    convenience init() {
+        // get contexts
+        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
+        
+        // create entity description
+        let entityDescription = NSEntityDescription.entity(forEntityName: "Path", in: managedObjectContext)
+        
+        // call super
+        self.init(entity: entityDescription!, insertInto: nil)
     }
     
-    init (pathId: Int, origin: MKCircle, destiny: MKCircle) {
-        self.pathId = pathId
-        self.origin = origin
-        self.destiny = destiny
-    }
+//    init () {
+//    }
+//
+//    init (pathId: Int, origin: MKCircle, destiny: MKCircle) {
+//        self.pathId = pathId
+//        self.origin = origin
+//        self.destiny = destiny
+//    }
     
     
 }

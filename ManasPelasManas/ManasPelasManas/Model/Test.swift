@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import CoreData
 
 class Test {
     func checkMatchingRegion(regionA: MKCircle , regionB: MKCircle) -> Bool {
@@ -19,15 +20,21 @@ class Test {
         }
         return false
     }
-    
+
     func checkMatchTimetable(journeyA: Journey, journeyB: Journey) -> Bool {
-        let intervalA = journeyA.finalHour.timeIntervalSince(journeyA.initialHour)
-        let intervalB = journeyB.finalHour.timeIntervalSince(journeyB.initialHour)
+        
+        guard let initialHourA = journeyA.initialHour else { return false }
+        guard let finalHourA = journeyA.initialHour else { return false }
+        guard let initialHourB = journeyB.initialHour else { return false }
+        guard let finalHourB = journeyA.initialHour else { return false }
+        
+        let intervalA = finalHourA.timeIntervalSince(initialHourA)
+        let intervalB = journeyB.finalHour?.timeIntervalSince(journeyB.initialHour)
         let dateIntervalA = DateInterval(start: journeyA.initialHour, duration: intervalA)
         let dateIntervalB = DateInterval(start: journeyB.initialHour, duration: intervalB)
         return dateIntervalA.intersects(dateIntervalB)
     }
-    
+
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
         let matchOrigin = checkMatchingRegion(regionA: journeyA.path.origin!, regionB: journeyB.path.origin!)
         let matchDestiny = checkMatchingRegion(regionA: journeyA.path.destiny!, regionB: journeyB.path.destiny!)
@@ -37,9 +44,9 @@ class Test {
         }
         return false
     }
-    
-    
-    
+
+
+
     /// Description
     ///
     /// - Parameters:
@@ -59,6 +66,6 @@ class Test {
         }
         return userMatches
     }
-    
-    
+
+
 }
