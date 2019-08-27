@@ -39,7 +39,7 @@ class MapViewController: UIViewController {
         
         // MARK: Adress Search configuration
         
-        // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // CREATES SEARCH CONTROLLER AN m D INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
         // Instantiates the TableViewController that will show the adress results
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         // Instantiates our search controller and displays its results on the TableView instantiated above
@@ -76,13 +76,23 @@ class MapViewController: UIViewController {
     
     @IBAction func nextButton(_ sender: Any) {
         if firstTime {
-            newPath.origin = getCurrentCircularRegion()
+            
+            let firstArea = getCurrentCircularRegion()
+            newPath.originLat = firstArea.coordinate.latitude as NSNumber
+            newPath.originLong = firstArea.coordinate.longitude as NSNumber
+            newPath.originRadius = firstArea.radius as NSNumber
+    
             navigationItem.title = "Chegada"
             firstTime = !firstTime
             leftBarButton.isEnabled = true
+        
         } else
         {
-            newPath.destiny = getCurrentCircularRegion()
+            let secondArea = getCurrentCircularRegion()
+            newPath.destinyLat = secondArea.coordinate.latitude as NSNumber
+            newPath.destinyLong = secondArea.coordinate.longitude as NSNumber
+            newPath.destinyRadius = secondArea.radius as NSNumber
+            
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }
