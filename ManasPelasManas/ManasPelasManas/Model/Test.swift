@@ -101,16 +101,15 @@ class Test {
     
     
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-        let mkcOriginA = (journeyA.has_path?.getOriginCircle())!
-        let mkcOriginB = (journeyB.has_path?.getOriginCircle())!
-        //Get destiny
-        //let mkcDestinyA = journeyA.has_path?.
-        //let mkcDestinyA = journeyA.has_path?.
+        let mkcOriginA = (journeyA.has_path?.getCircle(stage: .origin))!
+        let mkcOriginB = (journeyB.has_path?.getCircle(stage: .origin))!
+        let mkcDestinyA = (journeyA.has_path?.getCircle(stage: .destiny))!
+        let mkcDestinyB = (journeyB.has_path?.getCircle(stage: .destiny))!
         
         let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
-        //let matchDestiny = checkMatchingRegion(regionA: journeyA.has_path.destiny!, regionB: journeyB.has_path.destiny!)
+        let matchDestiny = checkMatchingRegion(regionA: mkcDestinyA, regionB: mkcDestinyB)
         let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
-        if matchOrigin /*&& matchDestiny*/ && matchHour {
+        if matchOrigin && matchDestiny && matchHour {
             return true
         }
         return false
