@@ -104,4 +104,35 @@ class UserDAO: DAO {
             return nil
         }
     }
+
+    // Bia: Testing function creation based on filter
+    
+    /// Method responsible for retrieving first created project from database
+    /// - returns: the first created project from database
+    /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
+    static func getAuthenticatedUser() throws -> User? {
+        // list of projects to be returned
+        var user: [User]
+
+        do {
+            // creating fetch request
+            let request:NSFetchRequest<User> = fetchRequest()
+            
+            request.predicate = NSPredicate(format: "authenticated == 1")
+
+            // perform search
+            user = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        }
+        catch {
+            throw Errors.DatabaseFailure
+        }
+
+        switch user.count {
+        case 1:
+            return user[0]
+        default:
+            throw Errors.DatabaseFailure
+        }
+
+    }
 }
