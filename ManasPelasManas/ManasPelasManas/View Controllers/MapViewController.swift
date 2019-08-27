@@ -26,8 +26,6 @@ class MapViewController: UIViewController {
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
-    //var originCircle: CLCircularRegion?
-    //var destinationCircle: CLCircularRegion?
     var newPath: Path = Path()
     
     override func viewDidLoad() {
@@ -56,7 +54,6 @@ class MapViewController: UIViewController {
         searchBar.sizeToFit()
         searchBar.placeholder =  "Entre com seu endereço..."
         self.navigationItem.searchController =  self.resultSearchController!
-        //self.view.addSubview(searchBar)
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
         // Prevents the NavigationBar from being  hidden when  showing the TableView
@@ -85,8 +82,8 @@ class MapViewController: UIViewController {
             navigationItem.title = "Chegada"
             firstTime = !firstTime
             leftBarButton.isEnabled = true
-        } else
-        {
+        }
+        else {
             newPath.destiny = getCurrentCircularRegion()
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
@@ -239,9 +236,6 @@ extension MapViewController: MKMapViewDelegate {
         let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
         
         let distance: Double = center.distance(from: edge)
-        //print("Radius is \(distance)m")
-        //radiusLabel.text = "Raio: \(distance) metros"
-        
         return MKCircle(center: center.coordinate, radius: distance)
     }
 }
