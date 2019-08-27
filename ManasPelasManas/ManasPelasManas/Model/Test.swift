@@ -22,30 +22,32 @@ class Test {
     }
 
     func checkMatchTimetable(journeyA: Journey, journeyB: Journey) -> Bool {
-        
         guard let initialHourA = journeyA.initialHour else { return false }
         guard let finalHourA = journeyA.initialHour else { return false }
         guard let initialHourB = journeyB.initialHour else { return false }
         guard let finalHourB = journeyA.initialHour else { return false }
         
         let intervalA = finalHourA.timeIntervalSince(initialHourA)
-        let intervalB = journeyB.finalHour?.timeIntervalSince(journeyB.initialHour)
-        let dateIntervalA = DateInterval(start: journeyA.initialHour, duration: intervalA)
-        let dateIntervalB = DateInterval(start: journeyB.initialHour, duration: intervalB)
+        let intervalB = finalHourB.timeIntervalSince(initialHourA)
+        let dateIntervalA = DateInterval(start: initialHourA, duration: intervalA)
+        let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
         return dateIntervalA.intersects(dateIntervalB)
     }
 
+    
+    
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-        let matchOrigin = checkMatchingRegion(regionA: journeyA.path.origin!, regionB: journeyB.path.origin!)
-        let matchDestiny = checkMatchingRegion(regionA: journeyA.path.destiny!, regionB: journeyB.path.destiny!)
+        //getOriginCircle
+        let matchOrigin = checkMatchingRegion(regionA: journeyA.has_path.origin!, regionB: journeyB.path.origin!)
+        let matchDestiny = checkMatchingRegion(regionA: journeyA.has_path.destiny!, regionB: journeyB.has_path.destiny!)
         let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
         if matchOrigin && matchDestiny && matchHour {
             return true
         }
         return false
     }
-
-
+    
+    
 
     /// Description
     ///
