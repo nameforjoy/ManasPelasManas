@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
     var firstTime: Bool = true
     //var originCircle: CLCircularRegion?
     //var destinationCircle: CLCircularRegion?
-    @objc var newPath: Path = Path()
+    var newPath: PathTest = PathTest()
     
     override func viewDidLoad() {
         super.viewDidLoad()

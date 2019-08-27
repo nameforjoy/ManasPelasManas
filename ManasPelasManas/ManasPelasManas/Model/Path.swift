@@ -61,3 +61,45 @@ class Path: NSManagedObject {
     
     
 }
+
+class PathTest {
+    public var originLat: NSNumber?
+    public var originLong: NSNumber?
+    public var originRadius: NSNumber?
+    public var destinyLat: NSNumber?
+    public var destinyLong: NSNumber?
+    public var destinyRadius: NSNumber?
+
+    init()
+    {
+        originLat = nil
+        originLong = nil
+        originRadius = nil
+        destinyLat = nil
+        destinyLong = nil
+        destinyRadius = nil
+    }
+    
+    public func getCircle(stage: Stage) -> MKCircle {
+        var circle: MKCircle
+        var coordinate: CLLocationCoordinate2D
+        var radius: Double
+        
+        switch stage {
+        case .origin:
+            let lat = originLat as! Double
+            let long = originLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        case .destiny:
+            let lat = destinyLat as! Double
+            let long = destinyLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        }
+        
+        circle = MKCircle(center: coordinate, radius: radius)
+        
+        return circle
+    }
+}

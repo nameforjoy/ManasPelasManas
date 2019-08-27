@@ -11,7 +11,7 @@ import MapKit
 
 class FullRouteViewController: UIViewController {
     
-    @objc var newPath: Path?
+    var newPath: PathTest?
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
     var circleA: MKCircle?
@@ -22,11 +22,11 @@ class FullRouteViewController: UIViewController {
     override func viewDidLoad() {
         
         // TODO: Display 2 annotations and 2 overlays
-
-        addAnnotations()
-    
+        
         circleA = newPath?.getCircle(stage: .origin)
         circleB = newPath?.getCircle(stage: .destiny)
+        
+        addAnnotations()
         
         mapView.addAnnotations([annotationA!, annotationB!])
         mapView.addOverlays([circleA!, circleB!])
