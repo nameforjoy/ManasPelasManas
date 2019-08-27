@@ -14,6 +14,8 @@ class FullRouteViewController: UIViewController {
     var newPath: Path?
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
+    var circleA: MKCircle?
+    var circleB: MKCircle?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,21 +25,24 @@ class FullRouteViewController: UIViewController {
 
         addAnnotations()
         
+        circleA = newPath?.getOriginCircle()
+        circleB = newPath?.getOriginCircle()
+        
         mapView.addAnnotations([annotationA!, annotationB!])
-        mapView.addOverlays([(newPath?.origin)!, (newPath?.destiny)!])
+        mapView.addOverlays([circleA!, circleB!])
 
-        zoomTo(regionA: newPath!.origin! , regionB: newPath!.destiny!)
+        zoomTo(regionA: circleA!, regionB: circleB!)
 
     }
     
     private func addAnnotations() {
         annotationA = MKPointAnnotation()
         annotationA!.subtitle = "Starting Point"
-        annotationA!.coordinate = (newPath?.origin!.coordinate)!
+        annotationA!.coordinate = circleA!.coordinate
         
         annotationB = MKPointAnnotation()
         annotationB!.subtitle = "Destination Point"
-        annotationB!.coordinate = (newPath?.destiny!.coordinate)!
+        annotationB!.coordinate = circleB!.coordinate
     }
     
     // TODO: Zoom tofit all elements

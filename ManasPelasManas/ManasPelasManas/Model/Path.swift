@@ -10,6 +10,11 @@ import Foundation
 import MapKit
 import CoreData
 
+enum Stage {
+    case origin
+    case destiny
+}
+
 class Path: NSManagedObject {
     @NSManaged public var pathId: UUID?
     @NSManaged public var originLat: NSNumber?
@@ -31,14 +36,14 @@ class Path: NSManagedObject {
         self.init(entity: entityDescription!, insertInto: nil)
     }
     
-//    init () {
-//    }
-//
-//    init (pathId: Int, origin: MKCircle, destiny: MKCircle) {
-//        self.pathId = pathId
-//        self.origin = origin
-//        self.destiny = destiny
-//    }
+    public func getOriginCircle() -> MKCircle {
+        let lat = originLat as! Double
+        let long = originLong as! Double
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let radius = originRadius as! Double
+        
+        return MKCircle(center: coordinate, radius: radius)
+    }
     
     
 }
