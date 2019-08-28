@@ -229,9 +229,9 @@ extension MapViewController: MKMapViewDelegate {
         var radius = self.getCurrentCircularRegion().radius
         if radius >= 1000 {
             radius = Double(round(10 * radius) * 100)
-            radiusLabel.text = "Raio: \(Int(radius))km"
+            radiusLabel.text = "\(Int(radius))km"
         } else {
-            radiusLabel.text = "Raio: \(Int(radius))m"
+            radiusLabel.text = "\(Int(radius))m"
         }
     }
     

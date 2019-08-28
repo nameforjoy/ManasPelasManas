@@ -14,17 +14,28 @@ class FullRouteViewController: UIViewController {
     var newPath: Path?
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
-    var journeyDate: String = "laa"
-    var earlierLeave: String = "laaa"
-    var latestLeave: String = "laaaa"
+    var earlierLeave: String? = nil
+    var latestLeave: String? = nil
+    var selectedFirstCell: Bool = true
+    let maxTimeDifferenceInHours: Double = 8
     
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var tapView: UIView!
     
     override func viewDidLoad() {
         
         self.journeyTimeTableView.dataSource = self
         self.journeyTimeTableView.delegate = self
+        self.journeyTimeTableView.allowsMultipleSelection = false
+        self.journeyTimeTableView.isScrollEnabled = false
+        
+        self.datePicker.isHidden = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
+        self.tapView.addGestureRecognizer(tapGesture)
+        self.tapView.isUserInteractionEnabled = false
         
         // TODO: Display 2 annotations and 2 overlays
 
@@ -36,6 +47,66 @@ class FullRouteViewController: UIViewController {
 //        zoomTo(regionA: newPath!.origin! , regionB: newPath!.destiny!)
     }
     
+    func datePickerConfig() {
+        datePicker?.datePickerMode = .dateAndTime
+        datePicker?.backgroundColor = .white
+        datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+        datePicker?.isHidden = false
+        
+        // Set minimum and maximum date
+        datePicker.minimumDate = Date()
+        
+        // Setting date limits
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, HH:mm"
+        datePicker.minimumDate = Date()
+        
+        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
+        if self.selectedFirstCell && self.latestLeave != nil {
+            datePicker.maximumDate = DateFormatter().date(from: self.latestLeave!)
+        }
+        else if !self.selectedFirstCell && self.earlierLeave != nil {
+            datePicker.minimumDate = DateFormatter().date(from: self.earlierLeave!)
+        }
+        datePicker.maximumDate = datePicker.minimumDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
+        tapView.isUserInteractionEnabled = true
+    }
+    
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, HH:mm"
+        
+        if self.selectedFirstCell {
+            self.earlierLeave = dateFormatter.string(from: datePicker.date)
+        } else {
+            self.latestLeave = dateFormatter.string(from: datePicker.date)
+        }
+        self.journeyTimeTableView.reloadData()
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
+        self.datePicker.isHidden = true
+        self.tapView.isUserInteractionEnabled = false
+    }
+}
+
+// MARK: Defining Map functions
+extension FullRouteViewController: MKMapViewDelegate {
+    
+    // Renders Map overlays
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        if (overlay is MKCircle) {
+            let circleRender = MKCircleRenderer(overlay: overlay)
+            circleRender.fillColor = UIColor(hue: 9/360, saturation: 66/100, brightness: 92/100, alpha: 0.5)
+            circleRender.lineWidth = 10
+            
+            return circleRender
+        }
+        return MKPolylineRenderer()
+    }
+    
+    // Adds map annotations for start and destination of the route
     private func addAnnotations() {
         annotationA = MKPointAnnotation()
         annotationA!.subtitle = "Starting Point"
@@ -47,50 +118,32 @@ class FullRouteViewController: UIViewController {
     }
     
     // TODO: Zoom tofit all elements
-
     private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
         let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
-    }
-    
-}
-
-// MARK: Defining Appearance for Circle Regions
-extension FullRouteViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
-        if (overlay is MKCircle) {
-            let circleRender = MKCircleRenderer(overlay: overlay)
-            circleRender.fillColor = UIColor(hue: 9/360, saturation: 66/100, brightness: 92/100, alpha: 0.5)
-            circleRender.lineWidth = 10
-            
-            return circleRender
-        }
-        
-        return MKPolylineRenderer()
     }
 }
 
 extension FullRouteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyTimeCell") as! JourneyTimeTableViewCell
+        cell.selectionStyle = .none
+        cell.boxView.backgroundColor = UIColor.white
+
         switch indexPath.row {
         case 0:
-            cell.leftLabel.text = "Data"
-            cell.rightLabel.text = self.journeyDate
-        case 1:
-            cell.leftLabel.text = "Posso sair a partir das"
+            cell.leftLabel.text = "Posso sair a partir de"
             cell.rightLabel.text = self.earlierLeave
         default:
-            cell.leftLabel.text = "Preciso sair até as"
+            cell.leftLabel.text = "Preciso sair até"
             cell.rightLabel.text = self.latestLeave
         }
         return cell
@@ -100,7 +153,16 @@ extension FullRouteViewController: UITableViewDataSource {
 extension FullRouteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.selectedFirstCell =  indexPath.row == 0 ? true : false
+        datePickerConfig()
+        let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
+        cell.boxView.backgroundColor = UIColor.red
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
+        cell.boxView.backgroundColor = UIColor.white
+    }
     
 }
