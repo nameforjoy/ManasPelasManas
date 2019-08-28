@@ -25,9 +25,9 @@ class MapViewController: UIViewController {
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
-    //var originCircle: CLCircularRegion?
-    //var destinationCircle: CLCircularRegion?
-    var newPath: PathTest = PathTest()
+    //var newPath: PathTest = PathTest()
+    @objc var newPath: Path?
+    var pathId: UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,10 +77,14 @@ class MapViewController: UIViewController {
     @IBAction func nextButton(_ sender: Any) {
         if firstTime {
             
+            newPath = Path()
+            self.newPath?.pathId = UUID()
+            self.pathId = newPath?.pathId
+            
             let firstArea = getCurrentCircularRegion()
-            newPath.originLat = firstArea.coordinate.latitude as NSNumber
-            newPath.originLong = firstArea.coordinate.longitude as NSNumber
-            newPath.originRadius = firstArea.radius as NSNumber
+            self.newPath?.originLat = firstArea.coordinate.latitude as NSNumber
+            self.newPath?.originLong = firstArea.coordinate.longitude as NSNumber
+            self.newPath?.originRadius = firstArea.radius as NSNumber
     
             navigationItem.title = "Chegada"
             firstTime = !firstTime
@@ -89,11 +93,16 @@ class MapViewController: UIViewController {
         } else
         {
             let secondArea = getCurrentCircularRegion()
-            newPath.destinyLat = secondArea.coordinate.latitude as NSNumber
-            newPath.destinyLong = secondArea.coordinate.longitude as NSNumber
-            newPath.destinyRadius = secondArea.radius as NSNumber
+            self.newPath?.destinyLat = secondArea.coordinate.latitude as NSNumber
+            self.newPath?.destinyLong = secondArea.coordinate.longitude as NSNumber
+            self.newPath?.destinyRadius = secondArea.radius as NSNumber
             
             //Create path coredata
+            PathServices.createPath(path: self.newPath!) { error in
+                if (error != nil) {
+                    //treat error
+                }
+            }
             
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
@@ -107,6 +116,7 @@ class MapViewController: UIViewController {
         if segue.identifier == "TimeSetup" {
             if let vc = segue.destination as? FullRouteViewController {
                 vc.newPath = self.newPath
+                //vc.pathId = self.pathId
             }
         }
     }
@@ -121,7 +131,7 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            zoomMapTo(location: location)
+            //zoomMapTo(location: location)
         }
     }
     

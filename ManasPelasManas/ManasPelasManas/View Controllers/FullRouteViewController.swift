@@ -11,19 +11,29 @@ import MapKit
 
 class FullRouteViewController: UIViewController {
     
-    var newPath: PathTest?
+    @objc var newPath: Path?
+    @objc var newJourney: Journey?
+    var pathId: UUID?
+    
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
     var circleA: MKCircle?
     var circleB: MKCircle?
     
-    @IBOutlet weak var originTextField: UITextField!
-    private var datePicker: UIDatePicker?
-    
     @IBOutlet weak var mapView: MKMapView!
+  
+    //    MARK: Trying to retrieve Path by the UUID from the segue
+//    override func viewWillAppear(_ animated: Bool) {
+//        PathServices.findById(objectID: pathId!) { (error, path) in
+//            if (error == nil && path != nil){
+//                self.newPath = path
+//            } else {
+//                //treat error
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
-        
         // TODO: Display 2 annotations and 2 overlays
         
         circleA = newPath?.getCircle(stage: .origin)
@@ -35,30 +45,25 @@ class FullRouteViewController: UIViewController {
         mapView.addOverlays([circleA!, circleB!])
 
         zoomTo(regionA: circleA!, regionB: circleB!)
-        
-        datePicker = UIDatePicker()
-        self.datePickerConfig()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
-        view.addGestureRecognizer(tapGesture)
 
     }
     
-    func datePickerConfig() {
-        datePicker?.datePickerMode = .dateAndTime
-        datePicker?.backgroundColor = .white
-        datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-        originTextField.inputView = datePicker
-    }
-    
-    @objc func dateChanged(datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
-        originTextField.text = dateFormatter.string(from: datePicker.date)
-    }
-    
-    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
-        view.endEditing(true)
+    @IBAction func confirmButton(_ sender: Any) {
+        
+        //criar Journey no CoreData
+        newJourney = Journey()
+        
+        //set attributes for newJorney
+        //date from datepicker
+        //newJourney?.has_path = newPath!
+        newJourney?.journeyId = UUID()
+        
+        JourneyServices.createJourney(journey: newJourney!) { error in
+            if (error != nil){
+                //treat error
+            }
+        }
+        
     }
     
     private func addAnnotations() {
