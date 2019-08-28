@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class CompanionsDataSource: NSObject, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

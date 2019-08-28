@@ -10,9 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var myProfilePicture: UIImageView!
-    @IBOutlet weak var myDescription: UILabel!
-    @IBOutlet weak var myBio: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var bioTitleLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
     
     
     var user: User?
@@ -21,9 +21,9 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         createFakeUser()
-        myProfilePicture.image = UIImage(named: user!.photo)
-        myDescription.text = user!.name + ", " + "19"
-        myBio.text = user!.bio
+        profilePhoto.image = UIImage(named: user!.photo)
+        bioTitleLabel.text = user!.name + ", " + "19"
+        bioLabel.text = user!.bio
     }
     
     func createFakeUser()
