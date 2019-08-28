@@ -51,7 +51,7 @@ class Path: NSManagedObject {
             let lat = destinyLat as! Double
             let long = destinyLong as! Double
             coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            radius = originRadius as! Double
+            radius = destinyRadius as! Double
         }
         
         circle = MKCircle(center: coordinate, radius: radius)
