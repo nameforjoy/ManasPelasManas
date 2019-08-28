@@ -7,40 +7,53 @@
 //
 
 import Foundation
+import CoreData
 
-class Journey {
-    var ownerId: Int
-    var journeyId: Int
-    var path: Path
-    var date: Date
-    var initialHour: Date
-    var finalHour: Date
-    var status: Status
-    var confirmedPartners: [User]
-    var requestedParteners: [User]
+class Journey: NSManagedObject {
+    @NSManaged public var ownerId: UUID?
+    @NSManaged public var journeyId: UUID?
+    @NSManaged public var has_path: Path
+    @NSManaged public var date: Date?
+    @NSManaged public var initialHour: Date?
+    @NSManaged public var finalHour: Date?
+    @NSManaged public var status: String?
+    @NSManaged public var has_confirmed_partners: Set<User>
+    @NSManaged public var has_requested_parteners: Set<User>
     
-    init(journeyId: Int, userId: Int, path: Path, date: Date, initialHour: Date, finalHour: Date, status: Status) {
-        self.journeyId = journeyId
-        self.ownerId = userId
-        self.path = path
-        self.date = date
-        self.initialHour = initialHour
-        self.finalHour = finalHour
-        self.status = status
-        self.confirmedPartners = [User]()
-        self.requestedParteners = [User]()
+    convenience init() {
+        // get context
+        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
+        
+        // create entity description
+        let entityDescription = NSEntityDescription.entity(forEntityName: "Journey", in: managedObjectContext)
+        
+        // call super
+        self.init(entity: entityDescription!, insertInto: nil)
     }
     
-    func partnerAcceptedJourney(journeyId: Int, userId: Int) {
-        if(self.journeyId == journeyId) {
-            for i in 0..<requestedParteners.count {
-                if requestedParteners[i].userId == userId {
-                    let user = requestedParteners[i]
-                    confirmedPartners.append(user)
-                    requestedParteners.remove(at: i)
-                }
-            }
-        }
-    }
+    
+//    init(journeyId: Int, userId: Int, path: Path, date: Date, initialHour: Date, finalHour: Date, status: Status) {
+//        self.journeyId = journeyId
+//        self.ownerId = userId
+//        self.path = path
+//        self.date = date
+//        self.initialHour = initialHour
+//        self.finalHour = finalHour
+//        self.status = status
+//        self.confirmedPartners = [User]()
+//        self.requestedParteners = [User]()
+//    }
+    
+//    func partnerAcceptedJourney(journeyId: Int, userId: Int) {
+//        if(self.journeyId == journeyId) {
+//            for i in 0..<requestedParteners.count {
+//                if requestedParteners[i].userId == userId {
+//                    let user = requestedParteners[i]
+//                    confirmedPartners.append(user)
+//                    requestedParteners.remove(at: i)
+//                }
+//            }
+//        }
+//    }
     
 }

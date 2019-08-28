@@ -11,20 +11,37 @@ import MapKit
 
 class FullRouteViewController: UIViewController {
     
-    var newPath: Path?
+    @objc var newPath: Path?
+    @objc var newJourney: Journey?
+    var pathId: UUID?
+    
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
     var earlierLeave: String? = nil
     var latestLeave: String? = nil
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8
+    var circleA: MKCircle?
+    var circleB: MKCircle?
     
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tapView: UIView!
+  
+    //    MARK: Trying to retrieve Path by the UUID from the segue
+//    override func viewWillAppear(_ animated: Bool) {
+//        PathServices.findById(objectID: pathId!) { (error, path) in
+//            if (error == nil && path != nil){
+//                self.newPath = path
+//            } else {
+//                //treat error
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
+        // TODO: Display 2 annotations and 2 overlays
         
         self.journeyTimeTableView.dataSource = self
         self.journeyTimeTableView.delegate = self
@@ -52,7 +69,13 @@ class FullRouteViewController: UIViewController {
         datePicker?.backgroundColor = .white
         datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
         datePicker?.isHidden = false
+        circleA = newPath?.getCircle(stage: .origin)
+        circleB = newPath?.getCircle(stage: .destiny)
         
+        addAnnotations()
+        
+        mapView.addAnnotations([annotationA!, annotationB!])
+        mapView.addOverlays([circleA!, circleB!])
         // Set minimum and maximum date
         datePicker.minimumDate = Date()
         
@@ -90,6 +113,8 @@ class FullRouteViewController: UIViewController {
     }
 }
 
+        zoomTo(regionA: circleA!, regionB: circleB!)
+
 // MARK: Defining Map functions
 extension FullRouteViewController: MKMapViewDelegate {
     
@@ -106,15 +131,33 @@ extension FullRouteViewController: MKMapViewDelegate {
         return MKPolylineRenderer()
     }
     
+    @IBAction func confirmButton(_ sender: Any) {
+        
+        //criar Journey no CoreData
+        newJourney = Journey()
+        
+        //set attributes for newJorney
+        //date from datepicker
+        //newJourney?.has_path = newPath!
+        newJourney?.journeyId = UUID()
+        
+        JourneyServices.createJourney(journey: newJourney!) { error in
+            if (error != nil){
+                //treat error
+            }
+        }
+        
+    }
+    
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {
         annotationA = MKPointAnnotation()
         annotationA!.subtitle = "Starting Point"
-        annotationA!.coordinate = (newPath?.origin!.coordinate)!
+        annotationA!.coordinate = circleA!.coordinate
         
         annotationB = MKPointAnnotation()
         annotationB!.subtitle = "Destination Point"
-        annotationB!.coordinate = (newPath?.destiny!.coordinate)!
+        annotationB!.coordinate = circleB!.coordinate
     }
     
     // TODO: Zoom tofit all elements

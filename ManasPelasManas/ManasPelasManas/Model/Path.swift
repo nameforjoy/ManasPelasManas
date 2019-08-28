@@ -8,20 +8,98 @@
 
 import Foundation
 import MapKit
+import CoreData
 
-class Path {
-    var pathId: Int?
-    var origin: MKCircle?
-    var destiny: MKCircle?
+enum Stage {
+    case origin
+    case destiny
+}
+
+class Path: NSManagedObject {
+    @NSManaged public var pathId: UUID?
+    @NSManaged public var originLat: NSNumber?
+    @NSManaged public var originLong: NSNumber?
+    @NSManaged public var originRadius: NSNumber?
+    @NSManaged public var destinyLat: NSNumber?
+    @NSManaged public var destinyLong: NSNumber?
+    @NSManaged public var destinyRadius: NSNumber?
     
-    init () {
+    
+    convenience init() {
+        // get contexts
+        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
+        
+        // create entity description
+        let entityDescription = NSEntityDescription.entity(forEntityName: "Path", in: managedObjectContext)
+        
+        // call super
+        self.init(entity: entityDescription!, insertInto: nil)
     }
     
-    init (pathId: Int, origin: MKCircle, destiny: MKCircle) {
-        self.pathId = pathId
-        self.origin = origin
-        self.destiny = destiny
+    public func getCircle(stage: Stage) -> MKCircle {
+        var circle: MKCircle
+        var coordinate: CLLocationCoordinate2D
+        var radius: Double
+        
+        switch stage {
+        case .origin:
+            let lat = originLat as! Double
+            let long = originLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        case .destiny:
+            let lat = destinyLat as! Double
+            let long = destinyLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = destinyRadius as! Double
+        }
+        
+        circle = MKCircle(center: coordinate, radius: radius)
+        
+        return circle
     }
     
     
+}
+
+class PathTest {
+    public var originLat: NSNumber?
+    public var originLong: NSNumber?
+    public var originRadius: NSNumber?
+    public var destinyLat: NSNumber?
+    public var destinyLong: NSNumber?
+    public var destinyRadius: NSNumber?
+
+    init()
+    {
+        originLat = nil
+        originLong = nil
+        originRadius = nil
+        destinyLat = nil
+        destinyLong = nil
+        destinyRadius = nil
+    }
+    
+    public func getCircle(stage: Stage) -> MKCircle {
+        var circle: MKCircle
+        var coordinate: CLLocationCoordinate2D
+        var radius: Double
+        
+        switch stage {
+        case .origin:
+            let lat = originLat as! Double
+            let long = originLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        case .destiny:
+            let lat = destinyLat as! Double
+            let long = destinyLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = originRadius as! Double
+        }
+        
+        circle = MKCircle(center: coordinate, radius: radius)
+        
+        return circle
+    }
 }

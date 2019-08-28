@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum Status {
-    case requested
-    case confirmed
-    case finished
+enum Status: String {
+    case requested = "requested"
+    case confirmed = "confirmed"
+    case finished = "finished"
 }
