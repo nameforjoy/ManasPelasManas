@@ -18,10 +18,8 @@
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
-		8D74B93A231587240014FCDC /* CreateJourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B939231587240014FCDC /* CreateJourneyViewController.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
 		B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07B230DECC7007BDA06 /* MapViewController.swift */; };
-		B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07D230DECD4007BDA06 /* InfoViewController.swift */; };
 		B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07F230DECF3007BDA06 /* RoutesViewController.swift */; };
 		B376D085230EE9F7007BDA06 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */; };
 		B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D08B2314114E007BDA06 /* FullRouteViewController.swift */; };
@@ -41,10 +39,8 @@
 		15A6A8EC230C11A1004E537D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D74B939231587240014FCDC /* CreateJourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateJourneyViewController.swift; sourceTree = "<group>"; };
 		B376D079230DEC86007BDA06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B376D07B230DECC7007BDA06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		B376D07D230DECD4007BDA06 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B376D07F230DECF3007BDA06 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationSearchTable.swift; path = ../LocationSearchTable.swift; sourceTree = "<group>"; };
 		B376D08B2314114E007BDA06 /* FullRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRouteViewController.swift; sourceTree = "<group>"; };
@@ -119,9 +115,7 @@
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
 				B376D08B2314114E007BDA06 /* FullRouteViewController.swift */,
-				B376D07D230DECD4007BDA06 /* InfoViewController.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
-				8D74B939231587240014FCDC /* CreateJourneyViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -214,13 +208,11 @@
 				15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
 				B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */,
-				B376D07E230DECD4007BDA06 /* InfoViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
 				1511D200230EF32500C0DF60 /* Test.swift in Sources */,
 				1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
-				8D74B93A231587240014FCDC /* CreateJourneyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
