@@ -19,5 +19,7 @@ class JourneyTimeTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.boxView.layer.cornerRadius = self.boxView.frame.height / 4
+        self.boxView.layer.borderWidth = 1
+        self.boxView.layer.borderColor = UIColor(red:200/255, green:200/255, blue:200/255, alpha: 1).cgColor
     }
 }
