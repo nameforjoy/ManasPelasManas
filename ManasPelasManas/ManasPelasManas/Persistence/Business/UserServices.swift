@@ -233,33 +233,7 @@ class UserServices {
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
     }
     
-//    static func findAllJouneysFromUserAuthenticated (userID: UUID , _ completion: ((_ error: Error?, _ user: User?) -> Void)?) {
-//        // block to be executed in background
-//        let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
-//            // error to be returned in case of failure
-//            var raisedError: Error? = nil
-//            var user: User?
-//            
-//            do {
-//                // save information
-//                user = try UserDAO.getAuthenticatedUser()
-//            }
-//            catch let error {
-//                raisedError = error
-//            }
-//            
-//            // completion block execution
-//            if (completion != nil) {
-//                let blockForExecutionInMain: BlockOperation = BlockOperation(block: {completion!(raisedError, user)})
-//                
-//                // execute block in main
-//                QueueManager.sharedInstance.executeBlock(blockForExecutionInMain, queueType: QueueManager.QueueType.main)
-//            }
-//        })
-//        
-//        // execute block in background
-//        QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
-//    }
+
     
     
     

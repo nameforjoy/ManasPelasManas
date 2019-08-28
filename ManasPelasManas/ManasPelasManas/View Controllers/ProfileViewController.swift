@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myBio: UILabel!
     @objc var currentUser: User?
     @objc var journeyTest: Journey?
+    @objc var journeyMock: Journey?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +37,9 @@ class ProfileViewController: UIViewController {
                 self.displayData(user: user!)
                 //print(user?.objectID)
             } else if user == nil {
-                self.createFakeUser()
                 self.createFakeJourney()
-                self.displayData(user: self.currentUser!)
+                //self.createFakeUser()
+                
             }
         }
             
@@ -73,9 +75,43 @@ class ProfileViewController: UIViewController {
         self.currentUser?.authenticated = 1
         self.currentUser?.userId = UUID()
         
+        
         UserServices.createUser(user: self.currentUser!) { error in
-            if (error != nil) {
+            if (error == nil) {
                 //treat error if necessary
+                
+                self.currentUser?.has_journeys = [self.journeyTest!]
+                
+                UserServices.updateUser(user: self.currentUser!, { (error) in
+                    if (error == nil) {
+                        self.displayData(user: self.currentUser!)
+                        
+                        self.journeyMock = Journey()
+                        self.journeyMock?.initialHour = self.createFormattedHour(hour: "31/08/2019T20:45")
+                        self.journeyMock?.finalHour = self.createFormattedHour(hour: "30/08/2019T08:00")
+                        self.journeyMock?.journeyId = UUID()
+                        
+                        
+                        JourneyServices.createJourney(journey: self.journeyMock!) { error in
+                            if (error == nil) {
+                                
+                                UserServices.getAuthenticatedUser({ (error, user) in
+                                    if(error == nil && user != nil) {
+                                        
+                                        self.journeyMock?.ownerId = user!.userId
+                                        user!.has_journeys?.insert(self.journeyMock!)
+                                        
+                                        UserServices.updateUser(user: user!, { (error) in
+                                            if (error == nil) {
+                                                print("Milagres podem acontecer")
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    }
+                })
             }
         }
     }
@@ -86,18 +122,38 @@ class ProfileViewController: UIViewController {
         self.journeyTest?.finalHour = createFormattedHour(hour: "30/08/2019T08:00")
         self.journeyTest?.journeyId = UUID()
         self.journeyTest?.ownerId = self.currentUser?.userId
+    
 
         JourneyServices.createJourney(journey: self.journeyTest!) { error in
-            if (error != nil) {
+            if (error == nil) {
                 //treat error if necessary
+                self.createFakeUser()
             }
         }
         
+
+        
     }
     
-        func createFormattedHour(hour: String) -> Date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
-            return (formatter.date(from: hour))!
-        }
+ 
+    
+    func createFormattedHour(hour: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
+        return (formatter.date(from: hour))!
+    }
 }
+
+
+//
+//class DatabaseMemory {
+//
+//    static let shared = DatabaseMemory()
+//
+//    var journeys: [Journey] = []
+//
+//    private init(){
+//
+//    }
+//
+//}
