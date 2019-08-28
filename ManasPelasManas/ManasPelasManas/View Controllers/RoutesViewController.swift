@@ -22,7 +22,7 @@ class RoutesViewController: UIViewController, UITableViewDelegate {
         
         self.routesTableView.delegate = self
         self.routesTableView.dataSource = self.routesDataSource
-        
+
         self.newMatchesView.layer.cornerRadius = self.newMatchesView.frame.height / 4
     }
 

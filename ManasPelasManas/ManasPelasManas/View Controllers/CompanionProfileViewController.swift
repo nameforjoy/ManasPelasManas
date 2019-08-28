@@ -11,4 +11,10 @@ import UIKit
 
 class CompanionProfileViewController: UIViewController {
     
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var bioTitleLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
+    
+    
 }
