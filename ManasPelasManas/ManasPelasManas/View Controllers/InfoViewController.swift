@@ -12,25 +12,50 @@ import CoreData
 class InfoViewController: UIViewController {
     
     var myUser: User?
+    fileprivate var journeys: [Journey] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Teste para findUserById
         // Do any additional setup after loading the view.
         
         //        0x855055ae01959adb <x-coredata://FA8F41D4-52C0-484E-8ADD-04578F942271/User/p1>"
         //
-        let userId = UUID(uuidString: "02C69391-4BD7-4590-AF66-63BEFEAB412D")
-        UserServices.findById(objectID: userId! ) { (error, user) in
-            if (error == nil && user != nil) {
-                //self.displayData(user: user!)
-                print(user?.name)
-            } else if user == nil {
-                print(error)
-                print("oi")
-                //self.createFakeUser()
-                //self.displayData(user: self.currentUser!)
+//        let userId = UUID(uuidString: "BD35EEAD-3179-4FC2-AC34-5ED619C4EE1F")
+//        UserServices.findById(objectID: userId! ) { (error, user) in
+//            if (error == nil && user != nil) {
+//                //self.displayData(user: user!)
+//                print(user?.name)
+//            } else if user == nil {
+//                print(error)
+//
+//            }
+//        }
+    
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // call super
+        super.viewWillAppear(animated)
+        
+        // get all seasons
+        JourneyServices.getAllJourneys { (error, journeys) in
+            if (error == nil) {
+                // assign season list
+                self.journeys = journeys!
+                
+                // reload table view with season information
+                DispatchQueue.main.async {
+                    //self.table.reloadData()
+                }
+            }
+            else {
+                // display error here because it was not possible to load season list
+                print("Error retrieving content")
             }
         }
+        
     }
 
 
