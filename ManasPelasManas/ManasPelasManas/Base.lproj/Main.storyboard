@@ -100,7 +100,7 @@
             </objects>
             <point key="canvasLocation" x="1021.7391304347827" y="124.55357142857142"/>
         </scene>
-        <!--Saída-->
+        <!--De onde você pode sair?-->
         <scene sceneID="yfg-we-fZx">
             <objects>
                 <viewController id="3sw-Ev-MV3" customClass="MapViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,7 +135,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vO1-Xb-wvN">
                                 <rect key="frame" x="20" y="753" width="374" height="50"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.93570265949999998" green="0.43505261020000002" blue="0.32934521430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Zgy-ix-NHN"/>
                                 </constraints>
@@ -176,7 +176,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FDu-n5-qYA"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Saída" id="qCt-Ol-qGM"/>
+                    <navigationItem key="navigationItem" title="De onde você pode sair?" id="qCt-Ol-qGM"/>
                     <connections>
                         <outlet property="mapView" destination="dNF-N3-aaR" id="XMa-dJ-UA0"/>
                         <outlet property="nextButton" destination="vO1-Xb-wvN" id="Tf5-0n-4Rg"/>
@@ -412,7 +412,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Okq-Ve-dbZ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tLQ-sj-vdV"/>
+                    <navigationItem key="navigationItem" title="Suas viagens" id="tLQ-sj-vdV"/>
                     <connections>
                         <outlet property="newMatchesView" destination="Mpv-AQ-YFH" id="Mdx-Yd-rup"/>
                         <outlet property="routesTableView" destination="NpG-w5-dfY" id="hlQ-hu-Cqe"/>
@@ -427,7 +427,7 @@
         <!--Viagem-->
         <scene sceneID="hHe-wy-DEW">
             <objects>
-                <viewController title="Viagem" id="4VQ-B5-IsG" userLabel="Viagem" customClass="JourneyCompanionsViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Encontre companhia" id="4VQ-B5-IsG" userLabel="Viagem" customClass="JourneyCompanionsViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3qN-w7-T8B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -611,7 +611,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="SOBRE MIM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68t-Ic-bvp">
                                                 <rect key="frame" x="20" y="10" width="92" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.0" green="0.47798281910000001" blue="0.54970204830000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEi-GQ-ObT">
@@ -644,7 +644,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daniela, 24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUe-di-zfh">
                                 <rect key="frame" x="20" y="511" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.47798281910000001" blue="0.54970204830000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -716,7 +716,7 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="124.55357142857142"/>
         </scene>
-        <!--Horário-->
+        <!--Quando você deseja ir?-->
         <scene sceneID="pkE-dx-gUZ">
             <objects>
                 <viewController id="Rfn-Rd-XAt" customClass="FullRouteViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
@@ -802,7 +802,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7O-NE-d1t">
                                 <rect key="frame" x="20" y="753" width="374" height="50"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.93570265949999998" green="0.43505261020000002" blue="0.32934521430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WQl-AL-UEl"/>
                                 </constraints>
@@ -846,7 +846,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YcP-Yb-imN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Horário" id="OBy-K1-5zm"/>
+                    <navigationItem key="navigationItem" title="Quando você deseja ir?" id="OBy-K1-5zm">
+                        <barButtonItem key="backBarButtonItem" title="Item" id="ylG-lK-YXs"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="ROq-nG-V9B" id="Udh-L4-7sN"/>
                         <outlet property="journeyTimeTableView" destination="IT4-JS-Xmm" id="aWS-dQ-vtg"/>
@@ -886,6 +888,6 @@
         <image name="user" width="1000" height="667"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xTv-r5-WgF"/>
+        <segue reference="pZT-2c-hjv"/>
     </inferredMetricsTieBreakers>
 </document>

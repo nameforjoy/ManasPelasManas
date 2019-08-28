@@ -36,7 +36,7 @@ class MapViewController: UIViewController {
         self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
         // Changes Navigation title in case we are fetching the user's destination
         if !self.firstTime {
-            self.navigationItem.title = "Chegada"
+            self.navigationItem.title = "Para onde você vai?"
         }
         
         // Sets up CoreLocation and centers map
