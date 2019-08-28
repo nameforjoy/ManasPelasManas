@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
                 self.displayData(user: user!)
             } else if user == nil {
                 self.createFakeUser()
-                self.displayData(user: user!)
+                self.displayData(user: self.currentUser!)
             }
         }
         

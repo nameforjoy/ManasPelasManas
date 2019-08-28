@@ -64,6 +64,11 @@ class JourneyDAO: DAO {
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func findAll() throws -> [Journey] {
         // list of guiding data to be returned
+        
+        
+        //Passing id to compare with the ownerId
+        
+        
         var journeyList:[Journey]
         
         do {

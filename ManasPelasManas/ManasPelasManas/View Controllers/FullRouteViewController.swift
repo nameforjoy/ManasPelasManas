@@ -17,6 +17,9 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
+    @IBOutlet weak var originTextField: UITextField!
+    private var datePicker: UIDatePicker?
+    
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -32,7 +35,30 @@ class FullRouteViewController: UIViewController {
         mapView.addOverlays([circleA!, circleB!])
 
         zoomTo(regionA: circleA!, regionB: circleB!)
+        
+        datePicker = UIDatePicker()
+        self.datePickerConfig()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
+        view.addGestureRecognizer(tapGesture)
 
+    }
+    
+    func datePickerConfig() {
+        datePicker?.datePickerMode = .dateAndTime
+        datePicker?.backgroundColor = .white
+        datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+        originTextField.inputView = datePicker
+    }
+    
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+        originTextField.text = dateFormatter.string(from: datePicker.date)
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     private func addAnnotations() {
