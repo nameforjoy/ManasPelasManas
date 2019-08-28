@@ -80,4 +80,29 @@ class PathDAO: DAO {
         
         return pathList
     }
+    
+    static func findById(objectID: UUID) throws -> Path? {
+        // list of projects to be returned
+        var path: [Path]
+        
+        do {
+            // creating fetch request
+            let request:NSFetchRequest<Path> = fetchRequest()
+            
+            request.predicate = NSPredicate(format: "pathId == %@", objectID as CVarArg)
+            
+            // perform search
+            path = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        }
+        catch {
+            throw Errors.DatabaseFailure
+        }
+        
+        switch path.count {
+        case 1:
+            return path[0]
+        default:
+            throw Errors.DatabaseFailure
+        }
+    }
 }

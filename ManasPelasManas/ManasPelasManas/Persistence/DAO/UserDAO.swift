@@ -148,10 +148,7 @@ class UserDAO: DAO {
             let request:NSFetchRequest<User> = fetchRequest()
             
             request.predicate = NSPredicate(format: "userId == %@", objectID as CVarArg)
-//            let brenda = "Brenda Santos"
-//            request.predicate = NSPredicate(format: "name =  %@", brenda)
 
-            
             // perform search
             user = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
         }
@@ -165,6 +162,5 @@ class UserDAO: DAO {
         default:
             throw Errors.DatabaseFailure
         }
-        
     }
 }

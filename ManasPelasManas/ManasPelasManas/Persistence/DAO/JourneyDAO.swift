@@ -84,4 +84,29 @@ class JourneyDAO: DAO {
         
         return journeyList
     }
+    
+    static func findById(objectID: UUID) throws -> Journey? {
+        // list of projects to be returned
+        var journey: [Journey]
+        
+        do {
+            // creating fetch request
+            let request:NSFetchRequest<Journey> = fetchRequest()
+            
+            request.predicate = NSPredicate(format: "journeyId == %@", objectID as CVarArg)
+            
+            // perform search
+            journey = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        }
+        catch {
+            throw Errors.DatabaseFailure
+        }
+        
+        switch journey.count {
+        case 1:
+            return journey[0]
+        default:
+            throw Errors.DatabaseFailure
+        }
+    }
 }

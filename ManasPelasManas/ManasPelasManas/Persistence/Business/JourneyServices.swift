@@ -137,4 +137,32 @@ class JourneyServices {
         // execute block in background
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
     }
+    
+    static func findById(objectID: UUID , _ completion: ((_ error: Error?, _ journey: Journey?) -> Void)?) {
+        // block to be executed in background
+        let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
+            // error to be returned in case of failure
+            var raisedError: Error? = nil
+            var journey: Journey?
+            
+            do {
+                // save information
+                journey = try JourneyDAO.findById(objectID: objectID)
+            }
+            catch let error {
+                raisedError = error
+            }
+            
+            // completion block execution
+            if (completion != nil) {
+                let blockForExecutionInMain: BlockOperation = BlockOperation(block: {completion!(raisedError, journey)})
+                
+                // execute block in main
+                QueueManager.sharedInstance.executeBlock(blockForExecutionInMain, queueType: QueueManager.QueueType.main)
+            }
+        })
+        
+        // execute block in background
+        QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
+    }
 }
