@@ -15,25 +15,39 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var radiusView: UIImageView!
+    @IBOutlet weak var radiusLabel: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
     
     let locationManager = CLLocationManager()
     let mapRegionDegreeRange: Double = 0.02
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
+    var locationReference: CLLocation? = nil // Future recentre button
+    
+    //Setting Up Different Behaviors for Origin and Destination Screens
+    var firstTime: Bool = true
+    var newPath: Path = Path()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // PROVISORY SETTINGS
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+        self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
+        // Changes Navigation title in case we are fetching the user's destination
+        if !self.firstTime {
+            self.navigationItem.title = "Para onde você vai?"
+        }
+        
         // Sets up CoreLocation and centers map
-        locationManager.delegate = self
-        checkAuthorizationStatus()
-        centerMapOnUserLocation()
+        self.locationManager.delegate = self
+        self.checkAuthorizationStatus()
         
         // MARK: Adress Search configuration
         
         // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
         // Instantiates the TableViewController that will show the adress results
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableViewController
         // Instantiates our search controller and displays its results on the TableView instantiated above
         self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         // Sets the TableView as the results updater as well
@@ -46,8 +60,8 @@ class MapViewController: UIViewController {
         let searchBar = self.resultSearchController!.searchBar
         // Defines searchBar appearence
         searchBar.sizeToFit()
-        searchBar.placeholder =  "Entre com seu endereço..."
-        self.navigationItem.titleView =  self.resultSearchController?.searchBar
+        searchBar.placeholder =  "Entre seu endereço..."
+        self.navigationItem.searchController =  self.resultSearchController!
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
         // Prevents the NavigationBar from being  hidden when  showing the TableView
@@ -61,18 +75,37 @@ class MapViewController: UIViewController {
         locationSearchTable.handleMapSearchDelegate = self
     }
     
-    // MARK: Actions
-    // Gets center and radius of circle over the mapView
-    @IBAction func getCircleRegion(_ sender: Any) {
-        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
-        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
-        
-        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
-        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
-        
-        let distance: Double = center.distance(from: edge)
-        print("Radius is \(distance)m")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        centerMapOnUserLocation()
     }
+    
+    // MARK: Actions
+    
+    @IBAction func nextButton(_ sender: Any) {
+        if firstTime {
+            newPath.origin = getCurrentCircularRegion()
+            performSegue(withIdentifier: "goToDestination", sender: sender)
+        }
+        else {
+            newPath.destiny = getCurrentCircularRegion()
+            performSegue(withIdentifier: "TimeSetup", sender: sender)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TimeSetup" {
+            if let destination = segue.destination as? FullRouteViewController {
+                destination.newPath = self.newPath
+            }
+        }
+        else if segue.identifier == "goToDestination" {
+            if let destination = segue.destination as? MapViewController {
+                destination.firstTime = false
+            }
+        }
+    }
+    
 }
 
 // MARK: CLLocationManager extension
@@ -82,8 +115,10 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            self.locationReference = location
             zoomMapTo(location: location)
         }
+        self.locationManager.stopUpdatingLocation()
     }
     
     // Zooms in to a certain map region
@@ -182,5 +217,34 @@ extension MapViewController: HandleMapSearch {
         let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+    }
+}
+
+// MARK: MapViewDelegate Extension
+extension MapViewController: MKMapViewDelegate {
+    
+    // This function is called everytime map region is changed by user interaction
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        var radius = self.getCurrentCircularRegion().radius
+        if radius >= 1000 {
+            radius = Double(round(10 * radius) * 100)
+            radiusLabel.text = "\(Int(radius))km"
+        } else {
+            radiusLabel.text = "\(Int(radius))m"
+        }
+    }
+    
+    // MARK: Defining Radius
+    func getCurrentCircularRegion() -> MKCircle {
+        
+        let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
+        
+        let edge = CLLocation(latitude: edge2D.latitude, longitude: edge2D.longitude)
+        let center = CLLocation(latitude: center2D.latitude, longitude: center2D.longitude)
+        
+        let distance: Double = center.distance(from: edge)
+        return MKCircle(center: center.coordinate, radius: distance)
     }
 }

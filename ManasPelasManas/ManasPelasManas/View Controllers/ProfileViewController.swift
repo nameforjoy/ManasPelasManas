@@ -8,36 +8,34 @@
 
 import UIKit
 
-class UserTest {
-    var name: String
-    var age: String
-    var bio: String
-    var picture: UIImage
-    
-    init(name: String, age: String, bio: String, pictureName: String){
-        self.name = name
-        self.age = age
-        self.bio = bio
-        self.picture = UIImage(named: pictureName)!
-    }
-}
-
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var myProfilePicture: UIImageView!
-    @IBOutlet weak var myDescription: UILabel!
-    @IBOutlet weak var myBio: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var bioTitleLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
     
-    var user = UserTest(name: "Brenda Santos", age: "22", bio: "Sou professora, natural de Belém -PA, e atualmente moro em Campinas -SP. Sou tranquila, adoro natureza e conhecer pessoas novas, fazer amigos e conhecer lugares novos. Acho interessante a idéia do coachsurfing, além de poder ter a oportunidade de conhecer pessoas, fazer amizades. Acredito no coachsurfing!", pictureName: "user")
+    
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myProfilePicture.image = user.picture
-        myDescription.text = user.name + ", " + user.age
-        myBio.text = user.bio
+        createFakeUser()
+        profilePhoto.image = UIImage(named: user!.photo)
+        bioTitleLabel.text = user!.name + ", " + "19"
+        bioLabel.text = user!.bio
     }
     
-
-    
+    func createFakeUser()
+    {
+        let dateString = "25/01/2000"
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        guard let date = dateFormatter.date(from: dateString) else { return }
+        
+        user = User(userId: 1, name: "Brenda Santos", bio: "Escorpiana, sempre buscando experiências diferentes. Adoro conhecer pessoas novas, e adoraria se essas caminhadas juntas fossem mais do que por segurança e se tornassem amizades de verdade. Ás vezes levo a Paçoca (minha cachorra e amor da minha vida) junto nos trajetos. Ela é um amor, não morde, e adora carinho :) Conheci o app por uma amiga, amei a ideia de nos juntarmos para nos sentirmos mais à vontade, e to ansiosíssima desde já para não andar com as chaves entre os dedos. Sou meio chata com pontualidade, mas aceita meus requests aí, pfvr, nunca te pedi nada hahahahah #EleNão", bornDate: date, photo: "user", authenticated: true)
+    }
 }
