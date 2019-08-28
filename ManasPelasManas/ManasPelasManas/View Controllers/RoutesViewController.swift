@@ -8,11 +8,17 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController {
+class RoutesViewController: UIViewController, UITableViewDelegate {
+    
+    @IBOutlet weak var routesTableView: UITableView!
+    
+    let routesDataSource = RoutesVCTableDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.routesTableView.delegate = self
+        self.routesTableView.dataSource = self.routesDataSource
     }
     
     @IBAction func test(_ sender: Any) {

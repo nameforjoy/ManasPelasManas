@@ -15,7 +15,7 @@ protocol HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
-class LocationSearchTable: UITableViewController {
+class LocationSearchTableViewController: UITableViewController {
     
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView? =  nil
@@ -59,7 +59,7 @@ class LocationSearchTable: UITableViewController {
 }
 
 // MARK: Update Search Results
-extension LocationSearchTable: UISearchResultsUpdating {
+extension LocationSearchTableViewController: UISearchResultsUpdating {
     
     // This method is called everytime the user changes the input on the SearchBar
     func updateSearchResults(for searchController: UISearchController) {
@@ -118,7 +118,7 @@ extension LocationSearchTable: UISearchResultsUpdating {
     
 }
 
-extension LocationSearchTable {
+extension LocationSearchTableViewController {
     
     // Number of cells in the TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -47,7 +47,7 @@ class MapViewController: UIViewController {
         
         // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
         // Instantiates the TableViewController that will show the adress results
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableViewController
         // Instantiates our search controller and displays its results on the TableView instantiated above
         self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         // Sets the TableView as the results updater as well
