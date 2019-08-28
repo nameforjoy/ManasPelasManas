@@ -16,7 +16,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var radiusView: UIImageView!
     @IBOutlet weak var radiusLabel: UILabel!
-    @IBOutlet weak var leftBarButton: UIBarButtonItem!
+    @IBOutlet weak var nextButton: UIButton!
     
     let locationManager = CLLocationManager()
     let mapRegionDegreeRange: Double = 0.02
@@ -31,10 +31,17 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // PROVISORY SETTINGS
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+        self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
+        // Changes Navigation title in case we are fetching the user's destination
+        if !self.firstTime {
+            self.navigationItem.title = "Chegada"
+        }
+        
         // Sets up CoreLocation and centers map
-        locationManager.delegate = self
-        checkAuthorizationStatus()
-        self.radiusLabel.isHidden = true
+        self.locationManager.delegate = self
+        self.checkAuthorizationStatus()
         
         // MARK: Adress Search configuration
         
@@ -53,7 +60,7 @@ class MapViewController: UIViewController {
         let searchBar = self.resultSearchController!.searchBar
         // Defines searchBar appearence
         searchBar.sizeToFit()
-        searchBar.placeholder =  "Entre com seu endereço..."
+        searchBar.placeholder =  "Entre seu endereço..."
         self.navigationItem.searchController =  self.resultSearchController!
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
@@ -78,27 +85,26 @@ class MapViewController: UIViewController {
     @IBAction func nextButton(_ sender: Any) {
         if firstTime {
             newPath.origin = getCurrentCircularRegion()
-            navigationItem.title = "Chegada"
-            firstTime = !firstTime
+            performSegue(withIdentifier: "goToDestination", sender: sender)
         }
         else {
             newPath.destiny = getCurrentCircularRegion()
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }
-    @IBAction func backButton(_ sender: Any) {
-        firstTime = true
-        leftBarButton.isEnabled = false
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TimeSetup" {
-            if let vc = segue.destination as? FullRouteViewController {
-                vc.newPath = self.newPath
+            if let destination = segue.destination as? FullRouteViewController {
+                destination.newPath = self.newPath
+            }
+        }
+        else if segue.identifier == "goToDestination" {
+            if let destination = segue.destination as? MapViewController {
+                destination.firstTime = false
             }
         }
     }
-    
     
 }
 
@@ -220,13 +226,18 @@ extension MapViewController: MKMapViewDelegate {
     // This function is called everytime map region is changed by user interaction
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
-        let radius = self.getCurrentCircularRegion().radius
-        radiusLabel.text = "Raio: \(Int(radius)) metros"
+        var radius = self.getCurrentCircularRegion().radius
+        if radius >= 1000 {
+            radius = Double(round(10 * radius) * 100)
+            radiusLabel.text = "Raio: \(Int(radius))km"
+        } else {
+            radiusLabel.text = "Raio: \(Int(radius))m"
+        }
     }
     
     // MARK: Defining Radius
-    func getCurrentCircularRegion() -> MKCircle
-    {
+    func getCurrentCircularRegion() -> MKCircle {
+        
         let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
         let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusView.frame.width / 2 , y: self.radiusView.frame.height / 2), toCoordinateFrom: self.radiusView)
         

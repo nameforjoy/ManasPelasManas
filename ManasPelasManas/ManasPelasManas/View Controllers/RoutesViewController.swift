@@ -15,17 +15,12 @@ class RoutesViewController: UIViewController {
 
     }
     
-
-    
     @IBAction func test(_ sender: Any) {
 
         let data = LoadData()
         let test = Test()
 
         let users = [data.user1, data.user2, data.user3, data.user4]
-        
-        
-        let userMatches = test.searchForMatch(journey: data.user1.journeys[1], users: users)
-        
+        let _ = test.searchForMatch(journey: data.user1.journeys[1], users: users)
     }
 }
