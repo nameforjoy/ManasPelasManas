@@ -31,11 +31,11 @@
         <attribute name="userId" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="belongs_to_cofirmed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journey" inverseName="has_confirmed_partner" inverseEntity="Journey" syncable="YES"/>
         <relationship name="belongs_to_requested" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journey" inverseName="has_requested_partner" inverseEntity="Journey" syncable="YES"/>
-        <relationship name="has_journeys" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journey" inverseName="belongs_to_user" inverseEntity="Journey" syncable="YES"/>
+        <relationship name="has_journeys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Journey" inverseName="belongs_to_user" inverseEntity="Journey" syncable="YES"/>
     </entity>
     <elements>
         <element name="Journey" positionX="-45" positionY="45" width="128" height="195"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Path" positionX="-54" positionY="90" width="128" height="30"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>

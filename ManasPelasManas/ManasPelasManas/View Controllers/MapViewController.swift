@@ -93,6 +93,8 @@ class MapViewController: UIViewController {
             newPath.destinyLong = secondArea.coordinate.longitude as NSNumber
             newPath.destinyRadius = secondArea.radius as NSNumber
             
+            //Create path coredata
+            
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }

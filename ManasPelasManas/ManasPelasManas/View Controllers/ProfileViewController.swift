@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myDescription: UILabel!
     @IBOutlet weak var myBio: UILabel!
     @objc var currentUser: User?
+    @objc var journeyTest: Journey?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +33,15 @@ class ProfileViewController: UIViewController {
         UserServices.getAuthenticatedUser { (error, user) in
             if (error == nil && user != nil) {
                 self.displayData(user: user!)
+                //print(user?.objectID)
             } else if user == nil {
                 self.createFakeUser()
+                self.createFakeJourney()
                 self.displayData(user: self.currentUser!)
             }
         }
+            
+
         
     }
     
@@ -66,6 +71,7 @@ class ProfileViewController: UIViewController {
         self.currentUser?.bornDate = date
         self.currentUser?.photo = "user"
         self.currentUser?.authenticated = 1
+        self.currentUser?.userId = UUID()
         
         UserServices.createUser(user: self.currentUser!) { error in
             if (error != nil) {
@@ -74,4 +80,24 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    func createFakeJourney() {
+        self.journeyTest = Journey()
+        self.journeyTest?.initialHour = createFormattedHour(hour: "30/08/2019T07:30")
+        self.journeyTest?.finalHour = createFormattedHour(hour: "30/08/2019T08:00")
+        self.journeyTest?.journeyId = UUID()
+        self.journeyTest?.ownerId = self.currentUser?.userId
+
+        JourneyServices.createJourney(journey: self.journeyTest!) { error in
+            if (error != nil) {
+                //treat error if necessary
+            }
+        }
+        
+    }
+    
+        func createFormattedHour(hour: String) -> Date {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
+            return (formatter.date(from: hour))!
+        }
 }

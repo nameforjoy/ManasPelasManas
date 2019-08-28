@@ -135,4 +135,36 @@ class UserDAO: DAO {
         }
 
     }
+    
+    
+    
+    
+    static func findById(objectID: UUID) throws -> User? {
+        // list of projects to be returned
+        var user: [User]
+        
+        do {
+            // creating fetch request
+            let request:NSFetchRequest<User> = fetchRequest()
+            
+            request.predicate = NSPredicate(format: "userId == %@", objectID as CVarArg)
+//            let brenda = "Brenda Santos"
+//            request.predicate = NSPredicate(format: "name =  %@", brenda)
+
+            
+            // perform search
+            user = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        }
+        catch {
+            throw Errors.DatabaseFailure
+        }
+        
+        switch user.count {
+        case 1:
+            return user[0]
+        default:
+            throw Errors.DatabaseFailure
+        }
+        
+    }
 }
