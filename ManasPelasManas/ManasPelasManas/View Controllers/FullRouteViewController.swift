@@ -128,10 +128,11 @@ class FullRouteViewController: UIViewController {
         // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
         if self.selectedFirstCell  && self.latestDate != nil {
             self.datePicker.maximumDate = self.latestDate
+            self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
         }
         else if !self.selectedFirstCell && self.earlierDate != nil {
             self.datePicker.minimumDate = self.earlierDate
-            self.datePicker.maximumDate = self.datePicker.minimumDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
+            self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
     }
     
