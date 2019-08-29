@@ -81,6 +81,7 @@ class ProfileViewController: UIViewController {
                 //treat error if necessary
                 
                 self.currentUser?.has_journeys = [self.journeyTest!]
+                self.journeyTest?.ownerId = self.currentUser?.userId
                 
                 UserServices.updateUser(user: self.currentUser!, { (error) in
                     if (error == nil) {
@@ -121,7 +122,6 @@ class ProfileViewController: UIViewController {
         self.journeyTest?.initialHour = createFormattedHour(hour: "30/08/2019T07:30")
         self.journeyTest?.finalHour = createFormattedHour(hour: "30/08/2019T08:00")
         self.journeyTest?.journeyId = UUID()
-        self.journeyTest?.ownerId = self.currentUser?.userId
     
 
         JourneyServices.createJourney(journey: self.journeyTest!) { error in
