@@ -70,7 +70,10 @@ class JourneyCompanionsViewController: UIViewController {
             if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
-                        print(user?.name)
+                        self.userMatches.append(user!)
+                        OperationQueue.main.addOperation {
+                            self.companionsTableView.reloadData()
+                        }
                     }
                 }
             }
@@ -90,14 +93,12 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
         
         // get the season data to be displayed
-        if let user: User = self.userMatches[indexPath.row] {
-            
-            // fill cell with extracted information
-            cell.userPhoto.image = UIImage(named: user.photo!)
-            cell.nameLabel.text = user.name?.description
-            cell.descriptionLabel.text = user.description.description
-            
-        }
+        let user: User = self.userMatches[indexPath.row]
+        // fill cell with extracted information
+        cell.userPhoto.image = UIImage(named: user.photo!)
+        cell.nameLabel.text = user.name?.description
+        cell.descriptionLabel.text = user.description.description
+        
         return cell
     }
 
