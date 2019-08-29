@@ -28,6 +28,7 @@
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
+		15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */; };
 		8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */; };
 		8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */; };
 		8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */; };
@@ -66,6 +67,7 @@
 		15A6A8EC230C11A1004E537D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsDataSource.swift; sourceTree = "<group>"; };
 		8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTimeTableViewCell.swift; sourceTree = "<group>"; };
 		8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsCell.swift; sourceTree = "<group>"; };
 		8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesVCTableDataSource.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		8D74B93D23162B650014FCDC /* Object Managers */ = {
 			isa = PBXGroup;
 			children = (
+				15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */,
 				8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */,
 				8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */,
 				8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */,
@@ -280,6 +283,7 @@
 				8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */,
 				1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */,
 				15A31D5523154F8B007241D2 /* CoreDataManager.swift in Sources */,
+				15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
 				8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */,
@@ -451,7 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = KDP22XDFSU;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -470,7 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = KDP22XDFSU;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

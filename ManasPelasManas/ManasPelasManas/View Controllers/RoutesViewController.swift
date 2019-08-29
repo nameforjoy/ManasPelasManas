@@ -78,8 +78,8 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         if let journey:Journey = self.journeys[indexPath.row] {
             // fill cell with extracted information
             cell.dateTitle.text = journey.initialHour?.description
-            cell.toLabel.text = journey.initialHour?.description
-            cell.fromLabel.text = journey.finalHour?.description
+            cell.toLabel.text = journey.has_path.originLat?.description
+            cell.fromLabel.text = journey.has_path.destinyLat?.description
         }
         return cell
     }

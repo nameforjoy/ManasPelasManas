@@ -25,25 +25,26 @@ class Test {
         let intervalB = finalHourB.timeIntervalSince(initialHourA)
         let dateIntervalA = DateInterval(start: initialHourA, duration: intervalA)
         let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
-        return dateIntervalA.intersects(dateIntervalB)
+        //return dateIntervalA.intersects(dateIntervalB)
+        return true
     }
 
     
     
-//    func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-//        let mkcOriginA = (journeyA.has_path?.getCircle(stage: .origin))!
-//        let mkcOriginB = (journeyB.has_path?.getCircle(stage: .origin))!
-//        let mkcDestinyA = (journeyA.has_path?.getCircle(stage: .destiny))!
-//        let mkcDestinyB = (journeyB.has_path?.getCircle(stage: .destiny))!
-//
-//        let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
-//        let matchDestiny = checkMatchingRegion(regionA: mkcDestinyA, regionB: mkcDestinyB)
-//        let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
-//        if matchOrigin && matchDestiny && matchHour {
-//            return true
-//        }
-//        return false
-//    }
+    func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
+        let mkcOriginA = (journeyA.has_path.getCircle(stage: .origin))
+        let mkcOriginB = (journeyB.has_path.getCircle(stage: .origin))
+        let mkcDestinyA = (journeyA.has_path.getCircle(stage: .destiny))
+        let mkcDestinyB = (journeyB.has_path.getCircle(stage: .destiny))
+
+        let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
+        let matchDestiny = checkMatchingRegion(regionA: mkcDestinyA, regionB: mkcDestinyB)
+        let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+        if matchOrigin && matchDestiny && matchHour {
+            return true
+        }
+        return false
+    }
     
     
 //ESPERAR PARA QUANDO FOR PRECISO!!!!!!
