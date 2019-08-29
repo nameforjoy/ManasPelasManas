@@ -12,7 +12,7 @@ import CoreData
 class Journey: NSManagedObject {
     @NSManaged public var ownerId: UUID?
     @NSManaged public var journeyId: UUID?
-    @NSManaged public var has_path: Path
+    @NSManaged public var has_path: Set<Path>
     @NSManaged public var date: Date?
     @NSManaged public var initialHour: Date?
     @NSManaged public var finalHour: Date?

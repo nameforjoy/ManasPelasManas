@@ -121,8 +121,8 @@ class MapViewController: UIViewController {
             if let destination = segue.destination as? FullRouteViewController {
                 destination.newPath = self.newPath
             if let vc = segue.destination as? FullRouteViewController {
-                vc.newPath = self.newPath
-                //vc.pathId = self.pathId
+                //vc.newPath = self.newPath
+                vc.pathId = self.pathId
             }
         }
             else if segue.identifier == "goToDestination" {

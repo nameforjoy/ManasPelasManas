@@ -11,6 +11,7 @@ import MapKit
 
 class FullRouteViewController: UIViewController {
     
+    @objc var currentUser: User?
     @objc var newPath: Path?
     @objc var newJourney: Journey?
     var pathId: UUID?
@@ -28,20 +29,8 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tapView: UIView!
-  
-    //    MARK: Trying to retrieve Path by the UUID from the segue
-//    override func viewWillAppear(_ animated: Bool) {
-//        PathServices.findById(objectID: pathId!) { (error, path) in
-//            if (error == nil && path != nil){
-//                self.newPath = path
-//            } else {
-//                //treat error
-//            }
-//        }
-//    }
     
     override func viewDidLoad() {
-        // TODO: Display 2 annotations and 2 overlays
         
         self.journeyTimeTableView.dataSource = self
         self.journeyTimeTableView.delegate = self
@@ -54,24 +43,70 @@ class FullRouteViewController: UIViewController {
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
         
-        circleA = newPath?.getCircle(stage: .origin)
-        circleB = newPath?.getCircle(stage: .destiny)
         
-        addAnnotations()
+        // MARK: Retrieving Path - Core Data
         
-        mapView.addAnnotations([annotationA!, annotationB!])
-        mapView.addOverlays([circleA!, circleB!])
-        self.zoomTo(regionA: circleA!, regionB: circleB!)
+        PathServices.findById(objectID: pathId!) { (error, path) in
+            if (error == nil && path != nil){
+                self.newPath = path
+                self.displayMapItems(path: path)
+                self.addJourney()
+            } else {
+                //treat error
+            }
+        }
         
-        // TODO: Display 2 annotations and 2 overlays
+        // MARK: Retrieving Authenticated User - Core Data
+        
+        UserServices.getAuthenticatedUser { (error, user) in
+            if (error == nil && user != nil) {
+                self.currentUser = user
+            } else {
+                //treat error
+            }
+        }
 
-//        addAnnotations()
-//        
-//        mapView.addAnnotations([annotationA!, annotationB!])
-//        mapView.addOverlays([(newPath?.origin)!, (newPath?.destiny)!])
-//
-//        zoomTo(regionA: newPath!.origin! , regionB: newPath!.destiny!)
     }
+
+    // MARK: Journey Creation - Core Data - Futuramente na PrepareSegue
+
+    func addJourney(){
+
+        //criar Journey no CoreData
+        newJourney = Journey()
+        
+        //set attributes for newJorney
+        newJourney?.ownerId = currentUser?.userId
+        newJourney?.journeyId = UUID()
+        //newJourney?.has_path.inserT //newPath!
+        //newJourney?.initialHour = DateFormatter().date(from: earlierLeave!)
+        //newJourney?.finalHour = DateFormatter().date(from: latestLeave!)
+        
+        
+        JourneyServices.createJourney(journey: newJourney!) { error in
+            if (error != nil) {
+                //treat error
+            }
+        }
+        
+    }
+    
+    // MARK: Displaying Map Data
+    
+    func displayMapItems(path: Path?) {
+        
+        self.circleA = path?.getCircle(stage: .origin)
+        self.circleB = path?.getCircle(stage: .destiny)
+        
+        self.addAnnotations()
+        
+        self.mapView.addAnnotations([annotationA!, annotationB!])
+        self.mapView.addOverlays([self.circleA!, self.circleB!])
+        
+        self.zoomTo(regionA: self.circleA!, regionB: self.circleB!)
+    }
+    
+    // MARK: DatePicker Setup
     
     func datePickerConfig() {
         datePicker?.datePickerMode = .dateAndTime
@@ -133,25 +168,7 @@ extension FullRouteViewController: MKMapViewDelegate {
         }
         return MKPolylineRenderer()
     }
-    
-    @IBAction func confirmButton(_ sender: Any) {
-        
-        //criar Journey no CoreData
-        newJourney = Journey()
-        
-        //set attributes for newJorney
-        //date from datepicker
-        //newJourney?.has_path = newPath!
-        newJourney?.journeyId = UUID()
-        
-        JourneyServices.createJourney(journey: newJourney!) { error in
-            if (error != nil){
-                //treat error
-            }
-        }
-        
-    }
-    
+
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {
         annotationA = MKPointAnnotation()

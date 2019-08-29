@@ -7,6 +7,7 @@
         <attribute name="journeyId" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="ownerId" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="has_path" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Path" syncable="YES"/>
     </entity>
     <entity name="Path" representedClassName=".Path" syncable="YES">
         <attribute name="destinyLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -27,7 +28,7 @@
         <relationship name="has_journeys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Journey" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Journey" positionX="-45" positionY="45" width="128" height="135"/>
+        <element name="Journey" positionX="-45" positionY="45" width="128" height="150"/>
         <element name="Path" positionX="-54" positionY="90" width="128" height="150"/>
         <element name="User" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
