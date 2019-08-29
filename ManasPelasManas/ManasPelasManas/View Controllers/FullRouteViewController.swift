@@ -18,15 +18,12 @@ class FullRouteViewController: UIViewController {
     
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
-    var earlierLeave: String? = nil
-    var latestLeave: String? = nil
+    var earlierDate: Date? = nil
+    var latestDate: Date? = nil
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8
     var circleA: MKCircle?
     var circleB: MKCircle?
-    
-    var earlierDate: Date?
-    var latestDate: Date?
     
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
@@ -48,7 +45,7 @@ class FullRouteViewController: UIViewController {
         
         
         // MARK: Retrieving Path - Core Data
-        
+
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil){
                 self.newPath = path
@@ -112,39 +109,37 @@ class FullRouteViewController: UIViewController {
     // MARK: DatePicker Setup
     
     func datePickerConfig() {
-        datePicker?.datePickerMode = .dateAndTime
-        datePicker?.backgroundColor = .white
-        datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-        datePicker?.isHidden = false
+        self.datePicker?.datePickerMode = .dateAndTime
+        self.datePicker?.backgroundColor = .white
+        self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+        self.datePicker?.isHidden = false
 
         // Set minimum and maximum date
-        datePicker.minimumDate = Date()
+        self.datePicker.minimumDate = Date()
         
-        // Setting date limits
+        // Setting date format
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, HH:mm"
-        datePicker.minimumDate = Date()
+        tapView.isUserInteractionEnabled = true
+        
+        self.datePicker.minimumDate = Date() //
+        self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
         
         // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
-        if self.selectedFirstCell && self.latestLeave != nil {
-            datePicker.maximumDate = DateFormatter().date(from: self.latestLeave!)
+        if self.selectedFirstCell  && self.latestDate != nil {
+            self.datePicker.maximumDate = self.latestDate
         }
-        else if !self.selectedFirstCell && self.earlierLeave != nil {
-            datePicker.minimumDate = DateFormatter().date(from: self.earlierLeave!)
+        else if !self.selectedFirstCell && self.earlierDate != nil {
+            self.datePicker.minimumDate = self.earlierDate
+            self.datePicker.maximumDate = self.datePicker.minimumDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
-        datePicker.maximumDate = datePicker.minimumDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
-        tapView.isUserInteractionEnabled = true
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, HH:mm"
         
         if self.selectedFirstCell {
-            self.earlierLeave = dateFormatter.string(from: datePicker.date)
             self.earlierDate = datePicker.date
         } else {
-            self.latestLeave = dateFormatter.string(from: datePicker.date)
             self.latestDate = datePicker.date
         }
         self.journeyTimeTableView.reloadData()
@@ -229,17 +224,31 @@ extension FullRouteViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyTimeCell") as! JourneyTimeTableViewCell
         cell.selectionStyle = .none
-        cell.boxView.backgroundColor = UIColor.white
+        // cell.boxView.backgroundColor = UIColor.white
 
         switch indexPath.row {
         case 0:
             cell.leftLabel.text = "Posso sair a partir de"
-            cell.rightLabel.text = self.earlierLeave
+            if let time = self.earlierDate {
+                cell.rightLabel.text = dateToString(date: time)
+            } else {
+                cell.rightLabel.text = " "
+            }
         default:
-            cell.leftLabel.text = "Preciso sair até"
-            cell.rightLabel.text = self.latestLeave
+            cell.leftLabel.text = "Preciso sair até as"
+            if let time = self.latestDate {
+                cell.rightLabel.text = dateToString(date: time)
+            } else {
+                cell.rightLabel.text = " "
+            }
         }
         return cell
+    }
+    
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, HH:mm"
+        return dateFormatter.string(from: date)
     }
 }
 
@@ -251,6 +260,10 @@ extension FullRouteViewController: UITableViewDelegate {
         datePickerConfig()
         let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
         cell.boxView.backgroundColor = UIColor.red
+        
+        let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
+        let otherCell = tableView.cellForRow(at: IndexPath(row: otherCellRowIndex, section: indexPath.section)) as! JourneyTimeTableViewCell
+        otherCell.boxView.backgroundColor = UIColor.white
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
