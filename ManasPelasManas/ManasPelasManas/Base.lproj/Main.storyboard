@@ -898,7 +898,6 @@
                                 </state>
                                 <connections>
                                     <action selector="confirmButton:" destination="Rfn-Rd-XAt" eventType="touchUpInside" id="Xcz-Fn-K2A"/>
-                                    <segue destination="4VQ-B5-IsG" kind="show" id="uEU-w4-TFE"/>
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-nG-V9B">
@@ -989,6 +988,6 @@
         <image name="viagens-vazado" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uEU-w4-TFE"/>
+        <segue reference="5RH-hW-wuu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -16,6 +16,7 @@ class RoutesViewController: UIViewController {
     
     fileprivate var journeys: [Journey] = []
     var autheticatedUser = User()
+    var passJourneyUUID: UUID? = nil
     
     //let routesDataSource = RoutesVCTableDataSource()
     var newMatches: Bool = true
@@ -58,6 +59,14 @@ class RoutesViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "selectJourney" {
+            if let destination = segue.destination as? JourneyCompanionsViewController {
+                destination.journeyId = self.passJourneyUUID
+            }
+        }
+    }
+    
 }
 
 extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -71,7 +80,7 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
         
         // get the season data to be displayed
-        if let journey:Journey = self.journeys[indexPath.row] {
+        if let journey: Journey = self.journeys[indexPath.row] {
             // fill cell with extracted information
             cell.dateTitle.text = journey.initialHour?.description
             cell.toLabel.text = journey.has_path.originLat?.description
@@ -81,6 +90,8 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.passJourneyUUID = self.journeys[indexPath.row].journeyId
         performSegue(withIdentifier: "selectJourney", sender: self)
     }
 }
