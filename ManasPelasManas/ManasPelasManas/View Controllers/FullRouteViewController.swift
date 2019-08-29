@@ -25,9 +25,6 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
-    var earlierDate: Date?
-    var latestDate: Date?
-    
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
