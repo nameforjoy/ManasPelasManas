@@ -26,9 +26,23 @@ class MapViewController: UIViewController {
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
+    
     //var newPath: PathTest = PathTest()
     @objc var newPath: Path?
     var pathId: UUID?
+    
+    // MARK: Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Changes Navigation title in case we are fetching the user's destination
+        // They are in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
+        if self.firstTime {
+            self.navigationItem.title = "De onde você pode sair?"
+        } else {
+            self.navigationItem.title = "Para onde você vai?"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +50,6 @@ class MapViewController: UIViewController {
         // PROVISORY SETTINGS
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
         self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
-        // Changes Navigation title in case we are fetching the user's destination
-        if !self.firstTime {
-            self.navigationItem.title = "Para onde você vai?"
-        }
         
         // Sets up CoreLocation and centers map
         self.locationManager.delegate = self
@@ -85,8 +95,8 @@ class MapViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func nextButton(_ sender: Any) {
+        
         if firstTime {
-            
             newPath = Path()
             self.newPath?.pathId = UUID()
             self.pathId = newPath?.pathId
@@ -95,11 +105,10 @@ class MapViewController: UIViewController {
             self.newPath?.originLat = firstArea.coordinate.latitude as NSNumber
             self.newPath?.originLong = firstArea.coordinate.longitude as NSNumber
             self.newPath?.originRadius = firstArea.radius as NSNumber
-    
-            navigationItem.title = "Chegada"
-            firstTime = !firstTime
-        } else
-        {
+            
+            performSegue(withIdentifier: "goToDestination", sender: sender)
+        }
+        else {
             let secondArea = self.getCurrentCircularRegion()
             self.newPath?.destinyLat = secondArea.coordinate.latitude as NSNumber
             self.newPath?.destinyLong = secondArea.coordinate.longitude as NSNumber
@@ -111,24 +120,21 @@ class MapViewController: UIViewController {
                     //treat error
                 }
             }
-            
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "TimeSetup" {
             if let destination = segue.destination as? FullRouteViewController {
-                destination.newPath = self.newPath
-            if let vc = segue.destination as? FullRouteViewController {
-                //vc.newPath = self.newPath
-                vc.pathId = self.pathId
+                destination.pathId = self.newPath?.pathId
             }
         }
-            else if segue.identifier == "goToDestination" {
-                if let destination = segue.destination as? MapViewController {
-                    destination.firstTime = false
-                }
+        else if segue.identifier == "goToDestination" {
+            if let destination = segue.destination as? MapViewController {
+                destination.firstTime = false
+                destination.newPath = self.newPath
             }
         }
     }
