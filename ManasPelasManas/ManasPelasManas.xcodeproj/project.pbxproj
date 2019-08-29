@@ -31,8 +31,6 @@
 		15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */; };
 		8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */; };
 		8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */; };
-		8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */; };
-		8D74B949231649FB0014FCDC /* CompanionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */; };
 		8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94A23164A160014FCDC /* CompanionCell.swift */; };
 		8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */; };
 		8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */; };
@@ -70,8 +68,6 @@
 		15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsDataSource.swift; sourceTree = "<group>"; };
 		8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTimeTableViewCell.swift; sourceTree = "<group>"; };
 		8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsCell.swift; sourceTree = "<group>"; };
-		8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesVCTableDataSource.swift; sourceTree = "<group>"; };
-		8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionsDataSource.swift; sourceTree = "<group>"; };
 		8D74B94A23164A160014FCDC /* CompanionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionCell.swift; sourceTree = "<group>"; };
 		8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyCompanionsViewController.swift; sourceTree = "<group>"; };
 		8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionProfileViewController.swift; sourceTree = "<group>"; };
@@ -177,8 +173,6 @@
 				15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */,
 				8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */,
 				8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */,
-				8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */,
-				8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */,
 				8D74B94A23164A160014FCDC /* CompanionCell.swift */,
 			);
 			path = "Object Managers";
@@ -286,7 +280,6 @@
 				15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
-				8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */,
 				8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */,
 				15A31D6A23157980007241D2 /* PathServices.swift in Sources */,
 				15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */,
@@ -295,7 +288,6 @@
 				15A31D58231555D7007241D2 /* DAO.swift in Sources */,
 				B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
-				8D74B949231649FB0014FCDC /* CompanionsDataSource.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
 				8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */,
 				15A31D61231557D6007241D2 /* PathDAO.swift in Sources */,

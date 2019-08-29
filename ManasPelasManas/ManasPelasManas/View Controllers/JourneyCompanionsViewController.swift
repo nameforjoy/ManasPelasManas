@@ -31,6 +31,7 @@ class JourneyCompanionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.companionsTableView.dataSource = self
         self.companionsTableView.delegate = self
         self.companionsTableView.dataSource = self
         
@@ -97,5 +98,9 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
             
         }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showCompanionProfile", sender: self)
     }
 }
