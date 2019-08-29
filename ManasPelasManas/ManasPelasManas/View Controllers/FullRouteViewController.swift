@@ -170,30 +170,36 @@ extension FullRouteViewController: MKMapViewDelegate {
                 self.newJourney!.ownerId = user!.userId
                 if(self.newPath != nil) {
                     
-               //criar metodo no services para salvar path antes de criar journey
-               self.newPath?.managedObjectContext?.insert(self.newJourney!)
-                do {
-                try self.newPath?.managedObjectContext?.save()
-                } catch {
-                    print("Ooops \(error)")
-                }
-                self.newJourney!.has_path = self.newPath!
-                    JourneyServices.createJourney(journey: self.newJourney!, { (error) in
-                        if (error != nil) {
-                            
+                   //criar metodo no services para salvar path antes de criar journey
+                   self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                        do {
+                            try self.newPath?.managedObjectContext?.save()
+                        } catch {
+                            print("Ooops \(error)")
                         }
-                    })
-                }
+                        self.newJourney!.has_path = self.newPath!
+                            JourneyServices.createJourney(journey: self.newJourney!, { (error) in
+                                if (error == nil) {
+                                    DispatchQueue.main.async {
+                                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                                    }
+                                    
+                                } else {
+                                    print(error?.localizedDescription)
+                                }
+                            })
+                        }
             }
         })
-        
-        
-        
-        
-        //checkMatch
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "checkForMatches" {
+            if let destination = segue.destination as? JourneyCompanionsViewController {
+                destination.journeyId = self.newJourney?.journeyId
+            }
+        }
+    }
     
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {

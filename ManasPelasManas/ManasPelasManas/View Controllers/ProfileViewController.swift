@@ -100,8 +100,8 @@ class ProfileViewController: UIViewController {
     
     func createFakeJourney() {
         self.journeyTest = Journey()
-        self.journeyTest?.initialHour = createFormattedHour(hour: "30/08/2019T07:30")
-        self.journeyTest?.finalHour = createFormattedHour(hour: "30/08/2019T08:00")
+        self.journeyTest?.initialHour = createFormattedHour(hour: "29/08/2019T15:30")
+        self.journeyTest?.finalHour = createFormattedHour(hour: "29/08/2019T16:00")
         self.journeyTest?.journeyId = UUID()
 
         createCBToMorasPath()

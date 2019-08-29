@@ -812,7 +812,6 @@
                                 </state>
                                 <connections>
                                     <action selector="confirmButton:" destination="Rfn-Rd-XAt" eventType="touchUpInside" id="Xcz-Fn-K2A"/>
-                                    <segue destination="txj-4c-bng" kind="show" id="pZT-2c-hjv"/>
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-nG-V9B">
@@ -855,6 +854,7 @@
                         <outlet property="journeyTimeTableView" destination="IT4-JS-Xmm" id="aWS-dQ-vtg"/>
                         <outlet property="mapView" destination="dyK-8H-CYA" id="XNI-Ih-Ljb"/>
                         <outlet property="tapView" destination="Iju-4Z-NNr" id="qb8-B6-OPX"/>
+                        <segue destination="4VQ-B5-IsG" kind="show" identifier="checkForMatches" id="5RH-hW-wuu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7B-yC-1iO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -889,6 +889,6 @@
         <image name="user" width="1000" height="667"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pZT-2c-hjv"/>
+        <segue reference="5RH-hW-wuu"/>
     </inferredMetricsTieBreakers>
 </document>
