@@ -26,7 +26,23 @@ class MapViewController: UIViewController {
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
-    var newPath: Path = Path()
+    
+    //var newPath: PathTest = PathTest()
+    @objc var newPath: Path?
+    var pathId: UUID?
+    
+    // MARK: Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Changes Navigation title in case we are fetching the user's destination
+        // They are in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
+        if self.firstTime {
+            self.navigationItem.title = "De onde você pode sair?"
+        } else {
+            self.navigationItem.title = "Para onde você vai?"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +50,6 @@ class MapViewController: UIViewController {
         // PROVISORY SETTINGS
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
         self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
-        // Changes Navigation title in case we are fetching the user's destination
-        if !self.firstTime {
-            self.navigationItem.title = "Para onde você vai?"
-        }
         
         // Sets up CoreLocation and centers map
         self.locationManager.delegate = self
@@ -45,7 +57,7 @@ class MapViewController: UIViewController {
         
         // MARK: Adress Search configuration
         
-        // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // CREATES SEARCH CONTROLLER AN m D INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
         // Instantiates the TableViewController that will show the adress results
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableViewController
         // Instantiates our search controller and displays its results on the TableView instantiated above
@@ -77,31 +89,52 @@ class MapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        centerMapOnUserLocation()
+        self.centerMapOnUserLocation()
     }
     
     // MARK: Actions
     
     @IBAction func nextButton(_ sender: Any) {
+        
         if firstTime {
-            newPath.origin = getCurrentCircularRegion()
+            newPath = Path()
+            self.newPath?.pathId = UUID()
+            self.pathId = newPath?.pathId
+            
+            let firstArea = self.getCurrentCircularRegion()
+            self.newPath?.originLat = firstArea.coordinate.latitude as NSNumber
+            self.newPath?.originLong = firstArea.coordinate.longitude as NSNumber
+            self.newPath?.originRadius = firstArea.radius as NSNumber
+            
             performSegue(withIdentifier: "goToDestination", sender: sender)
         }
         else {
-            newPath.destiny = getCurrentCircularRegion()
+            let secondArea = self.getCurrentCircularRegion()
+            self.newPath?.destinyLat = secondArea.coordinate.latitude as NSNumber
+            self.newPath?.destinyLong = secondArea.coordinate.longitude as NSNumber
+            self.newPath?.destinyRadius = secondArea.radius as NSNumber
+            
+            //Create path coredata
+            PathServices.createPath(path: self.newPath!) { error in
+                if (error != nil) {
+                    //treat error
+                }
+            }
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "TimeSetup" {
             if let destination = segue.destination as? FullRouteViewController {
-                destination.newPath = self.newPath
+                destination.pathId = self.newPath?.pathId
             }
         }
         else if segue.identifier == "goToDestination" {
             if let destination = segue.destination as? MapViewController {
                 destination.firstTime = false
+                destination.newPath = self.newPath
             }
         }
     }
@@ -115,8 +148,9 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            //zoomMapTo(location: location)
             self.locationReference = location
-            zoomMapTo(location: location)
+            self.zoomMapTo(location: location)
         }
         self.locationManager.stopUpdatingLocation()
     }
@@ -132,7 +166,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func centerMapOnUserLocation() {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            zoomMapTo(location: location)
+            self.zoomMapTo(location: location)
         }
     }
     

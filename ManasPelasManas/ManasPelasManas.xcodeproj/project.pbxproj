@@ -14,14 +14,23 @@
 		1511D1FC230EB47400C0DF60 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FB230EB47400C0DF60 /* Status.swift */; };
 		1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FD230EB6C000C0DF60 /* LoadData.swift */; };
 		1511D200230EF32500C0DF60 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511D1FF230EF32500C0DF60 /* Test.swift */; };
+		15A31D5523154F8B007241D2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D5423154F8B007241D2 /* CoreDataManager.swift */; };
+		15A31D58231555D7007241D2 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D57231555D7007241D2 /* DAO.swift */; };
+		15A31D5A231555FA007241D2 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D59231555FA007241D2 /* UserDAO.swift */; };
+		15A31D5D23155656007241D2 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D5C23155656007241D2 /* Errors.swift */; };
+		15A31D5F231556B3007241D2 /* JourneyDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D5E231556B3007241D2 /* JourneyDAO.swift */; };
+		15A31D61231557D6007241D2 /* PathDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D60231557D6007241D2 /* PathDAO.swift */; };
+		15A31D6423155EE1007241D2 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6323155EE1007241D2 /* UserServices.swift */; };
+		15A31D6623155FBE007241D2 /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6523155FBE007241D2 /* QueueManager.swift */; };
+		15A31D682315769D007241D2 /* JourneyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D672315769D007241D2 /* JourneyServices.swift */; };
+		15A31D6A23157980007241D2 /* PathServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A31D6923157980007241D2 /* PathServices.swift */; };
 		15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A6A8E5230C11A0004E537D /* AppDelegate.swift */; };
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
+		15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */; };
 		8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */; };
 		8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */; };
-		8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */; };
-		8D74B949231649FB0014FCDC /* CompanionsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */; };
 		8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94A23164A160014FCDC /* CompanionCell.swift */; };
 		8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */; };
 		8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */; };
@@ -40,16 +49,25 @@
 		1511D1FB230EB47400C0DF60 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		1511D1FD230EB6C000C0DF60 /* LoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadData.swift; sourceTree = "<group>"; };
 		1511D1FF230EF32500C0DF60 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		15A31D5423154F8B007241D2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		15A31D57231555D7007241D2 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
+		15A31D59231555FA007241D2 /* UserDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		15A31D5C23155656007241D2 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		15A31D5E231556B3007241D2 /* JourneyDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDAO.swift; sourceTree = "<group>"; };
+		15A31D60231557D6007241D2 /* PathDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathDAO.swift; sourceTree = "<group>"; };
+		15A31D6323155EE1007241D2 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		15A31D6523155FBE007241D2 /* QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
+		15A31D672315769D007241D2 /* JourneyServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyServices.swift; sourceTree = "<group>"; };
+		15A31D6923157980007241D2 /* PathServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathServices.swift; sourceTree = "<group>"; };
 		15A6A8E2230C11A0004E537D /* ManasPelasManas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManasPelasManas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A6A8E5230C11A0004E537D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15A6A8EA230C11A0004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15A6A8EC230C11A1004E537D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsDataSource.swift; sourceTree = "<group>"; };
 		8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTimeTableViewCell.swift; sourceTree = "<group>"; };
 		8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsCell.swift; sourceTree = "<group>"; };
-		8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesVCTableDataSource.swift; sourceTree = "<group>"; };
-		8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionsDataSource.swift; sourceTree = "<group>"; };
 		8D74B94A23164A160014FCDC /* CompanionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionCell.swift; sourceTree = "<group>"; };
 		8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyCompanionsViewController.swift; sourceTree = "<group>"; };
 		8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionProfileViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +92,12 @@
 		15012AA823144BDB006617B1 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				15A31D6223155E45007241D2 /* Business */,
+				15A31D56231555C6007241D2 /* DAO */,
 				15012AA923144C46006617B1 /* ManasPelasManas.xcdatamodeld */,
+				15A31D5423154F8B007241D2 /* CoreDataManager.swift */,
+				15A31D5C23155656007241D2 /* Errors.swift */,
+				15A31D6523155FBE007241D2 /* QueueManager.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -90,6 +113,27 @@
 				1511D1FF230EF32500C0DF60 /* Test.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		15A31D56231555C6007241D2 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				15A31D57231555D7007241D2 /* DAO.swift */,
+				15A31D59231555FA007241D2 /* UserDAO.swift */,
+				15A31D5E231556B3007241D2 /* JourneyDAO.swift */,
+				15A31D60231557D6007241D2 /* PathDAO.swift */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		15A31D6223155E45007241D2 /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				15A31D6323155EE1007241D2 /* UserServices.swift */,
+				15A31D672315769D007241D2 /* JourneyServices.swift */,
+				15A31D6923157980007241D2 /* PathServices.swift */,
+			);
+			path = Business;
 			sourceTree = "<group>";
 		};
 		15A6A8D9230C11A0004E537D = {
@@ -126,10 +170,9 @@
 		8D74B93D23162B650014FCDC /* Object Managers */ = {
 			isa = PBXGroup;
 			children = (
+				15ED3CAC23184576002A2745 /* FullJourneyDetailsDataSource.swift */,
 				8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */,
 				8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */,
-				8D74B946231643010014FCDC /* RoutesVCTableDataSource.swift */,
-				8D74B948231649FB0014FCDC /* CompanionsDataSource.swift */,
 				8D74B94A23164A160014FCDC /* CompanionCell.swift */,
 			);
 			path = "Object Managers";
@@ -233,22 +276,31 @@
 				B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */,
 				8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */,
 				1511D1FE230EB6C000C0DF60 /* LoadData.swift in Sources */,
+				15A31D5523154F8B007241D2 /* CoreDataManager.swift in Sources */,
+				15ED3CAD23184576002A2745 /* FullJourneyDetailsDataSource.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
-				8D74B947231643010014FCDC /* RoutesVCTableDataSource.swift in Sources */,
 				8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */,
+				15A31D6A23157980007241D2 /* PathServices.swift in Sources */,
 				15012AAB23144C46006617B1 /* ManasPelasManas.xcdatamodeld in Sources */,
 				8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
+				15A31D58231555D7007241D2 /* DAO.swift in Sources */,
 				B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
-				8D74B949231649FB0014FCDC /* CompanionsDataSource.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
 				8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */,
+				15A31D61231557D6007241D2 /* PathDAO.swift in Sources */,
 				1511D200230EF32500C0DF60 /* Test.swift in Sources */,
 				1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */,
 				8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */,
+				15A31D6423155EE1007241D2 /* UserServices.swift in Sources */,
+				15A31D6623155FBE007241D2 /* QueueManager.swift in Sources */,
+				15A31D5F231556B3007241D2 /* JourneyDAO.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
+				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
+				15A31D682315769D007241D2 /* JourneyServices.swift in Sources */,
+				15A31D5A231555FA007241D2 /* UserDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = KDP22XDFSU;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -414,7 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = KDP22XDFSU;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

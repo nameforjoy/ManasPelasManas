@@ -8,21 +8,29 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class FullRouteViewController: UIViewController {
     
-    var newPath: Path?
+    @objc var currentUser: User?
+    @objc var newPath: Path?
+    @objc var newJourney: Journey?
+    var pathId: UUID?
+    
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
-    var earlierLeave: String? = nil
-    var latestLeave: String? = nil
+    var earlierDate: Date? = nil
+    var latestDate: Date? = nil
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8
+    var circleA: MKCircle?
+    var circleB: MKCircle?
     
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tapView: UIView!
+    @IBOutlet weak var nextButton: UIButton!
     
     override func viewDidLoad() {
         
@@ -36,50 +44,87 @@ class FullRouteViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
-        
-        // TODO: Display 2 annotations and 2 overlays
 
-//        addAnnotations()
-//        
-//        mapView.addAnnotations([annotationA!, annotationB!])
-//        mapView.addOverlays([(newPath?.origin)!, (newPath?.destiny)!])
-//
-//        zoomTo(regionA: newPath!.origin! , regionB: newPath!.destiny!)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+        
+        // MARK: Retrieving Path - Core Data
+        PathServices.findById(objectID: pathId!) { (error, path) in
+            if (error == nil && path != nil){
+                self.newPath = path
+                self.displayMapItems(path: path)
+            } else {
+                //treat error
+            }
+        }
+        
+        // MARK: Retrieving Authenticated User - Core Data
+        UserServices.getAuthenticatedUser { (error, user) in
+            if (error == nil && user != nil) {
+                self.currentUser = user
+            } else {
+                //treat error
+            }
+        }
+        
+    }
+
+ 
+    
+    // MARK: Displaying Map Data
+    
+    func displayMapItems(path: Path?) {
+        
+        self.circleA = path?.getCircle(stage: .origin)
+        self.circleB = path?.getCircle(stage: .destiny)
+        
+        self.addAnnotations()
+        
+        self.mapView.addAnnotations([annotationA!, annotationB!])
+        self.mapView.addOverlays([self.circleA!, self.circleB!])
+        
+        self.zoomTo(regionA: self.circleA!, regionB: self.circleB!)
+    }
+    
+    // MARK: DatePicker Setup
+    
     func datePickerConfig() {
-        datePicker?.datePickerMode = .dateAndTime
-        datePicker?.backgroundColor = .white
-        datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-        datePicker?.isHidden = false
-        
+        self.datePicker?.datePickerMode = .dateAndTime
+        self.datePicker?.backgroundColor = .white
+        self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+        self.datePicker?.isHidden = false
+
         // Set minimum and maximum date
-        datePicker.minimumDate = Date()
+        self.datePicker.minimumDate = Date()
         
-        // Setting date limits
+        // Setting date format
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, HH:mm"
-        datePicker.minimumDate = Date()
+        tapView.isUserInteractionEnabled = true
+        
+        self.datePicker.minimumDate = Date() //
+        self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
         
         // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
-        if self.selectedFirstCell && self.latestLeave != nil {
-            datePicker.maximumDate = DateFormatter().date(from: self.latestLeave!)
+        if self.selectedFirstCell  && self.latestDate != nil {
+            self.datePicker.maximumDate = self.latestDate
+            self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
         }
-        else if !self.selectedFirstCell && self.earlierLeave != nil {
-            datePicker.minimumDate = DateFormatter().date(from: self.earlierLeave!)
+        else if !self.selectedFirstCell && self.earlierDate != nil {
+            self.datePicker.minimumDate = self.earlierDate
+            self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
-        datePicker.maximumDate = datePicker.minimumDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
-        tapView.isUserInteractionEnabled = true
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, HH:mm"
         
         if self.selectedFirstCell {
-            self.earlierLeave = dateFormatter.string(from: datePicker.date)
+            self.earlierDate = datePicker.date
         } else {
-            self.latestLeave = dateFormatter.string(from: datePicker.date)
+            self.latestDate = datePicker.date
         }
         self.journeyTimeTableView.reloadData()
     }
@@ -88,7 +133,9 @@ class FullRouteViewController: UIViewController {
         self.datePicker.isHidden = true
         self.tapView.isUserInteractionEnabled = false
     }
+    
 }
+
 
 // MARK: Defining Map functions
 extension FullRouteViewController: MKMapViewDelegate {
@@ -106,15 +153,62 @@ extension FullRouteViewController: MKMapViewDelegate {
         return MKPolylineRenderer()
     }
     
+    @IBAction func confirmButton(_ sender: Any) {
+        
+        //criar Journey no CoreData
+        newJourney = Journey()
+        
+        //set attributes for newJorney
+        //date from datepicker
+        newJourney!.initialHour = self.earlierDate
+        newJourney!.finalHour = self.latestDate
+        newJourney!.journeyId = UUID()
+        
+        UserServices.getAuthenticatedUser({ (error, user) in
+            if(error == nil && user != nil) {
+                self.newJourney!.ownerId = user!.userId
+                if(self.newPath != nil) {
+                    
+                   //criar metodo no services para salvar path antes de criar journey
+                   self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                        do {
+                            try self.newPath?.managedObjectContext?.save()
+                        } catch {
+                            print("Ooops \(error)")
+                        }
+                        self.newJourney!.has_path = self.newPath!
+                            JourneyServices.createJourney(journey: self.newJourney!, { (error) in
+                                if (error == nil) {
+                                    DispatchQueue.main.async {
+                                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                                    }
+                                    
+                                } else {
+                                    print(error?.localizedDescription)
+                                }
+                            })
+                        }
+            }
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "checkForMatches" {
+            if let destination = segue.destination as? JourneyCompanionsViewController {
+                destination.journeyId = self.newJourney?.journeyId
+            }
+        }
+    }
+    
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {
         annotationA = MKPointAnnotation()
         annotationA!.subtitle = "Starting Point"
-        annotationA!.coordinate = (newPath?.origin!.coordinate)!
+        annotationA!.coordinate = circleA!.coordinate
         
         annotationB = MKPointAnnotation()
         annotationB!.subtitle = "Destination Point"
-        annotationB!.coordinate = (newPath?.destiny!.coordinate)!
+        annotationB!.coordinate = circleB!.coordinate
     }
     
     // TODO: Zoom tofit all elements
@@ -136,17 +230,31 @@ extension FullRouteViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyTimeCell") as! JourneyTimeTableViewCell
         cell.selectionStyle = .none
-        cell.boxView.backgroundColor = UIColor.white
+        // cell.boxView.backgroundColor = UIColor.white
 
         switch indexPath.row {
         case 0:
             cell.leftLabel.text = "Posso sair a partir de"
-            cell.rightLabel.text = self.earlierLeave
+            if let time = self.earlierDate {
+                cell.rightLabel.text = dateToString(date: time)
+            } else {
+                cell.rightLabel.text = " "
+            }
         default:
-            cell.leftLabel.text = "Preciso sair até"
-            cell.rightLabel.text = self.latestLeave
+            cell.leftLabel.text = "Preciso sair até as"
+            if let time = self.latestDate {
+                cell.rightLabel.text = dateToString(date: time)
+            } else {
+                cell.rightLabel.text = " "
+            }
         }
         return cell
+    }
+    
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, HH:mm"
+        return dateFormatter.string(from: date)
     }
 }
 
@@ -157,7 +265,11 @@ extension FullRouteViewController: UITableViewDelegate {
         self.selectedFirstCell =  indexPath.row == 0 ? true : false
         datePickerConfig()
         let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
-        cell.boxView.backgroundColor = UIColor.red
+        cell.boxView.backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
+        
+        let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
+        let otherCell = tableView.cellForRow(at: IndexPath(row: otherCellRowIndex, section: indexPath.section)) as! JourneyTimeTableViewCell
+        otherCell.boxView.backgroundColor = UIColor.white
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
