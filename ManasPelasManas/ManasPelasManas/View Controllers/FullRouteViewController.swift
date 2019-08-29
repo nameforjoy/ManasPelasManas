@@ -71,7 +71,6 @@ class FullRouteViewController: UIViewController {
     }
 
     // MARK: Journey Creation - Core Data - Futuramente na PrepareSegue
-
     func addJourney(){
 
         //criar Journey no CoreData
@@ -262,7 +261,7 @@ extension FullRouteViewController: UITableViewDelegate {
         self.selectedFirstCell =  indexPath.row == 0 ? true : false
         datePickerConfig()
         let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
-        cell.boxView.backgroundColor = UIColor.red
+        cell.boxView.backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
         
         let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
         let otherCell = tableView.cellForRow(at: IndexPath(row: otherCellRowIndex, section: indexPath.section)) as! JourneyTimeTableViewCell

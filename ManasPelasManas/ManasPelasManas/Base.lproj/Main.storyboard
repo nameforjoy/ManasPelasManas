@@ -505,7 +505,7 @@
         <!--Viagem-->
         <scene sceneID="hHe-wy-DEW">
             <objects>
-                <viewController title="Encontre companhia" id="4VQ-B5-IsG" userLabel="Viagem" customClass="JourneyCompanionsViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4VQ-B5-IsG" userLabel="Viagem" customClass="JourneyCompanionsViewController" customModule="ManasPelasManas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3qN-w7-T8B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -655,7 +655,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EDm-8k-a8G"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Encontre Companhia" id="Qcq-UR-PmC">
+                    <navigationItem key="navigationItem" id="Qcq-UR-PmC">
                         <barButtonItem key="backBarButtonItem" title=" " id="6jK-5X-drL"/>
                     </navigationItem>
                     <connections>
@@ -758,7 +758,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qav-Ts-hCi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5229" y="465"/>
+            <point key="canvasLocation" x="5254" y="465"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="vNz-qg-svI">
@@ -769,7 +769,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.001486761961132288" green="0.56031936407089233" blue="0.64053404331207275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dxF-DF-Q99"/>
@@ -842,7 +842,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rightLabel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55C-xJ-flH">
                                                             <rect key="frame" x="285" y="10.5" width="69" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>

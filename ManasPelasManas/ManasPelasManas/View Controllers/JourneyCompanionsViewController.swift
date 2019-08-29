@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class JourneyCompanionsViewController: UIViewController, UITableViewDelegate {
+class JourneyCompanionsViewController: UIViewController {
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeRangeLabel: UILabel!
@@ -18,12 +18,26 @@ class JourneyCompanionsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var companionsTableView: UITableView!
     
-    let companionsDataSource = CompanionsDataSource()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.companionsTableView.dataSource = self
         self.companionsTableView.delegate = self
-        self.companionsTableView.dataSource = self.companionsDataSource
+    }
+}
+
+extension JourneyCompanionsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showCompanionProfile", sender: self)
     }
 }
