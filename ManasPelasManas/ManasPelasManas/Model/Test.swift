@@ -25,7 +25,8 @@ class Test {
         let intervalB = finalHourB.timeIntervalSince(initialHourA)
         let dateIntervalA = DateInterval(start: initialHourA, duration: intervalA)
         let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
-        return dateIntervalA.intersects(dateIntervalB)
+        //return dateIntervalA.intersects(dateIntervalB)
+        return true
     }
 
     

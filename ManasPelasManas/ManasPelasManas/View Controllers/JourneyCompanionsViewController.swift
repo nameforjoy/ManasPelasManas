@@ -19,7 +19,7 @@ class JourneyCompanionsViewController: UIViewController {
     @IBOutlet weak var companionsTableView: UITableView!
     
     var journeyId: UUID?
-    var journeyToMacht = Journey()
+    var journeyToMatch = Journey()
     var test = Test()
     
     var userMatches = [User]()
@@ -36,7 +36,7 @@ class JourneyCompanionsViewController: UIViewController {
         
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
-                self.journeyToMacht = journey!
+                self.journeyToMatch = journey!
             }
         }
         
@@ -66,7 +66,7 @@ class JourneyCompanionsViewController: UIViewController {
     
     func searchForMatch() {
         for journey in journeysNotUser {
-            if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMacht) && journey.ownerId != nil{
+            if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
                         print(user?.name)
