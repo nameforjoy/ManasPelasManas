@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class FullRouteViewController: UIViewController {
     
@@ -45,22 +46,22 @@ class FullRouteViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
-        
-        
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // MARK: Retrieving Path - Core Data
-        
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil){
                 self.newPath = path
                 self.displayMapItems(path: path)
-                self.addJourney()
             } else {
                 //treat error
             }
         }
         
         // MARK: Retrieving Authenticated User - Core Data
-        
         UserServices.getAuthenticatedUser { (error, user) in
             if (error == nil && user != nil) {
                 self.currentUser = user
@@ -68,31 +69,10 @@ class FullRouteViewController: UIViewController {
                 //treat error
             }
         }
-
-    }
-
-    // MARK: Journey Creation - Core Data - Futuramente na PrepareSegue
-
-    func addJourney(){
-
-        //criar Journey no CoreData
-        newJourney = Journey()
-        
-        //set attributes for newJorney
-        newJourney?.ownerId = currentUser?.userId
-        newJourney?.journeyId = UUID()
-        //newJourney?.has_path.inserT //newPath!
-        //newJourney?.initialHour = DateFormatter().date(from: earlierLeave!)
-        //newJourney?.finalHour = DateFormatter().date(from: latestLeave!)
-        
-        
-        JourneyServices.createJourney(journey: newJourney!) { error in
-            if (error != nil) {
-                //treat error
-            }
-        }
         
     }
+
+ 
     
     // MARK: Displaying Map Data
     
@@ -188,16 +168,30 @@ extension FullRouteViewController: MKMapViewDelegate {
         UserServices.getAuthenticatedUser({ (error, user) in
             if(error == nil && user != nil) {
                 self.newJourney!.ownerId = user!.userId
-                JourneyServices.createJourney(journey: self.newJourney!) { error in
-                    if (error == nil){
-                    }
+                if(self.newPath != nil) {
+                    
+               //criar metodo no services para salvar path antes de criar journey
+               self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                do {
+                try self.newPath?.managedObjectContext?.save()
+                } catch {
+                    print("Ooops \(error)")
+                }
+                self.newJourney!.has_path = self.newPath!
+                    JourneyServices.createJourney(journey: self.newJourney!, { (error) in
+                        if (error != nil) {
+                            
+                        }
+                    })
                 }
             }
         })
         
         
-        
+        //checkMatch
     }
+    
+    
     
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {
