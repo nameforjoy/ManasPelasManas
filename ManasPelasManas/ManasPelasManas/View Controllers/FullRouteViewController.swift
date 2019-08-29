@@ -25,6 +25,9 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
+    var earlierDate: Date?
+    var latestDate: Date?
+    
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -138,9 +141,9 @@ class FullRouteViewController: UIViewController {
     @objc func dateChanged(datePicker: UIDatePicker) {
         
         if self.selectedFirstCell {
-            self.earlierDate = self.datePicker.date
+            self.earlierDate = datePicker.date
         } else {
-            self.latestDate = self.datePicker.date
+            self.latestDate = datePicker.date
         }
         self.journeyTimeTableView.reloadData()
     }
@@ -168,7 +171,32 @@ extension FullRouteViewController: MKMapViewDelegate {
         }
         return MKPolylineRenderer()
     }
-
+    
+    @IBAction func confirmButton(_ sender: Any) {
+        
+        //criar Journey no CoreData
+        newJourney = Journey()
+        
+        //set attributes for newJorney
+        //date from datepicker
+        newJourney!.initialHour = self.earlierDate
+        newJourney!.finalHour = self.latestDate
+        newJourney!.journeyId = UUID()
+        
+        UserServices.getAuthenticatedUser({ (error, user) in
+            if(error == nil && user != nil) {
+                self.newJourney!.ownerId = user!.userId
+                JourneyServices.createJourney(journey: self.newJourney!) { error in
+                    if (error == nil){
+                    }
+                }
+            }
+        })
+        
+        
+        
+    }
+    
     // Adds map annotations for start and destination of the route
     private func addAnnotations() {
         annotationA = MKPointAnnotation()

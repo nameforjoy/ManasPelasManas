@@ -8,31 +8,79 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController, UITableViewDelegate {
+class RoutesViewController: UIViewController {
     
     @IBOutlet weak var routesTableView: UITableView!
     @IBOutlet weak var newMatchesView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    let routesDataSource = RoutesVCTableDataSource()
+    fileprivate var journeys: [Journey] = []
+    var autheticatedUser = User()
+    
+    //let routesDataSource = RoutesVCTableDataSource()
     var newMatches: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.routesTableView.delegate = self
-        self.routesTableView.dataSource = self.routesDataSource
+        self.routesTableView.dataSource = self
 
         self.newMatchesView.layer.cornerRadius = self.newMatchesView.frame.height / 4
+        
+        
     }
-
-// @IBAction func test(_ sender: Any) {
-//
-//        let data = LoadData()
-//        let test = Test()
-//
-//        let users = [data.user1, data.user2, data.user3, data.user4]
-//        let _ = test.searchForMatch(journey: data.user1.journeys[1], users: users)
-//    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        JourneyServices.getAllJourneys { (error, journeys) in
+            if (error == nil) {
+                self.journeys = journeys!
+ 
+                UserServices.getAuthenticatedUser({ (error, user) in
+                    if(error == nil && user != nil) {
+                        self.autheticatedUser = user!
+                        
+                        // reload table view with season information
+                        DispatchQueue.main.async {
+                            self.journeys = self.journeys.filter() { $0.ownerId == self.autheticatedUser.userId }
+                            
+                            self.routesTableView.reloadData()
+                        }
+                    }
+                    
+                    
+                })
+                
+                
+            }
+            else {
+                print("Error retrieving content")
+            }
+        }
+        
+    }
+    
+}
+
+extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.journeys.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // get a new cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
+        
+        // get the season data to be displayed
+        if let journey:Journey = self.journeys[indexPath.row] {
+            // fill cell with extracted information
+            cell.dateTitle.text = journey.initialHour?.description
+            cell.toLabel.text = journey.initialHour?.description
+            cell.fromLabel.text = journey.finalHour?.description
+        }
+        return cell
+    }
 }
