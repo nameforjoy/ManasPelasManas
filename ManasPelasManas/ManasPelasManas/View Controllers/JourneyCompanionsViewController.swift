@@ -90,7 +90,8 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
         
         // get the season data to be displayed
-        if let user:User = self.userMatches[indexPath.row] {
+        if let user: User = self.userMatches[indexPath.row] {
+            
             // fill cell with extracted information
             cell.userPhoto.image = UIImage(named: user.photo!)
             cell.nameLabel.text = user.name?.description
