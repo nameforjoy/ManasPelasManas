@@ -16,5 +16,4 @@ class CompanionProfileViewController: UIViewController {
     @IBOutlet weak var bioTitleLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     
-    
 }

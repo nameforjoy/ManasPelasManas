@@ -27,8 +27,6 @@ class RoutesViewController: UIViewController {
         self.routesTableView.dataSource = self
 
         self.newMatchesView.layer.cornerRadius = self.newMatchesView.frame.height / 4
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +48,6 @@ class RoutesViewController: UIViewController {
                         }
                     }
                     
-                    
                 })
                 
                 
@@ -59,7 +56,6 @@ class RoutesViewController: UIViewController {
                 print("Error retrieving content")
             }
         }
-        
     }
     
 }
@@ -82,5 +78,9 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
             cell.fromLabel.text = journey.finalHour?.description
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "selectJourney", sender: self)
     }
 }
