@@ -24,6 +24,9 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
+    var earlierDate: Date?
+    var latestDate: Date?
+    
     @IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -104,8 +107,10 @@ class FullRouteViewController: UIViewController {
         
         if self.selectedFirstCell {
             self.earlierLeave = dateFormatter.string(from: datePicker.date)
+            self.earlierDate = datePicker.date
         } else {
             self.latestLeave = dateFormatter.string(from: datePicker.date)
+            self.latestDate = datePicker.date
         }
         self.journeyTimeTableView.reloadData()
     }
@@ -141,14 +146,21 @@ extension FullRouteViewController: MKMapViewDelegate {
         
         //set attributes for newJorney
         //date from datepicker
-        //newJourney?.has_path = newPath!
-        newJourney?.journeyId = UUID()
+        newJourney!.initialHour = self.earlierDate
+        newJourney!.finalHour = self.latestDate
+        newJourney!.journeyId = UUID()
         
-        JourneyServices.createJourney(journey: newJourney!) { error in
-            if (error != nil){
-                //treat error
+        UserServices.getAuthenticatedUser({ (error, user) in
+            if(error == nil && user != nil) {
+                self.newJourney!.ownerId = user!.userId
+                JourneyServices.createJourney(journey: self.newJourney!) { error in
+                    if (error == nil){
+                    }
+                }
             }
-        }
+        })
+        
+        
         
     }
     

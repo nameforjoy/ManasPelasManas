@@ -811,6 +811,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="confirmButton:" destination="Rfn-Rd-XAt" eventType="touchUpInside" id="Xcz-Fn-K2A"/>
                                     <segue destination="txj-4c-bng" kind="show" id="pZT-2c-hjv"/>
                                 </connections>
                             </button>
