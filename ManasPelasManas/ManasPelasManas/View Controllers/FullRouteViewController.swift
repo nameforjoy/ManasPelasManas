@@ -29,6 +29,7 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tapView: UIView!
+    @IBOutlet weak var nextButton: UIButton!
     
     override func viewDidLoad() {
         
@@ -42,6 +43,7 @@ class FullRouteViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
         
         
         // MARK: Retrieving Path - Core Data
