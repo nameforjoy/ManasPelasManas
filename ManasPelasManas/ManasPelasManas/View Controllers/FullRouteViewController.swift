@@ -54,6 +54,15 @@ class FullRouteViewController: UIViewController {
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
         
+        circleA = newPath?.getCircle(stage: .origin)
+        circleB = newPath?.getCircle(stage: .destiny)
+        
+        addAnnotations()
+        
+        mapView.addAnnotations([annotationA!, annotationB!])
+        mapView.addOverlays([circleA!, circleB!])
+        self.zoomTo(regionA: circleA!, regionB: circleB!)
+        
         // TODO: Display 2 annotations and 2 overlays
 
 //        addAnnotations()
@@ -69,13 +78,7 @@ class FullRouteViewController: UIViewController {
         datePicker?.backgroundColor = .white
         datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
         datePicker?.isHidden = false
-        circleA = newPath?.getCircle(stage: .origin)
-        circleB = newPath?.getCircle(stage: .destiny)
-        
-        addAnnotations()
-        
-        mapView.addAnnotations([annotationA!, annotationB!])
-        mapView.addOverlays([circleA!, circleB!])
+
         // Set minimum and maximum date
         datePicker.minimumDate = Date()
         
@@ -111,9 +114,9 @@ class FullRouteViewController: UIViewController {
         self.datePicker.isHidden = true
         self.tapView.isUserInteractionEnabled = false
     }
+    
 }
 
-        zoomTo(regionA: circleA!, regionB: circleB!)
 
 // MARK: Defining Map functions
 extension FullRouteViewController: MKMapViewDelegate {

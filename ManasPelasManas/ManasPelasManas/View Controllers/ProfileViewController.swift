@@ -10,9 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var myProfilePicture: UIImageView!
-    @IBOutlet weak var myDescription: UILabel!
-    @IBOutlet weak var myBio: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var bioTitleLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
     @objc var currentUser: User?
     @objc var journeyTest: Journey?
     @objc var journeyMock: Journey?
@@ -48,9 +48,9 @@ class ProfileViewController: UIViewController {
     }
     
     private func displayData(user: User) {
-        self.myProfilePicture.image = UIImage(named: (user.photo)!)
-        self.myDescription.text = (user.name)! + ", 19"
-        self.myBio.text = (user.bio)!
+        self.profilePhoto.image = UIImage(named: (user.photo)!)
+        self.bioTitleLabel.text = (user.name)! + ", 19"
+        self.bioLabel.text = (user.bio)!
     }
     
     

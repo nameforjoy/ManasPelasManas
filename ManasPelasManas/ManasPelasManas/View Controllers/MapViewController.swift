@@ -79,7 +79,7 @@ class MapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        centerMapOnUserLocation()
+        self.centerMapOnUserLocation()
     }
     
     // MARK: Actions
@@ -91,18 +91,16 @@ class MapViewController: UIViewController {
             self.newPath?.pathId = UUID()
             self.pathId = newPath?.pathId
             
-            let firstArea = getCurrentCircularRegion()
+            let firstArea = self.getCurrentCircularRegion()
             self.newPath?.originLat = firstArea.coordinate.latitude as NSNumber
             self.newPath?.originLong = firstArea.coordinate.longitude as NSNumber
             self.newPath?.originRadius = firstArea.radius as NSNumber
     
             navigationItem.title = "Chegada"
             firstTime = !firstTime
-            leftBarButton.isEnabled = true
-        
         } else
         {
-            let secondArea = getCurrentCircularRegion()
+            let secondArea = self.getCurrentCircularRegion()
             self.newPath?.destinyLat = secondArea.coordinate.latitude as NSNumber
             self.newPath?.destinyLong = secondArea.coordinate.longitude as NSNumber
             self.newPath?.destinyRadius = secondArea.radius as NSNumber
@@ -114,11 +112,6 @@ class MapViewController: UIViewController {
                 }
             }
             
-            newPath.origin = getCurrentCircularRegion()
-            performSegue(withIdentifier: "goToDestination", sender: sender)
-        }
-        else {
-            newPath.destiny = getCurrentCircularRegion()
             performSegue(withIdentifier: "TimeSetup", sender: sender)
         }
     }
@@ -132,9 +125,10 @@ class MapViewController: UIViewController {
                 //vc.pathId = self.pathId
             }
         }
-        else if segue.identifier == "goToDestination" {
-            if let destination = segue.destination as? MapViewController {
-                destination.firstTime = false
+            else if segue.identifier == "goToDestination" {
+                if let destination = segue.destination as? MapViewController {
+                    destination.firstTime = false
+                }
             }
         }
     }
@@ -150,7 +144,7 @@ extension MapViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             //zoomMapTo(location: location)
             self.locationReference = location
-            zoomMapTo(location: location)
+            self.zoomMapTo(location: location)
         }
         self.locationManager.stopUpdatingLocation()
     }
@@ -166,7 +160,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func centerMapOnUserLocation() {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            zoomMapTo(location: location)
+            self.zoomMapTo(location: location)
         }
     }
     
