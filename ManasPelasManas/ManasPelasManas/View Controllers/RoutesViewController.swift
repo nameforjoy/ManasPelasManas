@@ -99,6 +99,27 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
             })
         }
         
+        switch indexPath.row {
+        case 0:
+            cell.photo1.image = UIImage(named: "mari")
+            cell.photo2.image = UIImage(named: "ana")
+            cell.photo3.image = UIImage(named: "rebeca")
+        case 1:
+            cell.photo1.image = UIImage(named: "sara")
+            cell.photo2.image = UIImage(named: "aline")
+            cell.photo3.image = UIImage(named: "brenda")
+        case 2:
+            cell.photo1.image = UIImage(named: "elisa")
+            cell.photo2.image = UIImage(named: "ana")
+            cell.photo3.image = nil
+            cell.notificationView.isHidden = true
+        default:
+            cell.photo1.image = UIImage(named: "mari")
+            cell.photo2.image = UIImage(named: "lana")
+            cell.photo3.image = nil
+            cell.notificationView.isHidden = true
+        }
+        
         return cell
     }
     

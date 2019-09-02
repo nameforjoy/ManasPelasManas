@@ -27,7 +27,7 @@ class CompanionProfileViewController: UIViewController {
         UserServices.findById(objectID: self.companionID!) { (error, user) in
             if(error == nil && user != nil)  {
                 DispatchQueue.main.async {
-                    self.nameLabel.text = user!.name
+                    self.nameLabel.text = user!.name! + ", 22"
                     self.bioLabel.text = user!.bio
                     self.profilePhoto.image = UIImage(named: user!.photo!)
                 }

@@ -19,7 +19,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     
     let locationManager = CLLocationManager()
-    let maxSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+    let maxSpan = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
     let defaultSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     
     var resultSearchController: UISearchController? = nil

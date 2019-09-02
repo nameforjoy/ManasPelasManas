@@ -23,7 +23,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="JHO-Gn-ItB">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leticia" translatesAutoresizingMaskIntoConstraints="NO" id="JHO-Gn-ItB">
                                 <rect key="frame" x="0.0" y="44" width="414" height="403"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Brenda Oliveira, 24" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlr-fA-ma8">
@@ -340,14 +340,14 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hermione.photo" translatesAutoresizingMaskIntoConstraints="NO" id="Dt1-WO-uTs">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dt1-WO-uTs">
                                                                     <rect key="frame" x="20" y="85" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="Dt1-WO-uTs" secondAttribute="height" multiplier="1:1" id="XBI-GQ-iGN"/>
                                                                         <constraint firstAttribute="width" constant="50" id="am8-wI-M2h"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="annalise.photo" translatesAutoresizingMaskIntoConstraints="NO" id="A3N-Kq-UMw">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A3N-Kq-UMw">
                                                                     <rect key="frame" x="80" y="85" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="A3N-Kq-UMw" secondAttribute="height" multiplier="1:1" id="dso-3w-0Hw"/>
@@ -373,7 +373,7 @@
                                                                         <constraint firstAttribute="height" constant="25" id="gD6-mj-5ZG"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="daenerys.photo" translatesAutoresizingMaskIntoConstraints="NO" id="1DW-Oj-e93">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1DW-Oj-e93">
                                                                     <rect key="frame" x="140" y="85" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="1DW-Oj-e93" secondAttribute="height" multiplier="1:1" id="3FM-vC-eWq"/>
@@ -527,7 +527,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2I-DX-2R9" userLabel="ContourView">
                                                             <rect key="frame" x="20" y="0.0" width="374" height="100"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="annalise.photo" translatesAutoresizingMaskIntoConstraints="NO" id="SFw-mL-s2z">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SFw-mL-s2z">
                                                                     <rect key="frame" x="20" y="10" width="80" height="80"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="80" id="UJg-5E-10d"/>
@@ -680,7 +680,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="daenerys.photo" translatesAutoresizingMaskIntoConstraints="NO" id="XIJ-Du-jcA">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mari" translatesAutoresizingMaskIntoConstraints="NO" id="XIJ-Du-jcA">
                                 <rect key="frame" x="0.0" y="88" width="414" height="403"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-46-Q4y">
@@ -988,24 +988,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="annalise.photo" width="628" height="314"/>
         <image name="clock" width="539" height="539"/>
         <image name="comum" width="539" height="539"/>
-        <image name="daenerys.photo" width="317" height="465"/>
-        <image name="hermione.photo" width="600" height="600"/>
+        <image name="leticia" width="1536" height="1536"/>
         <image name="mapa-cheio" width="36" height="36"/>
         <image name="mapa-vazado" width="36" height="36"/>
+        <image name="mari" width="1434" height="1440"/>
         <image name="perfil-cheio" width="36" height="36"/>
         <image name="perfil-vazado" width="36" height="36"/>
         <image name="place" width="539" height="539"/>
         <image name="profile" width="539" height="539"/>
         <image name="raio" width="772" height="772"/>
         <image name="rotinha" width="48" height="207"/>
-        <image name="user" width="1000" height="667"/>
         <image name="viagens-chio" width="36" height="36"/>
         <image name="viagens-vazado" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5RH-hW-wuu"/>
+        <segue reference="Ied-Hw-95r"/>
     </inferredMetricsTieBreakers>
 </document>
