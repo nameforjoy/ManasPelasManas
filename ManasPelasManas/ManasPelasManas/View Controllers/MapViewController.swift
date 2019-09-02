@@ -148,9 +148,7 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            //zoomMapTo(location: location)
             self.locationReference = location
-            self.zoomMapTo(location: location)
         }
         self.locationManager.stopUpdatingLocation()
     }
