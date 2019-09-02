@@ -89,7 +89,6 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
             // fill cell with extracted information
             cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
             
-
             journey.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
                 // TODO: Tratar erro
                 cell.fromLabel.text = text

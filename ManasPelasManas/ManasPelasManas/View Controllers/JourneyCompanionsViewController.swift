@@ -42,15 +42,6 @@ class JourneyCompanionsViewController: UIViewController {
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
-                journey!.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
-                    // TODO: Tratar erro
-                    self.fromLabel.text = text
-                })
-                journey!.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
-                    // TODO: Tratar erro
-                    self.toLabel.text = text
-                })
-                
                 DispatchQueue.main.async {
                     self.displayJourneyDescription()
                 }
@@ -109,8 +100,14 @@ class JourneyCompanionsViewController: UIViewController {
             let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
             self.timeRangeLabel.text = initialHour + " - "  + finalHour
             
-            self.fromLabel.text = self.journeyToMatch.has_path.originLat?.description
-            self.toLabel.text = self.journeyToMatch.has_path.destinyLat?.description
+            self.journeyToMatch.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                self.fromLabel.text = text
+            })
+            self.journeyToMatch.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                self.toLabel.text = text
+            })
         }
     
 }
