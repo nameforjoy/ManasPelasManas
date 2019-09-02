@@ -109,14 +109,14 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
             cell.photo2.image = UIImage(named: "aline")
             cell.photo3.image = UIImage(named: "brenda")
         case 2:
-            cell.photo1.image = UIImage(named: "elisa")
+            cell.photo1.image = nil
             cell.photo2.image = UIImage(named: "ana")
-            cell.photo3.image = nil
+            cell.photo3.image = UIImage(named: "elisa")
             cell.notificationView.isHidden = true
         default:
-            cell.photo1.image = UIImage(named: "mari")
+            cell.photo1.image = nil
             cell.photo2.image = UIImage(named: "lana")
-            cell.photo3.image = nil
+            cell.photo3.image = UIImage(named: "mari")
             cell.notificationView.isHidden = true
         }
         
