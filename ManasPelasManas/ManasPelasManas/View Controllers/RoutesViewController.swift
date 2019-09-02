@@ -81,13 +81,25 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         // get a new cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
         
+        cell.fromLabel.text = ""
+        cell.toLabel.text = ""
+        
         // get the season data to be displayed
         if let journey: Journey = self.journeys[indexPath.row] {
             // fill cell with extracted information
             cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
-            cell.toLabel.text = journey.has_path.originLat?.description
-            cell.fromLabel.text = journey.has_path.destinyLat?.description
+            
+
+            journey.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                cell.fromLabel.text = text
+            })
+            journey.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                cell.toLabel.text = text
+            })
         }
+        
         return cell
     }
     
