@@ -23,9 +23,11 @@ class CompanionProfileViewController: UIViewController {
         
         UserServices.findById(objectID: self.companionID!) { (error, user) in
             if(error == nil && user != nil)  {
-                self.nameLabel.text = user!.name
-                self.bioLabel.text = user!.bio
-                self.profilePhoto.image = UIImage(named: user!.photo!)
+                DispatchQueue.main.async {
+                    self.nameLabel.text = user!.name
+                    self.bioLabel.text = user!.bio
+                    self.profilePhoto.image = UIImage(named: user!.photo!)
+                }
             }
         }
     }
