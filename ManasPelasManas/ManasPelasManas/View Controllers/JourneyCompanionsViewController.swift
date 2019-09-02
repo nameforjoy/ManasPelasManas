@@ -38,9 +38,18 @@ class JourneyCompanionsViewController: UIViewController {
         self.companionsTableView.delegate = self
         self.companionsTableView.dataSource = self
         
+        
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
+                journey!.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
+                    // TODO: Tratar erro
+                    self.fromLabel.text = text
+                })
+                journey!.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
+                    // TODO: Tratar erro
+                    self.toLabel.text = text
+                })
             }
         }
         
