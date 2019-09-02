@@ -35,4 +35,17 @@ class CompanionProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func contactButton(_ sender: Any) {
+        let whatsappURL = URL(string: "https://api.whatsapp.com/send?phone=05535991341301&text=Vamos+juntas?")
+        let appStoreWhatsappURL = URL(string: "https://apps.apple.com/us/app/whatsapp-messenger/id310633997")
+        
+        if UIApplication.shared.canOpenURL(whatsappURL!) {
+            UIApplication.shared.open(whatsappURL!, completionHandler: { (sucess) in
+            })
+        } else {
+            UIApplication.shared.open(appStoreWhatsappURL!, completionHandler: { (sucess) in
+            })
+        }
+    }
+    
 }

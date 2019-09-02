@@ -741,6 +741,9 @@
                                 <state key="normal" title="Contatar">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="contactButton:" destination="Bzr-mN-cS1" eventType="touchUpInside" id="QRX-uk-YM7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
