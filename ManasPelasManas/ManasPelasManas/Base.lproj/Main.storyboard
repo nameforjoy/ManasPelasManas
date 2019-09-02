@@ -734,7 +734,7 @@
                                 <rect key="frame" x="294" y="518" width="100" height="25"/>
                                 <color key="backgroundColor" red="0.93570265949999998" green="0.43505261020000002" blue="0.32934521430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="kPe-Da-2Wd"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kPe-Da-2Wd"/>
                                     <constraint firstAttribute="height" constant="25" id="qGo-7l-s8B"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
