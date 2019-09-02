@@ -169,25 +169,26 @@ extension FullRouteViewController: MKMapViewDelegate {
                 self.newJourney!.ownerId = user!.userId
                 if(self.newPath != nil) {
                     
-                   //criar metodo no services para salvar path antes de criar journey
-                   self.newPath?.managedObjectContext?.insert(self.newJourney!)
-                        do {
-                            try self.newPath?.managedObjectContext?.save()
-                        } catch {
-                            print("Ooops \(error)")
-                        }
+                    //criar metodo no services para salvar path antes de criar journey
+                    self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                    do {
                         self.newJourney!.has_path = self.newPath!
-                            JourneyServices.createJourney(journey: self.newJourney!, { (error) in
-                                if (error == nil) {
-                                    DispatchQueue.main.async {
-                                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
-                                    }
-                                    
-                                } else {
-                                    print(error?.localizedDescription)
+                        JourneyServices.createJourney(journey: self.newJourney!, { (error) in
+                            if (error == nil) {
+                                DispatchQueue.main.async {
+                                    self.performSegue(withIdentifier: "checkForMatches", sender: sender)
                                 }
-                            })
-                        }
+                                
+                            } else {
+                                print(error?.localizedDescription)
+                            }
+                        })
+                    } catch {
+                        print("Ooops \(error)")
+                    }
+                    
+                   
+                }
             }
         })
     }

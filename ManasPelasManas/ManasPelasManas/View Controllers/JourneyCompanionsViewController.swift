@@ -22,11 +22,14 @@ class JourneyCompanionsViewController: UIViewController {
     var journeyToMatch = Journey()
     var test = Test()
     
+    var companionID: UUID? = nil
     var userMatches = [User]()
     
     fileprivate var journeysNotUser: [Journey] = []
     var autheticatedUser = User()
     
+    let dateFormatter = DateFormatter()
+    let hourFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,16 @@ class JourneyCompanionsViewController: UIViewController {
             }
         }
         
+        if let date = self.journeyToMatch.date {
+            self.dateFormatter.dateFormat = "E, d MMM yyyy"
+            self.dateLabel.text = self.dateFormatter.string(from: date)
+            
+            self.hourFormatter.dateFormat = "HH:mm"
+            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
+            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+            self.timeRangeLabel.text = initialHour + " - "  + finalHour
+        }
+        
         JourneyServices.getAllJourneys { (error, journeys) in
             if (error == nil) {
                 self.journeysNotUser = journeys!
@@ -51,8 +64,9 @@ class JourneyCompanionsViewController: UIViewController {
                         // reload table view with season information
                         DispatchQueue.main.async {
                             self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId != self.autheticatedUser.userId }
-                            self.companionsTableView.reloadData()
                             self.searchForMatch()
+                            print("fiz o seach por match")
+                            self.companionsTableView.reloadData()
                         }
                     }
                 })
@@ -63,17 +77,25 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
-    
-    
     func searchForMatch() {
         for journey in journeysNotUser {
             if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
-                        print(user?.name)
+                        self.userMatches.append(user!)
+                        OperationQueue.main.addOperation {
+                            self.companionsTableView.reloadData()
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCompanionProfile" {
+            let destination = segue.destination as! CompanionProfileViewController
+            destination.companionID = self.companionID
         }
     }
     
@@ -90,13 +112,14 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
         
         // get the season data to be displayed
-        if let user:User = self.userMatches[indexPath.row] {
-            // fill cell with extracted information
-            cell.userPhoto.image = UIImage(named: user.photo!)
-            cell.nameLabel.text = user.name?.description
-            cell.descriptionLabel.text = user.description.description
-            
-        }
+        let user: User = self.userMatches[indexPath.row]
+        self.companionID = user.userId
+        
+        // fill cell with extracted information
+        cell.userPhoto.image = UIImage(named: user.photo!)
+        cell.nameLabel.text = user.name?.description
+        cell.descriptionLabel.text = user.bio
+        
         return cell
     }
 

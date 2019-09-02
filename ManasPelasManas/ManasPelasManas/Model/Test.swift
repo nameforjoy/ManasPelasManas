@@ -17,20 +17,20 @@ class Test {
 
     func checkMatchTimetable(journeyA: Journey, journeyB: Journey) -> Bool {
         guard let initialHourA = journeyA.initialHour else { return false }
-        guard let finalHourA = journeyA.initialHour else { return false }
+        guard let finalHourA = journeyA.finalHour else { return false }
         guard let initialHourB = journeyB.initialHour else { return false }
-        guard let finalHourB = journeyA.initialHour else { return false }
+        guard let finalHourB = journeyB.finalHour else { return false }
         
         let intervalA = finalHourA.timeIntervalSince(initialHourA)
         let intervalB = finalHourB.timeIntervalSince(initialHourA)
+        
         let dateIntervalA = DateInterval(start: initialHourA, duration: intervalA)
         let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
-        //return dateIntervalA.intersects(dateIntervalB)
-        return true
+        
+        return dateIntervalA.intersects(dateIntervalB)
+    
     }
 
-    
-    
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
         let mkcOriginA = (journeyA.has_path.getCircle(stage: .origin))
         let mkcOriginB = (journeyB.has_path.getCircle(stage: .origin))
