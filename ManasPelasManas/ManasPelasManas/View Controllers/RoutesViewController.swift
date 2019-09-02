@@ -17,6 +17,7 @@ class RoutesViewController: UIViewController {
     fileprivate var journeys: [Journey] = []
     var autheticatedUser = User()
     var passJourneyUUID: UUID? = nil
+    let dateFormatter = DateFormatter()
     
     //let routesDataSource = RoutesVCTableDataSource()
     var newMatches: Bool = true
@@ -28,6 +29,7 @@ class RoutesViewController: UIViewController {
         self.routesTableView.dataSource = self
 
         self.newMatchesView.layer.cornerRadius = self.newMatchesView.frame.height / 4
+        self.dateFormatter.dateFormat = "E, d MMM yyyy HH:mm"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +84,7 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         // get the season data to be displayed
         if let journey: Journey = self.journeys[indexPath.row] {
             // fill cell with extracted information
-            cell.dateTitle.text = journey.initialHour?.description
+            cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
             cell.toLabel.text = journey.has_path.originLat?.description
             cell.fromLabel.text = journey.has_path.destinyLat?.description
         }

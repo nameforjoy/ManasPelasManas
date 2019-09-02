@@ -148,9 +148,7 @@ extension MapViewController: CLLocationManagerDelegate {
     // Handles location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            //zoomMapTo(location: location)
             self.locationReference = location
-            self.zoomMapTo(location: location)
         }
         self.locationManager.stopUpdatingLocation()
     }
@@ -192,6 +190,9 @@ extension MapViewController: CLLocationManagerDelegate {
     // Hamdles changes in authorization status
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorizationStatus()
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            centerMapOnUserLocation()
+        }
     }
     
     // Starts location services

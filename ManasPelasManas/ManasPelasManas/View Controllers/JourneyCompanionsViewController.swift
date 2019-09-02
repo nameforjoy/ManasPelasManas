@@ -22,11 +22,14 @@ class JourneyCompanionsViewController: UIViewController {
     var journeyToMatch = Journey()
     var test = Test()
     
+    var companionID: UUID? = nil
     var userMatches = [User]()
     
     fileprivate var journeysNotUser: [Journey] = []
     var autheticatedUser = User()
     
+    let dateFormatter = DateFormatter()
+    let hourFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,10 @@ class JourneyCompanionsViewController: UIViewController {
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
+                
+                DispatchQueue.main.async {
+                    self.displayJourneyDescription()
+                }
             }
         }
         
@@ -51,7 +58,6 @@ class JourneyCompanionsViewController: UIViewController {
                         // reload table view with season information
                         DispatchQueue.main.async {
                             self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId != self.autheticatedUser.userId }
-                            self.companionsTableView.reloadData()
                             self.searchForMatch()
                         }
                     }
@@ -63,19 +69,40 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
-    
-    
     func searchForMatch() {
         for journey in journeysNotUser {
             if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
-                        print(user?.name)
+                        self.userMatches.append(user!)
+                        OperationQueue.main.addOperation {
+                            self.companionsTableView.reloadData()
+                        }
                     }
                 }
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCompanionProfile" {
+            let destination = segue.destination as! CompanionProfileViewController
+            destination.companionID = self.companionID
+        }
+    }
+        
+        func displayJourneyDescription() {
+            self.dateFormatter.dateFormat = "E, d MMM yyyy"
+            self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
+            
+            self.hourFormatter.dateFormat = "HH:mm"
+            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
+            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+            self.timeRangeLabel.text = initialHour + " - "  + finalHour
+            
+            self.fromLabel.text = self.journeyToMatch.has_path.originLat?.description
+            self.toLabel.text = self.journeyToMatch.has_path.destinyLat?.description
+        }
     
 }
 
@@ -90,13 +117,14 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
         
         // get the season data to be displayed
-        if let user:User = self.userMatches[indexPath.row] {
-            // fill cell with extracted information
-            cell.userPhoto.image = UIImage(named: user.photo!)
-            cell.nameLabel.text = user.name?.description
-            cell.descriptionLabel.text = user.description.description
-            
-        }
+        let user: User = self.userMatches[indexPath.row]
+        self.companionID = user.userId
+        
+        // fill cell with extracted information
+        cell.userPhoto.image = UIImage(named: user.photo!)
+        cell.nameLabel.text = user.name?.description
+        cell.descriptionLabel.text = user.bio
+        
         return cell
     }
 
