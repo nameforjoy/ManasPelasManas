@@ -21,13 +21,15 @@ class JourneyCompanionsViewController: UIViewController {
     var journeyId: UUID?
     var journeyToMatch = Journey()
     var test = Test()
-    var companionID: UUID? = nil
     
+    var companionID: UUID? = nil
     var userMatches = [User]()
     
     fileprivate var journeysNotUser: [Journey] = []
     var autheticatedUser = User()
     
+    let dateFormatter = DateFormatter()
+    let hourFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,16 @@ class JourneyCompanionsViewController: UIViewController {
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
             }
+        }
+        
+        if let date = self.journeyToMatch.date {
+            self.dateFormatter.dateFormat = "E, d MMM yyyy"
+            self.dateLabel.text = self.dateFormatter.string(from: date)
+            
+            self.hourFormatter.dateFormat = "HH:mm"
+            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
+            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+            self.timeRangeLabel.text = initialHour + " - "  + finalHour
         }
         
         JourneyServices.getAllJourneys { (error, journeys) in
