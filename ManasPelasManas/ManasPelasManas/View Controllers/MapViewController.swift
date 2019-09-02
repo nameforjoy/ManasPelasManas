@@ -190,6 +190,9 @@ extension MapViewController: CLLocationManagerDelegate {
     // Hamdles changes in authorization status
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorizationStatus()
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            centerMapOnUserLocation()
+        }
     }
     
     // Starts location services
