@@ -21,6 +21,7 @@ class JourneyCompanionsViewController: UIViewController {
     var journeyId: UUID?
     var journeyToMatch = Journey()
     var test = Test()
+    var companionID: UUID? = nil
     
     var userMatches = [User]()
     
@@ -63,8 +64,6 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
-    
-    
     func searchForMatch() {
         for journey in journeysNotUser {
             if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
@@ -77,6 +76,13 @@ class JourneyCompanionsViewController: UIViewController {
                     }
                 }
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCompanionProfile" {
+            let destination = segue.destination as! CompanionProfileViewController
+            destination.companionID = self.companionID
         }
     }
     
@@ -94,10 +100,12 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         
         // get the season data to be displayed
         let user: User = self.userMatches[indexPath.row]
+        self.companionID = user.userId
+        
         // fill cell with extracted information
         cell.userPhoto.image = UIImage(named: user.photo!)
         cell.nameLabel.text = user.name?.description
-        cell.descriptionLabel.text = user.description.description
+        cell.descriptionLabel.text = user.bio
         
         return cell
     }

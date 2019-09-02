@@ -16,4 +16,18 @@ class CompanionProfileViewController: UIViewController {
     @IBOutlet weak var bioTitleLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     
+    var companionID: UUID? = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        UserServices.findById(objectID: self.companionID!) { (error, user) in
+            if(error == nil && user != nil)  {
+                self.nameLabel.text = user!.name
+                self.bioLabel.text = user!.bio
+                self.profilePhoto.image = UIImage(named: user!.photo!)
+            }
+        }
+    }
+    
 }
