@@ -41,17 +41,11 @@ class JourneyCompanionsViewController: UIViewController {
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
+                
+                DispatchQueue.main.async {
+                    self.displayJourneyDescription()
+                }
             }
-        }
-        
-        if let date = self.journeyToMatch.date {
-            self.dateFormatter.dateFormat = "E, d MMM yyyy"
-            self.dateLabel.text = self.dateFormatter.string(from: date)
-            
-            self.hourFormatter.dateFormat = "HH:mm"
-            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
-            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
-            self.timeRangeLabel.text = initialHour + " - "  + finalHour
         }
         
         JourneyServices.getAllJourneys { (error, journeys) in
@@ -65,8 +59,6 @@ class JourneyCompanionsViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId != self.autheticatedUser.userId }
                             self.searchForMatch()
-                            print("fiz o seach por match")
-                            self.companionsTableView.reloadData()
                         }
                     }
                 })
@@ -98,6 +90,19 @@ class JourneyCompanionsViewController: UIViewController {
             destination.companionID = self.companionID
         }
     }
+        
+        func displayJourneyDescription() {
+            self.dateFormatter.dateFormat = "E, d MMM yyyy"
+            self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
+            
+            self.hourFormatter.dateFormat = "HH:mm"
+            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
+            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+            self.timeRangeLabel.text = initialHour + " - "  + finalHour
+            
+            self.fromLabel.text = self.journeyToMatch.has_path.originLat?.description
+            self.toLabel.text = self.journeyToMatch.has_path.destinyLat?.description
+        }
     
 }
 
