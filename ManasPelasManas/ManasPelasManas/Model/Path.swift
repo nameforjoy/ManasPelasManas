@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 import CoreData
+import Contacts
 
 enum Stage {
     case origin
@@ -59,7 +60,7 @@ class Path: NSManagedObject {
         return circle
     }
     
-    public func getAddressText(stage: Stage) -> String? {
+    public func getAddressText(stage: Stage, completion: @escaping (String?, Error?) -> Void) {
         
         var coordinate: CLLocation
         
@@ -79,19 +80,24 @@ class Path: NSManagedObject {
         CLGeocoder().reverseGeocodeLocation(coordinate, completionHandler: {(placemarks, error) -> Void in
             if error != nil {
                 //handle error
+                completion(nil,error)
             } else if let results = placemarks,
                 results.count > 0 {
                 let result = results[0]
                 
-                if let fullAddress = result.subThoroughfare{
-                    addressTxt = fullAddress
+                let postalAddressFormatter = CNPostalAddressFormatter()
+                postalAddressFormatter.style = .mailingAddress
+                
+                if let fullAddress = result.postalAddress {
+                    addressTxt = postalAddressFormatter.string(from: fullAddress)
                 } else if let city = result.locality, let state = result.administrativeArea {
                     addressTxt = city + ", " + state
                 }
+                
+                completion(addressTxt,nil)
             }
         })
         
-        return addressTxt
     }
     
 }

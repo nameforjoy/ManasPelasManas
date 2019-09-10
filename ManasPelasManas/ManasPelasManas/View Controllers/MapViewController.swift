@@ -19,7 +19,9 @@ class MapViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     
     let locationManager = CLLocationManager()
-    let mapRegionDegreeRange: Double = 0.02
+    let maxSpan = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+    let defaultSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
     var locationReference: CLLocation? = nil // Future recentre button
@@ -155,8 +157,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     // Zooms in to a certain map region
     func zoomMapTo(location: CLLocation) {
-        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
-        let region =  MKCoordinateRegion(center: location.coordinate, span: span)
+        let region =  MKCoordinateRegion(center: location.coordinate, span: self.defaultSpan)
         mapView.setRegion(region, animated: true)
     }
     
@@ -249,8 +250,7 @@ extension MapViewController: HandleMapSearch {
         mapView.addAnnotation(annotation)
         
         // Shows corresponding map region
-        let span = MKCoordinateSpan(latitudeDelta: self.mapRegionDegreeRange, longitudeDelta: self.mapRegionDegreeRange)
-        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: self.defaultSpan)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -263,10 +263,18 @@ extension MapViewController: MKMapViewDelegate {
         
         var radius = self.getCurrentCircularRegion().radius
         if radius >= 1000 {
-            radius = Double(round(10 * radius) * 100)
+            radius = Double(round(10 * radius) / 1000)
             radiusLabel.text = "\(Int(radius))km"
         } else {
             radiusLabel.text = "\(Int(radius))m"
+        }
+        
+        // Does not allow a bigger region span than the value allowed
+        if animated == false {
+            if self.mapView.region.span.latitudeDelta > self.maxSpan.latitudeDelta || mapView.region.span.longitudeDelta > self.maxSpan.longitudeDelta {
+                let region =  MKCoordinateRegion(center: mapView.region.center, span: self.maxSpan)
+                self.mapView.setRegion(region, animated: true)
+            }
         }
     }
     
