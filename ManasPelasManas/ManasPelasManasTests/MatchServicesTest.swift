@@ -23,12 +23,44 @@ class MatchServicesTest: XCTestCase {
         // Apaga arquivos/dados criados só pro teste, finaliza serviços
     }
     
-    // REGION
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: 100)
-        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 5, longitude: 5), radius: 1000)
+    // MARK: Region
+    
+    func testRegionsMatch() {
+        
+        let radius: Double = 100*1000 // radius in meters
+        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: radius)
+        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
+        // distance between (11,10) and (10,10) = 111 km
+        
+        let matchServices = MatchServices()
+        let result = matchServices.checkMatchingRegion(regionA: circleA, regionB: circleB)
+        
+        XCTAssertTrue(result)
+    }
+    
+    func testRegionsDoNotMatch() {
+        
+        let radius: Double = 10*1000 // radius in meters
+        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: radius)
+        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
+        // distance between (11,10) and (10,10) = 111 km
+        
+        let matchServices = MatchServices()
+        let result = matchServices.checkMatchingRegion(regionA: circleA, regionB: circleB)
+        
+        XCTAssertFalse(result)
+    }
+    
+    // Latitude limit
+    
+    // latitude or longitude coordinate in degrees under the WGS 84 reference
+    // frame. The degree can be positive (North and East) or negative (South and West).
+    
+    func testLatitudeLimitMatch() {
+        // Latitude (North/South) exists between -90 and 90 degrees
+        
+        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 90, longitude: 10), radius: 10000)
+        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: 10000)
         
         let matchServices = MatchServices()
         
@@ -36,15 +68,5 @@ class MatchServicesTest: XCTestCase {
         
         XCTAssertFalse(result)
     }
-
-    // TIME RANGE
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
-    // JOURNEY
 
 }

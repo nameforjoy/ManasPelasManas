@@ -10,7 +10,7 @@ class MatchServices {
         let coordA = CLLocation(latitude: regionA.coordinate.latitude, longitude: regionA.coordinate.longitude)
         let coordB = CLLocation(latitude: regionB.coordinate.latitude, longitude: regionB.coordinate.longitude)
         let distance = coordA.distance(from: coordB)
-        if(regionA.radius + regionB.radius >= distance) {
+        if (regionA.radius + regionB.radius >= distance) {
             return true
         }
         return false
@@ -29,7 +29,6 @@ class MatchServices {
         let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
         
         return dateIntervalA.intersects(dateIntervalB)
-    
     }
 
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
@@ -44,6 +43,7 @@ class MatchServices {
         let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
         let matchDestiny = checkMatchingRegion(regionA: mkcDestinyA, regionB: mkcDestinyB)
         let matchHour = checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+        
         if matchOrigin && matchDestiny && matchHour {
             return true
         }
