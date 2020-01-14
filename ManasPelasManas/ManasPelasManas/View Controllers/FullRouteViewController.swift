@@ -76,8 +76,14 @@ class FullRouteViewController: UIViewController {
     
     func displayMapItems(path: Path?) {
         
-        self.circleA = path?.getCircle(stage: .origin)
-        self.circleB = path?.getCircle(stage: .destiny)
+        let pathServices = PathServices()
+        
+        if let path = path {
+            self.circleA = pathServices.getCircle(path: path, stage: .origin)
+            self.circleB = pathServices.getCircle(path: path, stage: .destiny)
+        } else {
+            print("Path is null")
+        }
         
         self.addAnnotations()
         

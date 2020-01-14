@@ -20,7 +20,7 @@ class JourneyCompanionsViewController: UIViewController {
     
     var journeyId: UUID?
     var journeyToMatch = Journey()
-    var test = Test()
+    var test = MatchServices()
     
     var companionID: UUID? = nil
     var userMatches = [User]()
@@ -92,6 +92,9 @@ class JourneyCompanionsViewController: UIViewController {
     }
         
         func displayJourneyDescription() {
+            
+            let pathServices = PathServices()
+            
             self.dateFormatter.dateFormat = "E, d MMM yyyy"
             self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
             
@@ -100,11 +103,11 @@ class JourneyCompanionsViewController: UIViewController {
             let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
             self.timeRangeLabel.text = initialHour + " - "  + finalHour
             
-            self.journeyToMatch.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
+            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .origin, completion: { (text, error)  -> Void in
                 // TODO: Tratar erro
                 self.fromLabel.text = text
             })
-            self.journeyToMatch.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
+            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .destiny, completion: { (text, error)  -> Void in
                 // TODO: Tratar erro
                 self.toLabel.text = text
             })

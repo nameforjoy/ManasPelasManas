@@ -4,7 +4,8 @@ import Foundation
 import MapKit
 import CoreData
 
-class Test {
+class MatchServices {
+    
     func checkMatchingRegion(regionA: MKCircle , regionB: MKCircle) -> Bool {
         let coordA = CLLocation(latitude: regionA.coordinate.latitude, longitude: regionA.coordinate.longitude)
         let coordB = CLLocation(latitude: regionB.coordinate.latitude, longitude: regionB.coordinate.longitude)
@@ -32,10 +33,13 @@ class Test {
     }
 
     func compareJourneys(journeyA: Journey, journeyB: Journey) -> Bool {
-        let mkcOriginA = (journeyA.has_path.getCircle(stage: .origin))
-        let mkcOriginB = (journeyB.has_path.getCircle(stage: .origin))
-        let mkcDestinyA = (journeyA.has_path.getCircle(stage: .destiny))
-        let mkcDestinyB = (journeyB.has_path.getCircle(stage: .destiny))
+        
+        let pathServices = PathServices()
+        
+        let mkcOriginA = (pathServices.getCircle(path: journeyA.has_path, stage: .origin))
+        let mkcOriginB = (pathServices.getCircle(path: journeyB.has_path, stage: .origin))
+        let mkcDestinyA = (pathServices.getCircle(path: journeyA.has_path, stage: .destiny))
+        let mkcDestinyB = (pathServices.getCircle(path: journeyB.has_path, stage: .destiny))
 
         let matchOrigin = checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
         let matchDestiny = checkMatchingRegion(regionA: mkcDestinyA, regionB: mkcDestinyB)
@@ -45,28 +49,5 @@ class Test {
         }
         return false
     }
-    
-    
-//ESPERAR PARA QUANDO FOR PRECISO!!!!!!
-    /// Description
-    ///
-    /// - Parameters:
-    ///   - journey: journey to be compared
-    ///   - users: array of all users
-    /// - Returns: return a user in case of match and nil case of no match founded
-//    func searchForMatch(journey: Journey, users:[User]) -> [User] {
-//        var userMatches = [User]()
-//        for user in users {
-//            if !user.authenticated {
-//                for i in 0..< {
-//                    if compareJourneys(journeyA: journey, journeyB: user.journeys[i]) {
-//                        userMatches.append(user)
-//                    }
-//                }
-//            }
-//        }
-//        return userMatches
-//    }
-
 
 }
