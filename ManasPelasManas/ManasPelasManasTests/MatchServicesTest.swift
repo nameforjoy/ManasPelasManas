@@ -26,47 +26,76 @@ class MatchServicesTest: XCTestCase {
     // MARK: Region
     
     func testRegionsMatch() {
+        // Test simple region match cases
+        // Obs: the distance between (latitude, longitude) = (11,10) and (10,10) is approximately 111 km
+        
+        let bigRadius: Double = 100*1000 // radius in meters
+        let referenceCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: bigRadius)
+        
+        // Match
+        let bigCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: bigRadius)
+        
+        // No match
+        let smallRadius: Double = 10*1000
+        let smallCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: smallRadius)
+        
+        // Limit case
+        let limitRadius: Double = 11*1000
+        let limitCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: limitRadius)
+        
+        let matchServices = MatchServices()
+        
+        do {
+            let matchCase = try matchServices.checkMatchingRegion(regionA: bigCircle, regionB: referenceCircle)
+            let noMatchCase = try matchServices.checkMatchingRegion(regionA: smallCircle, regionB: referenceCircle)
+            let limitCase = try matchServices.checkMatchingRegion(regionA: limitCircle, regionB: referenceCircle)
+            
+            XCTAssertTrue(matchCase)
+            XCTAssertFalse(noMatchCase)
+            XCTAssertTrue(limitCase)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func testLatitudeRange() {
+        // latitude range = [-90, 90]degrees running East-West
         
         let radius: Double = 100*1000 // radius in meters
-        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: radius)
-        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
-        // distance between (11,10) and (10,10) = 111 km
+        let referenceCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
+        
+        let latitudeAboveLimitCircle = MKCircle(center: CLLocationCoordinate2D(latitude: -91, longitude: 10), radius: radius)
+        let latitudeBelowLimitCircle = MKCircle(center: CLLocationCoordinate2D(latitude: -91, longitude: 10), radius: radius)
         
         let matchServices = MatchServices()
-        let result = matchServices.checkMatchingRegion(regionA: circleA, regionB: circleB)
         
-        XCTAssertTrue(result)
+        // Checks for general  error
+        XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: latitudeAboveLimitCircle), "Should return latitude outside range error") { (error) in
+            XCTAssertEqual(error  as! Errors , .LatitudeOutsideRange)
+        }
+        
+        // Checks  for specific error and returns message if no error is encountered
+        XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: latitudeBelowLimitCircle), "Should return latitude outside range error") { (error) in
+            XCTAssertEqual(error  as! Errors , .LatitudeOutsideRange)
+        }
     }
     
-    func testRegionsDoNotMatch() {
+    func testCyclicLongitudeValue() {
+        // longitude accepts any value (angle in degrees with cyclic property 360)
         
-        let radius: Double = 10*1000 // radius in meters
-        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 11, longitude: 10), radius: radius)
-        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
-        // distance between (11,10) and (10,10) = 111 km
+        let radius: Double = 1000 // radius in meters
+        let referenceCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: radius)
         
-        let matchServices = MatchServices()
-        let result = matchServices.checkMatchingRegion(regionA: circleA, regionB: circleB)
-        
-        XCTAssertFalse(result)
-    }
-    
-    // Latitude limit
-    
-    // latitude or longitude coordinate in degrees under the WGS 84 reference
-    // frame. The degree can be positive (North and East) or negative (South and West).
-    
-    func testLatitudeLimitMatch() {
-        // Latitude (North/South) exists between -90 and 90 degrees
-        
-        let  circleA = MKCircle(center: CLLocationCoordinate2D(latitude: 90, longitude: 10), radius: 10000)
-        let  circleB = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 10), radius: 10000)
+        let longitudeCycleCircle = MKCircle(center: CLLocationCoordinate2D(latitude: 10, longitude: 360+10), radius: radius)
         
         let matchServices = MatchServices()
-        
-        let result = matchServices.checkMatchingRegion(regionA: circleA, regionB: circleB)
-        
-        XCTAssertFalse(result)
+
+        do {
+            let longitudeCycle = try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: longitudeCycleCircle)
+            XCTAssertTrue(longitudeCycle)
+        } catch {
+            XCTFail()
+        }
     }
 
 }

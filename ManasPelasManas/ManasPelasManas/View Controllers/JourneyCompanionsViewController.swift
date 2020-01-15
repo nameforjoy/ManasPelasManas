@@ -69,9 +69,20 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
+    func journeyMatchedAndIsValid(journeyA: Journey, journeyB: Journey) -> Bool {
+        do {
+            return try test.compareJourneys(journeyA: journeyA, journeyB: journeyB)
+        } catch {
+            return false
+        }
+    }
+    
     func searchForMatch() {
         for journey in journeysNotUser {
-            if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
+            
+            let journeysMatched = journeyMatchedAndIsValid(journeyA: self.journeyToMatch, journeyB: journey)
+            
+            if journeysMatched && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
                         self.userMatches.append(user!)
