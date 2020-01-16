@@ -7,6 +7,13 @@ import CoreData
 class MatchServices {
     
     func checkMatchingRegion(regionA: MKCircle, regionB: MKCircle) throws -> Bool {
+        
+        let maxRadius: Double = 11*1000
+        let minRadius: Double = 0.5*1000
+        
+        if regionA.radius < minRadius || regionA.radius > maxRadius || regionB.radius < minRadius || regionB.radius > maxRadius {
+            throw Errors.RegionRadiusOutsideTheAllowedRange
+        }
         if abs(regionA.coordinate.latitude) > 90 || abs(regionB.coordinate.latitude) > 90 {
             throw Errors.LatitudeOutsideRange
         }
