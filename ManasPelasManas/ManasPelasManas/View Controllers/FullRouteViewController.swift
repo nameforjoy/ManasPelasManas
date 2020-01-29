@@ -182,26 +182,28 @@ extension FullRouteViewController: MKMapViewDelegate {
             newJourney!.journeyId = UUID()
             
             UserServices.getAuthenticatedUser({ (error, user) in
+                
                 if(error == nil && user != nil) {
                     self.newJourney!.ownerId = user!.userId
+                    
                     if(self.newPath != nil) {
-                        
                         //criar metodo no services para salvar path antes de criar journey
                         self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                        
                         do {
                             self.newJourney!.has_path = self.newPath!
                             JourneyServices.createJourney(journey: self.newJourney!, { (error) in
+                                
                                 if (error == nil) {
                                     DispatchQueue.main.async {
                                         self.performSegue(withIdentifier: "checkForMatches", sender: sender)
                                     }
-                                    
                                 } else {
-                                    print(error?.localizedDescription)
+                                    print(error?.localizedDescription ?? "Error")
                                 }
                             })
                         } catch {
-                            print("Ooops \(error)")
+                            print("Error: \(error)")
                         }
                     }
                 }
