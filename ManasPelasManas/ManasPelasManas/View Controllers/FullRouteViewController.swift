@@ -71,15 +71,19 @@ class FullRouteViewController: UIViewController {
         }
         
     }
-
- 
     
     // MARK: Displaying Map Data
     
     func displayMapItems(path: Path?) {
         
-        self.circleA = path?.getCircle(stage: .origin)
-        self.circleB = path?.getCircle(stage: .destiny)
+        let pathServices = PathServices()
+        
+        if let path = path {
+            self.circleA = pathServices.getCircle(path: path, stage: .origin)
+            self.circleB = pathServices.getCircle(path: path, stage: .destiny)
+        } else {
+            print("Path is null")
+        }
         
         self.addAnnotations()
         
@@ -134,6 +138,17 @@ class FullRouteViewController: UIViewController {
         self.tapView.isUserInteractionEnabled = false
     }
     
+    func presentAlert() {
+        let alertController = UIAlertController (title: "Horário de saída", message: "Defina o intervalo de tempo em que você deseja iniciar seu trajeto para continuar", preferredStyle: .alert)
+        
+        // Adds Cancel button action
+        let cancelAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        // Presents Alert
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -155,42 +170,48 @@ extension FullRouteViewController: MKMapViewDelegate {
     
     @IBAction func confirmButton(_ sender: Any) {
         
-        //criar Journey no CoreData
-        newJourney = Journey()
-        
-        //set attributes for newJorney
-        //date from datepicker
-        newJourney!.initialHour = self.earlierDate
-        newJourney!.finalHour = self.latestDate
-        newJourney!.journeyId = UUID()
-        
-        UserServices.getAuthenticatedUser({ (error, user) in
-            if(error == nil && user != nil) {
-                self.newJourney!.ownerId = user!.userId
-                if(self.newPath != nil) {
+        if self.earlierDate != nil && self.latestDate != nil {
+            
+            //criar Journey no CoreData
+            newJourney = Journey()
+            
+            //set attributes for newJorney
+            //date from datepicker
+            newJourney!.initialHour = self.earlierDate
+            newJourney!.finalHour = self.latestDate
+            newJourney!.journeyId = UUID()
+            
+            UserServices.getAuthenticatedUser({ (error, user) in
+                
+                if(error == nil && user != nil) {
+                    self.newJourney!.ownerId = user!.userId
                     
-                    //criar metodo no services para salvar path antes de criar journey
-                    self.newPath?.managedObjectContext?.insert(self.newJourney!)
-                    do {
-                        self.newJourney!.has_path = self.newPath!
-                        JourneyServices.createJourney(journey: self.newJourney!, { (error) in
-                            if (error == nil) {
-                                DispatchQueue.main.async {
-                                    self.performSegue(withIdentifier: "checkForMatches", sender: sender)
-                                }
+                    if(self.newPath != nil) {
+                        //criar metodo no services para salvar path antes de criar journey
+                        self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                        
+                        do {
+                            self.newJourney!.has_path = self.newPath!
+                            JourneyServices.createJourney(journey: self.newJourney!, { (error) in
                                 
-                            } else {
-                                print(error?.localizedDescription)
-                            }
-                        })
-                    } catch {
-                        print("Ooops \(error)")
+                                if (error == nil) {
+                                    DispatchQueue.main.async {
+                                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                                    }
+                                } else {
+                                    print(error?.localizedDescription ?? "Error")
+                                }
+                            })
+                        } catch {
+                            print("Error: \(error)")
+                        }
                     }
-                    
-                   
                 }
-            }
-        })
+            })
+            
+        } else {
+            presentAlert()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -218,6 +239,7 @@ extension FullRouteViewController: MKMapViewDelegate {
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
     }
+    
 }
 
 extension FullRouteViewController: UITableViewDataSource {

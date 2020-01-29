@@ -20,7 +20,7 @@ class JourneyCompanionsViewController: UIViewController {
     
     var journeyId: UUID?
     var journeyToMatch = Journey()
-    var test = Test()
+    var test = MatchServices()
     
     var companionID: UUID? = nil
     var userMatches = [User]()
@@ -38,10 +38,10 @@ class JourneyCompanionsViewController: UIViewController {
         self.companionsTableView.delegate = self
         self.companionsTableView.dataSource = self
         
+        
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
-                
                 DispatchQueue.main.async {
                     self.displayJourneyDescription()
                 }
@@ -69,9 +69,20 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
+    func journeyMatchedAndIsValid(journeyA: Journey, journeyB: Journey) -> Bool {
+        do {
+            return try test.compareJourneys(journeyA: journeyA, journeyB: journeyB)
+        } catch {
+            return false
+        }
+    }
+    
     func searchForMatch() {
         for journey in journeysNotUser {
-            if test.compareJourneys(journeyA: journey, journeyB: self.journeyToMatch) && journey.ownerId != nil{
+            
+            let journeysMatched = journeyMatchedAndIsValid(journeyA: self.journeyToMatch, journeyB: journey)
+            
+            if journeysMatched && journey.ownerId != nil{
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
                     if(error == nil && user != nil)  {
                         self.userMatches.append(user!)
@@ -92,6 +103,9 @@ class JourneyCompanionsViewController: UIViewController {
     }
         
         func displayJourneyDescription() {
+            
+            let pathServices = PathServices()
+            
             self.dateFormatter.dateFormat = "E, d MMM yyyy"
             self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
             
@@ -100,8 +114,14 @@ class JourneyCompanionsViewController: UIViewController {
             let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
             self.timeRangeLabel.text = initialHour + " - "  + finalHour
             
-            self.fromLabel.text = self.journeyToMatch.has_path.originLat?.description
-            self.toLabel.text = self.journeyToMatch.has_path.destinyLat?.description
+            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .origin, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                self.fromLabel.text = text
+            })
+            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .destiny, completion: { (text, error)  -> Void in
+                // TODO: Tratar erro
+                self.toLabel.text = text
+            })
         }
     
 }

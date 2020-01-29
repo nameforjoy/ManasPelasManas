@@ -49,9 +49,9 @@ class ProfileViewController: UIViewController {
         
         self.currentUser = User()
         self.currentUser?.name = "Julia Silva"
-        self.currentUser?.bio = "Descricao aqui"
+        self.currentUser?.bio = "Sou uma garota discreta e tímida. Prefiro ficar na minha, vivo com simplicidade. Prática, super responsável e pé no chão, sou bem madura para a minha idade. Tenho uma vida agitada e sempre preciso andar pelas ruas. Gostaria muito de ter uma companhia para andar comigo, principalmente nos meus percursos noturnos."
         self.currentUser?.bornDate = Date()
-        self.currentUser?.photo = "annalise.photo"
+        self.currentUser?.photo = "mari"
         self.currentUser?.authenticated = 0
         self.currentUser?.userId = UUID()
         
@@ -84,9 +84,9 @@ class ProfileViewController: UIViewController {
         
         self.authenticatedUser = User()
         self.authenticatedUser?.name = "Brenda Santos"
-        self.authenticatedUser?.bio = "I'm a wandering soul and pretty happy about it. Been back from a trip around the world one year already., connecting with people through volunteer work, getting to know the countryside and the people that live in there. Seeing the world by its best side, betting in people's kindness. Volunteering in farms, getting to know great people, using couchsurfing and making friends, learning and playing some music, having great food all over the world and some good beers and spirits. ;) Very simple to keep me happy, good food, good company, good music, (good drink when possible), a place to sleep, and a smile in my face!"
+        self.authenticatedUser?.bio = "Oi, eu sou a Brenda! Sou inteligente, forte e também enigmática, misteriosa e honesta. Muito dedicada, vou a fundo em tudo o que procuro entender. Tenho uma força de vontade incrível e uma grande capacidade para lidar com situações difíceis. Gosto muito de fazer novas amizades e aproveitar uma boa conversa :) Vamos caminhar juntas e quem sabe nos tornar boas amigas?"
         self.authenticatedUser?.bornDate = date
-        self.authenticatedUser?.photo = "user"
+        self.authenticatedUser?.photo = "leticia"
         self.authenticatedUser?.authenticated = 1
         self.authenticatedUser?.userId = UUID()
         
@@ -130,8 +130,6 @@ class ProfileViewController: UIViewController {
         formatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
         return (formatter.date(from: hour))!
     }
-    
-    
     
     func createCBToMorasPath() {
         pathTest = Path()

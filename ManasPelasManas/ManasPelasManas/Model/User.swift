@@ -29,7 +29,5 @@ class User: NSManagedObject {
         self.init(entity: entityDescription!, insertInto: nil)
     }
     
-
-    
 }
 

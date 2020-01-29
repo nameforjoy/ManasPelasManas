@@ -81,13 +81,47 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         // get a new cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
         
+        cell.fromLabel.text = ""
+        cell.toLabel.text = ""
+        
         // get the season data to be displayed
-        if let journey: Journey = self.journeys[indexPath.row] {
-            // fill cell with extracted information
-            cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
-            cell.toLabel.text = journey.has_path.originLat?.description
-            cell.fromLabel.text = journey.has_path.destinyLat?.description
+        let journey: Journey = self.journeys[indexPath.row]
+        
+        // fill cell with extracted information
+        cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
+        
+        let pathServices = PathServices()
+        
+        pathServices.getAddressText(path: journey.has_path, stage: .origin, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            cell.fromLabel.text = text
+        })
+        pathServices.getAddressText(path: journey.has_path, stage: .destiny, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            cell.toLabel.text = text
+        })
+        
+        switch indexPath.row {
+        case 0:
+            cell.photo1.image = UIImage(named: "mari")
+            cell.photo2.image = UIImage(named: "ana")
+            cell.photo3.image = UIImage(named: "rebeca")
+        case 1:
+            cell.photo1.image = UIImage(named: "sara")
+            cell.photo2.image = UIImage(named: "aline")
+            cell.photo3.image = UIImage(named: "brenda")
+        case 2:
+            cell.photo1.image = nil
+            cell.photo2.image = UIImage(named: "ana")
+            cell.photo3.image = UIImage(named: "elisa")
+            cell.notificationView.isHidden = true
+        default:
+            cell.photo1.image = nil
+            cell.photo2.image = UIImage(named: "lana")
+            cell.photo3.image = UIImage(named: "mari")
+            cell.notificationView.isHidden = true
         }
+        
         return cell
     }
     
