@@ -27,8 +27,8 @@
 		15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8E9230C11A0004E537D /* Main.storyboard */; };
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
-		8D5874BA23CE3F160052F4AF /* ManasPelasManasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5874B923CE3F160052F4AF /* ManasPelasManasTests.swift */; };
 		8D5874C223CE3F650052F4AF /* MatchServicesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5874C123CE3F650052F4AF /* MatchServicesTest.swift */; };
+		8D5874C523E1BF7B0052F4AF /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5874C423E1BF7B0052F4AF /* TestData.swift */; };
 		8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */; };
 		8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */; };
 		8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94A23164A160014FCDC /* CompanionCell.swift */; };
@@ -75,9 +75,9 @@
 		15A6A8EF230C11A1004E537D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D5874B723CE3F160052F4AF /* ManasPelasManasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManasPelasManasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5874B923CE3F160052F4AF /* ManasPelasManasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManasPelasManasTests.swift; sourceTree = "<group>"; };
 		8D5874BB23CE3F160052F4AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D5874C123CE3F650052F4AF /* MatchServicesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchServicesTest.swift; sourceTree = "<group>"; };
+		8D5874C423E1BF7B0052F4AF /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTimeTableViewCell.swift; sourceTree = "<group>"; };
 		8D74B942231640B50014FCDC /* FullJourneyDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullJourneyDetailsCell.swift; sourceTree = "<group>"; };
 		8D74B94A23164A160014FCDC /* CompanionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionCell.swift; sourceTree = "<group>"; };
@@ -188,9 +188,9 @@
 		8D5874B823CE3F160052F4AF /* ManasPelasManasTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D5874B923CE3F160052F4AF /* ManasPelasManasTests.swift */,
 				8D5874BB23CE3F160052F4AF /* Info.plist */,
 				8D5874C123CE3F650052F4AF /* MatchServicesTest.swift */,
+				8D5874C423E1BF7B0052F4AF /* TestData.swift */,
 			);
 			path = ManasPelasManasTests;
 			sourceTree = "<group>";
@@ -373,7 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D5874BA23CE3F160052F4AF /* ManasPelasManasTests.swift in Sources */,
+				8D5874C523E1BF7B0052F4AF /* TestData.swift in Sources */,
 				8D5874C223CE3F650052F4AF /* MatchServicesTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

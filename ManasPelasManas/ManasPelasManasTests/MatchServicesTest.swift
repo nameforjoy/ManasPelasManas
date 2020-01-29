@@ -121,5 +121,115 @@ class MatchServicesTest: XCTestCase {
             XCTAssertEqual(error as! Errors, .RegionRadiusOutsideTheAllowedRange)
         }
     }
+    
+    // TIME RANGE
+        func testIntervalsWithIntersectionTimetable() {
+            let journeyA = Journey()
+            let journeyB = Journey()
+        
+            let testData = TestData()
+            let initialHourA = testData.createFormattedHour(hour: "30/08/2019T07:30")
+            let finalHourA = testData.createFormattedHour(hour: "30/08/2019T08:00")
+            let initialHourB = testData.createFormattedHour(hour: "30/08/2019T07:45")
+            let finalHourB = testData.createFormattedHour(hour: "30/08/2019T08:30")
+            
+            journeyA.initialHour = initialHourA
+            journeyA.finalHour = finalHourA
+            journeyB.initialHour = initialHourB
+            journeyB.finalHour = finalHourB
+            
+            let matchServices = MatchServices()
+            let result = matchServices.checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+            
+            XCTAssertTrue(result)
+        }
+        
+        
+        func testIntervalsWithoutIntersectionTimetable() {
+             let journeyA = Journey()
+             let journeyB = Journey()
+         
+             let testData = TestData()
+             let initialHourA = testData.createFormattedHour(hour: "30/08/2019T07:30")
+             let finalHourA = testData.createFormattedHour(hour: "30/08/2019T08:00")
+             let initialHourB = testData.createFormattedHour(hour: "30/08/2019T10:45")
+             let finalHourB = testData.createFormattedHour(hour: "30/08/2019T11:30")
+             
+             journeyA.initialHour = initialHourA
+             journeyA.finalHour = finalHourA
+             journeyB.initialHour = initialHourB
+             journeyB.finalHour = finalHourB
+             
+             let matchServices = MatchServices()
+             let result = matchServices.checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+             
+             XCTAssertFalse(result)
+         }
+        
+        func testInitialAndFinalHourSwichedWithoutIntersection() {
+            let journeyA = Journey()
+            let journeyB = Journey()
+
+            let testData = TestData()
+            let initialHourA = testData.createFormattedHour(hour: "30/08/2019T08:00")
+            let finalHourA = testData.createFormattedHour(hour: "30/08/2019T07:30")
+            let initialHourB = testData.createFormattedHour(hour: "30/08/2019T10:45")
+            let finalHourB = testData.createFormattedHour(hour: "30/08/2019T11:30")
+
+            journeyA.initialHour = initialHourA
+            journeyA.finalHour = finalHourA
+            journeyB.initialHour = initialHourB
+            journeyB.finalHour = finalHourB
+
+            let matchServices = MatchServices()
+            let result = matchServices.checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+
+            XCTAssertFalse(result)
+         }
+        
+        //Verificar intervalos de tempo inválidos
+        func testInitialAndFinalHourSwichedWithIntersection() {
+            let journeyA = Journey()
+            let journeyB = Journey()
+
+            let testData = TestData()
+            let initialHourA = testData.createFormattedHour(hour: "30/08/2019T08:00")
+            let finalHourA = testData.createFormattedHour(hour: "30/08/2019T07:30")
+            let initialHourB = testData.createFormattedHour(hour: "30/08/2019T07:45")
+            let finalHourB = testData.createFormattedHour(hour: "30/08/2019T08:30")
+
+            journeyA.initialHour = initialHourA
+            journeyA.finalHour = finalHourA
+            journeyB.initialHour = initialHourB
+            journeyB.finalHour = finalHourB
+
+            let matchServices = MatchServices()
+            let result = matchServices.checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+
+            XCTAssertFalse(result)
+         }
+        
+        
+    //    As datas são escolhidas por date picker logo irei considerar impossível a seleção de uma data inválida para anos não bissextos
+        func testTrueLeapYearWithIntersection() {
+            let journeyA = Journey()
+            let journeyB = Journey()
+        
+            let testData = TestData()
+            let initialHourA = testData.createFormattedHour(hour: "29/02/2020T10:00")
+            let finalHourA = testData.createFormattedHour(hour: "29/02/2020T12:30")
+            let initialHourB = testData.createFormattedHour(hour: "29/02/2020T11:00")
+            let finalHourB = testData.createFormattedHour(hour: "29/02/2020T12:30")
+            
+            journeyA.initialHour = initialHourA
+            journeyA.finalHour = finalHourA
+            journeyB.initialHour = initialHourB
+            journeyB.finalHour = finalHourB
+            
+            let matchServices = MatchServices()
+            let result = matchServices.checkMatchTimetable(journeyA: journeyA, journeyB: journeyB)
+            
+            XCTAssertTrue(result)
+        }
 
 }

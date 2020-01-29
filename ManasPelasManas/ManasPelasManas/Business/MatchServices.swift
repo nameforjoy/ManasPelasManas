@@ -35,7 +35,12 @@ class MatchServices {
         guard let finalHourB = journeyB.finalHour else { return false }
         
         let intervalA = finalHourA.timeIntervalSince(initialHourA)
-        let intervalB = finalHourB.timeIntervalSince(initialHourA)
+        let intervalB = finalHourB.timeIntervalSince(initialHourB)
+        
+        // Validação se as datas possuem formato inválido
+        if intervalA < 0 || intervalB < 0 {
+            return false
+        }
         
         let dateIntervalA = DateInterval(start: initialHourA, duration: intervalA)
         let dateIntervalB = DateInterval(start: initialHourB, duration: intervalB)
