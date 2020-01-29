@@ -136,9 +136,6 @@ class UserDAO: DAO {
 
     }
     
-    
-    
-    
     static func findById(objectID: UUID) throws -> User? {
         // list of projects to be returned
         var user: [User]

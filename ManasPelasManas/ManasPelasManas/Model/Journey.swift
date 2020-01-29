@@ -30,6 +30,4 @@ class Journey: NSManagedObject {
         // call super
         self.init(entity: entityDescription!, insertInto: nil)
     }
-
-    
 }

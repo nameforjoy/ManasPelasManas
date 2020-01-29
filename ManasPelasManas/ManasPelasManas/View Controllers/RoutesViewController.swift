@@ -85,19 +85,21 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         cell.toLabel.text = ""
         
         // get the season data to be displayed
-        if let journey: Journey = self.journeys[indexPath.row] {
-            // fill cell with extracted information
-            cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
-            
-            journey.has_path.getAddressText(stage: .origin, completion: { (text, error)  -> Void in
-                // TODO: Tratar erro
-                cell.fromLabel.text = text
-            })
-            journey.has_path.getAddressText(stage: .destiny, completion: { (text, error)  -> Void in
-                // TODO: Tratar erro
-                cell.toLabel.text = text
-            })
-        }
+        let journey: Journey = self.journeys[indexPath.row]
+        
+        // fill cell with extracted information
+        cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
+        
+        let pathServices = PathServices()
+        
+        pathServices.getAddressText(path: journey.has_path, stage: .origin, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            cell.fromLabel.text = text
+        })
+        pathServices.getAddressText(path: journey.has_path, stage: .destiny, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            cell.toLabel.text = text
+        })
         
         switch indexPath.row {
         case 0:

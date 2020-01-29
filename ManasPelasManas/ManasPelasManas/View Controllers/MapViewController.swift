@@ -81,7 +81,7 @@ class MapViewController: UIViewController {
         // Prevents the NavigationBar from being  hidden when  showing the TableView
         self.resultSearchController?.hidesNavigationBarDuringPresentation = false
         // Sets recults table background transparency
-        self.resultSearchController?.dimsBackgroundDuringPresentation = true
+        self.resultSearchController?.obscuresBackgroundDuringPresentation = false
         // Makes this ViewController the presentation context for the results table, preventing it from overlapping the searchBar
         self.definesPresentationContext = true
         

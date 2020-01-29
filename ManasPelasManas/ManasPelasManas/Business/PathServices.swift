@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MapKit
+import Contacts
 
 class PathServices {
     
@@ -164,6 +166,69 @@ class PathServices {
         
         // execute block in background
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
+    }
+    
+    public func getCircle(path: Path, stage: Stage) -> MKCircle {
+        var circle: MKCircle
+        var coordinate: CLLocationCoordinate2D
+        var radius: Double
+        
+        switch stage {
+        case .origin:
+            let lat = path.originLat as! Double
+            let long = path.originLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = path.originRadius as! Double
+        case .destiny:
+            let lat = path.destinyLat as! Double
+            let long = path.destinyLong as! Double
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            radius = path.destinyRadius as! Double
+        }
+        
+        circle = MKCircle(center: coordinate, radius: radius)
+        
+        return circle
+    }
+    
+    public func getAddressText(path: Path, stage: Stage, completion: @escaping (String?, Error?) -> Void) {
+        
+        var coordinate: CLLocation
+        
+        switch stage {
+        case .origin:
+            let lat = path.originLat as! Double
+            let long = path.originLong as! Double
+            coordinate = CLLocation(latitude: lat, longitude: long)
+        case .destiny:
+            let lat = path.destinyLat as! Double
+            let long = path.destinyLong as! Double
+            coordinate = CLLocation(latitude: lat, longitude: long)
+        }
+        
+        var addressTxt = ""
+
+        CLGeocoder().reverseGeocodeLocation(coordinate, completionHandler: {(placemarks, error) -> Void in
+            if error != nil {
+                //handle error
+                completion(nil,error)
+            } else if let results = placemarks,
+                results.count > 0 {
+                let result = results[0]
+                
+                let postalAddressFormatter = CNPostalAddressFormatter()
+                postalAddressFormatter.style = .mailingAddress
+                
+                if let fullAddress = result.postalAddress {
+                    addressTxt = postalAddressFormatter.string(from: fullAddress)
+                } else if let city = result.locality, let state = result.administrativeArea {
+                    addressTxt = city + ", " + state
+                }
+                
+                completion(addressTxt,nil)
+            }
+        })
+        
     }
 
 
