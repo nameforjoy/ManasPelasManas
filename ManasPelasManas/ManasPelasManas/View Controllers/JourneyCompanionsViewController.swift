@@ -15,7 +15,6 @@ class JourneyCompanionsViewController: UIViewController {
     @IBOutlet weak var timeRangeLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var companionsTableView: UITableView!
     
     var journeyId: UUID?

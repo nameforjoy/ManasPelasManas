@@ -12,9 +12,9 @@ import UIKit
 class CompanionProfileViewController: UIViewController {
     
     @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var bioTitleLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var nameContentLabel: UILabel!
+    @IBOutlet weak var aboutMeTitleLabel: UILabel!
+    @IBOutlet weak var aboutMeContentLabel: UILabel!
     @IBOutlet weak var contactButton: UIButton!
     
     var companionID: UUID? = nil
@@ -27,8 +27,8 @@ class CompanionProfileViewController: UIViewController {
         UserServices.findById(objectID: self.companionID!) { (error, user) in
             if(error == nil && user != nil)  {
                 DispatchQueue.main.async {
-                    self.nameLabel.text = user!.name! + ", 22"
-                    self.bioLabel.text = user!.bio
+                    self.nameContentLabel.text = user!.name! + ", 22"
+                    self.aboutMeContentLabel.text = user!.bio
                     self.profilePhoto.image = UIImage(named: user!.photo!)
                 }
             }
