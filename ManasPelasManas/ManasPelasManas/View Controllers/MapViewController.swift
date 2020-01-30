@@ -40,9 +40,9 @@ class MapViewController: UIViewController {
         // Changes Navigation title in case we are fetching the user's destination
         // They are in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
         if self.firstTime {
-            self.navigationItem.title = "De onde você pode sair?"
+            self.navigationItem.title = "Onde nos encontramos?"
         } else {
-            self.navigationItem.title = "Para onde você vai?"
+            self.navigationItem.title = "Para onde vamos?"
         }
     }
     
