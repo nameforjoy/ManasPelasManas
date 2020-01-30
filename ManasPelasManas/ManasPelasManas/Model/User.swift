@@ -7,26 +7,28 @@
 //
 
 import Foundation
-import CoreData
 
-class User: NSManagedObject {
-    @NSManaged public var userId: UUID?
-    @NSManaged public var name: String?
-    @NSManaged public var bio: String?
-    @NSManaged public var bornDate: Date?
-    @NSManaged public var authenticated: NSNumber?
-    @NSManaged public var photo: String?
-    @NSManaged public var has_journeys: Set<Journey>?
+class User: NSObject {
     
-    convenience init() {
-        // get context
-        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
+    public var userId: UUID?
+    public var name: String?
+    public var bio: String?
+    public var bornDate: String?
+    public var authenticated: Int?
+    public var photo: String?
+    public var has_journeys: Set<Journey>?
+    
+    override init() {
         
-        // create entity description
-        let entityDescription = NSEntityDescription.entity(forEntityName: "User", in: managedObjectContext)
-        
-        // call super
-        self.init(entity: entityDescription!, insertInto: nil)
+    }
+    
+    init(userId: UUID?, name: String?, bio: String?, bornDate: String?, authenticated: Int?, photo: String?) {
+        self.userId = userId
+        self.name = name
+        self.bio = bio
+        self.bornDate = bornDate
+        self.authenticated = authenticated
+        self.photo = photo
     }
     
 }

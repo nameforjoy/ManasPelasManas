@@ -12,9 +12,9 @@ import CoreData
 
 class FullRouteViewController: UIViewController {
     
-    @objc var currentUser: User?
-    @objc var newPath: Path?
-    @objc var newJourney: Journey?
+    var currentUser: User?
+    var newPath: Path?
+    var newJourney: Journey?
     var pathId: UUID?
     
     var annotationA: MKPointAnnotation?

@@ -7,32 +7,34 @@
 //
 
 import Foundation
-import CoreData
 
 enum Stage {
     case origin
     case destiny
 }
 
-class Path: NSManagedObject {
-    @NSManaged public var pathId: UUID?
-    @NSManaged public var originLat: NSNumber?
-    @NSManaged public var originLong: NSNumber?
-    @NSManaged public var originRadius: NSNumber?
-    @NSManaged public var destinyLat: NSNumber?
-    @NSManaged public var destinyLong: NSNumber?
-    @NSManaged public var destinyRadius: NSNumber?
+class Path: NSObject {
+
+    public var pathId: UUID?
+    public var originLat: Double?
+    public var originLong: Double?
+    public var originRadius: Double?
+    public var destinyLat: Double?
+    public var destinyLong: Double?
+    public var destinyRadius: Double?
     
     
-    convenience init() {
-        // get contexts
-        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
-        
-        // create entity description
-        let entityDescription = NSEntityDescription.entity(forEntityName: "Path", in: managedObjectContext)
-        
-        // call super
-        self.init(entity: entityDescription!, insertInto: nil)
+    override init() {
+
     }
     
+    init(pathId: UUID?, originLat: Double?, originLong: Double?, originRadius: Double?, destinyLat: Double?, destinyLong: Double?, destinyRadius: Double?) {
+        self.pathId = pathId
+        self.originLat = originLat
+        self.originLong = originLong
+        self.originRadius = originRadius
+        self.destinyLat = destinyLat
+        self.destinyLong = destinyLong
+        self.destinyRadius = destinyRadius
+    }
 }

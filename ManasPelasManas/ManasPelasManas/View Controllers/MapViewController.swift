@@ -104,17 +104,17 @@ class MapViewController: UIViewController {
             self.pathId = newPath?.pathId
             
             let firstArea = self.getCurrentCircularRegion()
-            self.newPath?.originLat = firstArea.coordinate.latitude as NSNumber
-            self.newPath?.originLong = firstArea.coordinate.longitude as NSNumber
-            self.newPath?.originRadius = firstArea.radius as NSNumber
+            self.newPath?.originLat = firstArea.coordinate.latitude as Double
+            self.newPath?.originLong = firstArea.coordinate.longitude as Double
+            self.newPath?.originRadius = firstArea.radius as Double
             
             performSegue(withIdentifier: "goToDestination", sender: sender)
         }
         else {
             let secondArea = self.getCurrentCircularRegion()
-            self.newPath?.destinyLat = secondArea.coordinate.latitude as NSNumber
-            self.newPath?.destinyLong = secondArea.coordinate.longitude as NSNumber
-            self.newPath?.destinyRadius = secondArea.radius as NSNumber
+            self.newPath?.destinyLat = secondArea.coordinate.latitude as Double
+            self.newPath?.destinyLong = secondArea.coordinate.longitude as Double
+            self.newPath?.destinyRadius = secondArea.radius as Double
             
             //Create path coredata
             PathServices.createPath(path: self.newPath!) { error in

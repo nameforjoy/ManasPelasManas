@@ -57,7 +57,7 @@ class JourneyCompanionsViewController: UIViewController {
                         self.autheticatedUser = user!
                         // reload table view with season information
                         DispatchQueue.main.async {
-                            self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId != self.autheticatedUser.userId }
+                            self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId! != self.autheticatedUser.userId }
                             self.searchForMatch()
                         }
                     }
@@ -114,11 +114,15 @@ class JourneyCompanionsViewController: UIViewController {
             let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
             self.timeRangeLabel.text = initialHour + " - "  + finalHour
             
-            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .origin, completion: { (text, error)  -> Void in
+            
+            
+            guard let pathJourney = self.journeyToMatch.has_path else { return }
+            
+            pathServices.getAddressText(path: pathJourney, stage: .origin, completion: { (text, error)  -> Void in
                 // TODO: Tratar erro
                 self.fromLabel.text = text
             })
-            pathServices.getAddressText(path: self.journeyToMatch.has_path, stage: .destiny, completion: { (text, error)  -> Void in
+            pathServices.getAddressText(path: pathJourney, stage: .destiny, completion: { (text, error)  -> Void in
                 // TODO: Tratar erro
                 self.toLabel.text = text
             })

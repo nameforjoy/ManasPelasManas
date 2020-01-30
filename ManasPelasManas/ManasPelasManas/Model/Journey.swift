@@ -7,27 +7,33 @@
 //
 
 import Foundation
-import CoreData
 
-class Journey: NSManagedObject {
-    @NSManaged public var ownerId: UUID?
-    @NSManaged public var journeyId: UUID?
-    @NSManaged public var has_path: Path
-    @NSManaged public var date: Date?
-    @NSManaged public var initialHour: Date?
-    @NSManaged public var finalHour: Date?
-    @NSManaged public var status: String?
-    @NSManaged public var has_confirmed_partners: Set<User>
-    @NSManaged public var has_requested_parteners: Set<User>
+class Journey: NSObject {
     
-    convenience init() {
-        // get context
-        let managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedInstance.persistentContainer.viewContext
+    public var ownerId: UUID?
+    public var journeyId: UUID?
+    public var has_path: Path?
+    public var date: Date?
+    public var initialHour: Date?
+    public var finalHour: Date?
+    public var status: String?
+    public var has_confirmed_partners: Set<User>?
+    public var has_requested_parteners: Set<User>?
+    
+    override init() {
         
-        // create entity description
-        let entityDescription = NSEntityDescription.entity(forEntityName: "Journey", in: managedObjectContext)
-        
-        // call super
-        self.init(entity: entityDescription!, insertInto: nil)
     }
+    
+    init(ownerId: UUID?, journeyId: UUID?, has_path: Path?, date: Date?, initialHour: Date?, finalHour: Date?, status: String?, has_confirmed_partners: Set<User>, has_requested_parteners: Set<User>) {
+        self.ownerId = ownerId
+        self.journeyId = journeyId
+        self.has_path = has_path
+        self.date = date
+        self.initialHour = initialHour
+        self.finalHour = finalHour
+        self.status = status
+        self.has_confirmed_partners = has_confirmed_partners
+        self.has_requested_parteners = has_requested_parteners
+    }
+    
 }
