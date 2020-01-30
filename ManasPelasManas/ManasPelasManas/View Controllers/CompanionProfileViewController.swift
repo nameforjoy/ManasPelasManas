@@ -22,7 +22,7 @@ class CompanionProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpContactButton()
+        self.contactButton.layer.cornerRadius = self.contactButton.frame.height / 4
         
         UserServices.findById(objectID: self.companionID!) { (error, user) in
             if(error == nil && user != nil)  {
@@ -46,12 +46,6 @@ class CompanionProfileViewController: UIViewController {
             UIApplication.shared.open(appStoreWhatsappURL!, completionHandler: { (sucess) in
             })
         }
-    }
-    
-    fileprivate func setUpContactButton()  {
-        self.contactButton.layer.cornerRadius = self.contactButton.frame.height / 4
-        let  localizedTitleString = NSLocalizedString("Contact companion", comment: "Label for button which redirects you to a Whatsapp chat with the potential companion whose profile is shown in the screen")
-        self.contactButton.setTitle(localizedTitleString, for: .normal)
     }
     
 }

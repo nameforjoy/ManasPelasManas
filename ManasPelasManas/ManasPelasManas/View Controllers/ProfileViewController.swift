@@ -13,9 +13,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var bioTitleLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var profileOverviewTitle: UILabel!
-    @IBOutlet weak var profileAboutMeTitle: UILabel!
-    
     @objc var currentUser: User?
     @objc var authenticatedUser: User?
     @objc var journeyTest: Journey?
@@ -26,8 +23,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUpLocalizedLabels()
         
         UserServices.getAuthenticatedUser { (error, user) in
             if (error == nil && user != nil) {
@@ -47,12 +42,6 @@ class ProfileViewController: UIViewController {
         self.bioLabel.text = (user.bio)!
     }
     
-    func setUpLocalizedLabels() {
-        let profileAboutMeLabelText = NSLocalizedString("About me", comment: "Your profile description")
-        profileAboutMeTitle.text = profileAboutMeLabelText
-        let profileOverviewLabelText = NSLocalizedString("User profile Overview", comment: "General info about yourself")
-        profileOverviewTitle.text = profileOverviewLabelText
-    }
     
     func createCurrentUser()
     {

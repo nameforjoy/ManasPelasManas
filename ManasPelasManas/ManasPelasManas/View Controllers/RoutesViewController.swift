@@ -11,6 +11,8 @@ import UIKit
 class RoutesViewController: UIViewController {
     
     @IBOutlet weak var routesTableView: UITableView!
+    @IBOutlet weak var newMatchesView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     fileprivate var journeys: [Journey] = []
     var autheticatedUser = User()
@@ -25,6 +27,8 @@ class RoutesViewController: UIViewController {
         
         self.routesTableView.delegate = self
         self.routesTableView.dataSource = self
+
+        self.newMatchesView.layer.cornerRadius = self.newMatchesView.frame.height / 4
         self.dateFormatter.dateFormat = "E, d MMM yyyy HH:mm"
     }
     
