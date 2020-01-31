@@ -16,16 +16,11 @@ class JourneyDAO: DAO {
     ///     - objectToBeSaved: guiding data to be saved on database
     /// - throws: if an error occurs during saving an object into database (Errors.DatabaseFailure)
     static func create(_ objectToBeSaved: Journey) throws {
-//        do {
-//            // add object to be saved to the context
-//            CoreDataManager.sharedInstance.persistentContainer.viewContext.insert(objectToBeSaved)
-//
-//            // persist changes at the context
-//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-//        }
-//        catch {
-//            throw Errors.DatabaseFailure
-//        }
+        self.mock.journeys.append(objectToBeSaved)
+        
+        if self.mock.journeys[self.mock.journeys.count-1] != objectToBeSaved {
+            throw Errors.DatabaseFailure
+        }
     }
     
     /// Method responsible for updating a guiding data into database
@@ -65,8 +60,7 @@ class JourneyDAO: DAO {
     static func findAll() throws -> [Journey] {
         // list of journeys to be returned
         var journeyList:[Journey] = []
-        let mock = MockData()
-
+        
         // perform search
         journeyList = mock.journeys
 
@@ -80,7 +74,6 @@ class JourneyDAO: DAO {
     
     static func findById(objectID: UUID) throws -> Journey? {
         var journey: Journey?
-        let mock = MockData()
 
         // perform search
         journey = mock.findJourneyById(id: objectID)

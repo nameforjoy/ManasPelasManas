@@ -12,6 +12,7 @@ import CoreData
 /// Data Access Object base class
 /// Every DAO should extend this class
 class DAO {
+    static var mock = MockData()
     
     /// Helper method to build a NSFetchRequest with an entity considering that
     /// the Entity Name matches the resulting class name

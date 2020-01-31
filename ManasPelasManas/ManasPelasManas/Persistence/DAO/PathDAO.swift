@@ -16,16 +16,11 @@ class PathDAO: DAO {
     ///     - objectToBeSaved: guiding data to be saved on database
     /// - throws: if an error occurs during saving an object into database (Errors.DatabaseFailure)
     static func create(_ objectToBeSaved: Path) throws {
-//        do {
-//            // add object to be saved to the context
-//            CoreDataManager.sharedInstance.persistentContainer.viewContext.insert(objectToBeSaved)
-//
-//            // persist changes at the context
-//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-//        }
-//        catch {
-//            throw Errors.DatabaseFailure
-//        }
+        self.mock.paths.append(objectToBeSaved)
+        
+        if self.mock.paths[self.mock.paths.count-1] != objectToBeSaved {
+            throw Errors.DatabaseFailure
+        }
     }
     
     /// Method responsible for updating a guiding data into database
@@ -65,7 +60,6 @@ class PathDAO: DAO {
     static func findAll() throws -> [Path] {
         // list of paths to be returned
         var pathList:[Path] = []
-        let mock = MockData()
         
         // perform search
         pathList = mock.paths
@@ -80,7 +74,6 @@ class PathDAO: DAO {
     
     static func findById(objectID: UUID) throws -> Path? {
         var path: Path?
-        let mock = MockData()
 
         // perform search
         path = mock.findPathById(id: objectID)

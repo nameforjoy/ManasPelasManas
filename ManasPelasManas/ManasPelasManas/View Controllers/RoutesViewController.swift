@@ -50,10 +50,7 @@ class RoutesViewController: UIViewController {
                             self.routesTableView.reloadData()
                         }
                     }
-                    
                 })
-                
-                
             }
             else {
                 print("Error retrieving content")

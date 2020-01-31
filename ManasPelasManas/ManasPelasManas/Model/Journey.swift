@@ -24,16 +24,13 @@ class Journey: NSObject {
         
     }
     
-    init(ownerId: UUID?, journeyId: UUID?, has_path: Path?, date: Date?, initialHour: Date?, finalHour: Date?, status: String?, has_confirmed_partners: Set<User>, has_requested_parteners: Set<User>) {
+    init(ownerId: UUID?, journeyId: UUID?, has_path: Path?, date: Date?, initialHour: Date?, finalHour: Date?) {
         self.ownerId = ownerId
         self.journeyId = journeyId
         self.has_path = has_path
         self.date = date
         self.initialHour = initialHour
         self.finalHour = finalHour
-        self.status = status
-        self.has_confirmed_partners = has_confirmed_partners
-        self.has_requested_parteners = has_requested_parteners
     }
     
 }

@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Vamos usar a sua localização para definir seu ponto de partida!</string>
 	<key>UILaunchStoryboardName</key>

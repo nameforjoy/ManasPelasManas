@@ -112,10 +112,9 @@ class UserDAO: DAO {
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func getAuthenticatedUser() throws -> User? {
         var user: User?
-        let mock = MockData()
         
         // perform search
-        user = mock.getAuthenticatedUser()
+        user = self.mock.getAuthenticatedUser()
         
         if user != nil {
              return user
@@ -127,10 +126,9 @@ class UserDAO: DAO {
     
     static func findById(objectID: UUID) throws -> User? {
         var user: User?
-        let mock = MockData()
 
         // perform search
-        user = mock.findUserById(id: objectID)
+        user = self.mock.findUserById(id: objectID)
         
         if user != nil {
             return user
