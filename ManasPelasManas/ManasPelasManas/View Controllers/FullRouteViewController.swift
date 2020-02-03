@@ -12,9 +12,9 @@ import CoreData
 
 class FullRouteViewController: UIViewController {
     
-    @objc var currentUser: User?
-    @objc var newPath: Path?
-    @objc var newJourney: Journey?
+    var currentUser: User?
+    var newPath: Path?
+    var newJourney: Journey?
     var pathId: UUID?
     
     var annotationA: MKPointAnnotation?
@@ -188,7 +188,7 @@ extension FullRouteViewController: MKMapViewDelegate {
                     
                     if(self.newPath != nil) {
                         //criar metodo no services para salvar path antes de criar journey
-                        self.newPath?.managedObjectContext?.insert(self.newJourney!)
+                        //self.newPath?.managedObjectContext?.insert(self.newJourney!)
                         
                         do {
                             self.newJourney!.has_path = self.newPath!

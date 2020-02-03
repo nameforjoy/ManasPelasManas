@@ -16,14 +16,9 @@ class JourneyDAO: DAO {
     ///     - objectToBeSaved: guiding data to be saved on database
     /// - throws: if an error occurs during saving an object into database (Errors.DatabaseFailure)
     static func create(_ objectToBeSaved: Journey) throws {
-        do {
-            // add object to be saved to the context
-            CoreDataManager.sharedInstance.persistentContainer.viewContext.insert(objectToBeSaved)
-            
-            // persist changes at the context
-            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-        }
-        catch {
+        self.mock.journeys.append(objectToBeSaved)
+        
+        if self.mock.journeys[self.mock.journeys.count-1] != objectToBeSaved {
             throw Errors.DatabaseFailure
         }
     }
@@ -33,13 +28,13 @@ class JourneyDAO: DAO {
     ///     - objectToBeUpdated: guiding data to be updated on database
     /// - throws: if an error occurs during updating an object into database (Errors.DatabaseFailure)
     static func update(_ objectToBeUpdated: Journey) throws {
-        do {
-            // persist changes at the context
-            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-        }
-        catch {
-            throw Errors.DatabaseFailure
-        }
+//        do {
+//            // persist changes at the context
+//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
+//        }
+//        catch {
+//            throw Errors.DatabaseFailure
+//        }
     }
     
     /// Method responsible for deleting a guiding data from database
@@ -47,65 +42,46 @@ class JourneyDAO: DAO {
     ///     - objectToBeSaved: guiding data to be saved on database
     /// - throws: if an error occurs during deleting an object into database (Errors.DatabaseFailure)
     static func delete(_ objectToBeDeleted: Journey) throws {
-        do {
-            // delete element from context
-            CoreDataManager.sharedInstance.persistentContainer.viewContext.delete(objectToBeDeleted)
-            
-            // persist the operation
-            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-        }
-        catch {
-            throw Errors.DatabaseFailure
-        }
+//        do {
+//            // delete element from context
+//            CoreDataManager.sharedInstance.persistentContainer.viewContext.delete(objectToBeDeleted)
+//
+//            // persist the operation
+//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
+//        }
+//        catch {
+//            throw Errors.DatabaseFailure
+//        }
     }
     
     /// Method responsible for retrieving all guiding data from database
     /// - returns: a list of guiding data from database
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func findAll() throws -> [Journey] {
-        // list of guiding data to be returned
+        // list of journeys to be returned
+        var journeyList:[Journey] = []
         
-        
-        //Passing id to compare with the ownerId
-        
-        
-        var journeyList:[Journey]
-        
-        do {
-            // creating fetch request
-            let request:NSFetchRequest<Journey> = fetchRequest()
-            
-            // perform search
-            journeyList = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        // perform search
+        journeyList = mock.journeys
+
+        if journeyList.count != 0 {
+            return journeyList
         }
-        catch {
+        else {
             throw Errors.DatabaseFailure
         }
-        
-        return journeyList
     }
     
     static func findById(objectID: UUID) throws -> Journey? {
-        // list of projects to be returned
-        var journey: [Journey]
+        var journey: Journey?
+
+        // perform search
+        journey = mock.findJourneyById(id: objectID)
         
-        do {
-            // creating fetch request
-            let request:NSFetchRequest<Journey> = fetchRequest()
-            
-            request.predicate = NSPredicate(format: "journeyId == %@", objectID as CVarArg)
-            
-            // perform search
-            journey = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
+        if journey != nil {
+            return journey
         }
-        catch {
-            throw Errors.DatabaseFailure
-        }
-        
-        switch journey.count {
-        case 1:
-            return journey[0]
-        default:
+        else {
             throw Errors.DatabaseFailure
         }
     }
