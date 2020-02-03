@@ -49,13 +49,15 @@ class MatchServices {
     }
 
     func compareJourneys(journeyA: Journey, journeyB: Journey) throws -> Bool {
-        
         let pathServices = PathServices()
         
-        let mkcOriginA = (pathServices.getCircle(path: journeyA.has_path, stage: .origin))
-        let mkcOriginB = (pathServices.getCircle(path: journeyB.has_path, stage: .origin))
-        let mkcDestinyA = (pathServices.getCircle(path: journeyA.has_path, stage: .destiny))
-        let mkcDestinyB = (pathServices.getCircle(path: journeyB.has_path, stage: .destiny))
+        guard let pathJourneyA = journeyA.has_path else { return false }
+        guard let pathJourneyB = journeyB.has_path else { return false }
+        
+        let mkcOriginA = (pathServices.getCircle(path: pathJourneyA, stage: .origin))
+        let mkcOriginB = (pathServices.getCircle(path: pathJourneyB, stage: .origin))
+        let mkcDestinyA = (pathServices.getCircle(path: pathJourneyA, stage: .destiny))
+        let mkcDestinyB = (pathServices.getCircle(path: pathJourneyB, stage: .destiny))
         
         do {
             let matchOrigin = try checkMatchingRegion(regionA: mkcOriginA, regionB: mkcOriginB)
@@ -71,5 +73,6 @@ class MatchServices {
         
         return false
     }
+    
 
 }

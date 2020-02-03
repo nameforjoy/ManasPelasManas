@@ -175,15 +175,15 @@ class PathServices {
         
         switch stage {
         case .origin:
-            let lat = path.originLat as! Double
-            let long = path.originLong as! Double
+            let lat = path.originLat!
+            let long = path.originLong!
             coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            radius = path.originRadius as! Double
+            radius = path.originRadius!
         case .destiny:
-            let lat = path.destinyLat as! Double
-            let long = path.destinyLong as! Double
+            let lat = path.destinyLat!
+            let long = path.destinyLong!
             coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            radius = path.destinyRadius as! Double
+            radius = path.destinyRadius!
         }
         
         circle = MKCircle(center: coordinate, radius: radius)
@@ -197,12 +197,12 @@ class PathServices {
         
         switch stage {
         case .origin:
-            let lat = path.originLat as! Double
-            let long = path.originLong as! Double
+            let lat = path.originLat!
+            let long = path.originLong!
             coordinate = CLLocation(latitude: lat, longitude: long)
         case .destiny:
-            let lat = path.destinyLat as! Double
-            let long = path.destinyLong as! Double
+            let lat = path.destinyLat!
+            let long = path.destinyLong!
             coordinate = CLLocation(latitude: lat, longitude: long)
         }
         

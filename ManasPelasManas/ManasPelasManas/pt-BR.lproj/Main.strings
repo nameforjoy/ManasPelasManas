@@ -1,0 +1,120 @@
+
+/* Class = "UILabel"; text = "rightLabel"; ObjectID = "55C-xJ-flH"; */
+"55C-xJ-flH.text" = "rightLabel";
+
+/* Class = "UILabel"; text = "SOBRE MIM"; ObjectID = "68t-Ic-bvp"; */
+"68t-Ic-bvp.text" = "SOBRE MIM";
+
+/* Class = "UILabel"; text = "100m"; ObjectID = "6bO-bL-tSl"; */
+"6bO-bL-tSl.text" = "100m";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "6jK-5X-drL"; */
+"6jK-5X-drL.title" = " ";
+
+/* Class = "UILabel"; text = "Até"; ObjectID = "6vj-RA-fYw"; */
+"6vj-RA-fYw.text" = "Até";
+
+/* Class = "UILabel"; text = "Qui 22 agosto"; ObjectID = "9uy-iv-Psa"; */
+"9uy-iv-Psa.text" = "Qui 22 agosto";
+
+/* Class = "UILabel"; text = "Rua Doutor Shigeo Mori, 1386"; ObjectID = "AIV-fc-bqC"; */
+"AIV-fc-bqC.text" = "Rua Doutor Shigeo Mori, 1386";
+
+/* Class = "UIButton"; normalTitle = "Create segue to same ViewController"; ObjectID = "ALs-na-bhx"; */
+"ALs-na-bhx.normalTitle" = "Create segue to same ViewController";
+
+/* Class = "UITabBarItem"; title = "Mapa"; ObjectID = "Ecv-y2-7zy"; */
+"Ecv-y2-7zy.title" = "Mapa";
+
+/* Class = "UILabel"; text = "Qui 22 agosto - 18:00"; ObjectID = "Eq2-IK-0SO"; */
+"Eq2-IK-0SO.text" = "Qui 22 agosto - 18:00";
+
+/* Class = "UILabel"; text = "Designer na Apple Developer Academy"; ObjectID = "FQI-n9-kGK"; */
+"FQI-n9-kGK.text" = "Designer na Apple Developer Academy";
+
+/* Class = "UIButton"; normalTitle = "Procurar Companhias"; ObjectID = "I7O-NE-d1t"; */
+"I7O-NE-d1t.normalTitle" = "Procurar Companhias";
+
+/* Class = "UILabel"; text = "60 companheiras no aplicativo"; ObjectID = "IXD-xY-sGc"; */
+"IXD-xY-sGc.text" = "60 companheiras no aplicativo";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "LpK-cx-H8A"; */
+"LpK-cx-H8A.title" = " ";
+
+/* Class = "UILabel"; text = "Unicamp"; ObjectID = "QM3-At-d8Q"; */
+"QM3-At-d8Q.text" = "Unicamp";
+
+/* Class = "UILabel"; text = "De Rio de Janeiro"; ObjectID = "QnD-t1-fzx"; */
+"QnD-t1-fzx.text" = "De Rio de Janeiro";
+
+/* Class = "UILabel"; text = "Viola Davis, 54"; ObjectID = "Sf2-6O-6hW"; */
+"Sf2-6O-6hW.text" = "Viola Davis, 54";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "UCg-sE-cPk"; */
+"UCg-sE-cPk.text" = "Description";
+
+/* Class = "UILabel"; text = "De"; ObjectID = "Uqw-VG-oYB"; */
+"Uqw-VG-oYB.text" = "De";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "YrO-A5-rbD"; */
+"YrO-A5-rbD.title" = " ";
+
+/* Class = "UIViewController"; title = "Suas Viagens"; ObjectID = "ZDq-Eu-n9k"; */
+"ZDq-Eu-n9k.title" = "Suas Viagens";
+
+/* Class = "UITabBarItem"; title = "Perfil"; ObjectID = "bEi-CH-22d"; */
+"bEi-CH-22d.title" = "Perfil";
+
+/* Class = "UILabel"; text = "description"; ObjectID = "bF7-jp-fpC"; */
+"bF7-jp-fpC.text" = "description";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "d7v-g5-e35"; */
+"d7v-g5-e35.text" = "Title";
+
+/* Class = "UILabel"; text = "Daenerys da Casa Targaryen , Primeira de seu nome, Nascida da tormenta, A não queimada, Mãe dos Dragões, Quebradora das correntes, Mãe dos escravos , Khaleesi dos Dothraki, Rainha de Mereen, Rainha de Westeros, Dos Ândalos, Dos primeiros homens, Protetora dos sete reinos."; ObjectID = "dEi-GQ-ObT"; */
+"dEi-GQ-ObT.text" = "Daenerys da Casa Targaryen , Primeira de seu nome, Nascida da tormenta, A não queimada, Mãe dos Dragões, Quebradora das correntes, Mãe dos escravos , Khaleesi dos Dothraki, Rainha de Mereen, Rainha de Westeros, Dos Ândalos, Dos primeiros homens, Protetora dos sete reinos.";
+
+/* Class = "UILabel"; text = "VISÃO GERAL"; ObjectID = "glT-yC-Gbd"; */
+"glT-yC-Gbd.text" = "VISÃO GERAL";
+
+/* Class = "UINavigationItem"; title = "Suas viagens"; ObjectID = "i5X-eT-dCn"; */
+"i5X-eT-dCn.title" = "Suas viagens";
+
+/* Class = "UILabel"; text = "Membro desde ago 2019"; ObjectID = "iBW-Ln-aWQ"; */
+"iBW-Ln-aWQ.text" = "Membro desde ago 2019";
+
+/* Class = "UILabel"; text = "18:00-18:30"; ObjectID = "s1y-QS-BKg"; */
+"s1y-QS-BKg.text" = "18:00-18:30";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "s9o-Kt-uqF"; */
+"s9o-Kt-uqF.title" = " ";
+
+/* Class = "UINavigationItem"; title = "Quando você deseja ir?"; ObjectID = "sfc-R6-uy5"; */
+"sfc-R6-uy5.title" = "Quando você deseja ir?";
+
+/* Class = "UILabel"; text = "Brenda Oliveira, 24"; ObjectID = "tlr-fA-ma8"; */
+"tlr-fA-ma8.text" = "Brenda Oliveira, 24";
+
+/* Class = "UINavigationItem"; title = "De onde você pode sair?"; ObjectID = "v7D-I6-dOB"; */
+"v7D-I6-dOB.title" = "De onde você pode sair?";
+
+/* Class = "UIButton"; normalTitle = "Próximo"; ObjectID = "vO1-Xb-wvN"; */
+"vO1-Xb-wvN.normalTitle" = "Próximo";
+
+/* Class = "UILabel"; text = "Daniela, 24"; ObjectID = "vUe-di-zfh"; */
+"vUe-di-zfh.text" = "Daniela, 24";
+
+/* Class = "UILabel"; text = "leftLabel"; ObjectID = "veq-g3-8mn"; */
+"veq-g3-8mn.text" = "leftLabel";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "xSk-HF-xe9"; */
+"xSk-HF-xe9.text" = "Subtitle";
+
+/* Class = "UITabBarItem"; title = "Viagens"; ObjectID = "yMh-dr-QZf"; */
+"yMh-dr-QZf.title" = "Viagens";
+
+/* Class = "UILabel"; text = "SOBRE MIM"; ObjectID = "ypT-OX-bhQ"; */
+"ypT-OX-bhQ.text" = "SOBRE MIM";
+
+/* Class = "UIButton"; normalTitle = "Contatar"; ObjectID = "zQg-lc-CMf"; */
+"zQg-lc-CMf.normalTitle" = "Contatar";
