@@ -19,4 +19,14 @@
 "Time of journey" = "Quando vamos?";
 "Finish creating journey button" = "Procurar companhias";
 "Earliest meeting time" = "Podemos sair a partir de";
-"Latest meeting time"; = "até as";
+"Latest meeting time" = "até as";
+
+// Lista de viagens
+"List of journeys title" = "Minhas viagens";
+
+// Detalhe das viagens
+"Journey details" = "Detalhes da viagem";
+
+// Companion profile
+"Contact companion" = "Contatar"
+"Companion description" = "Sobre %d"

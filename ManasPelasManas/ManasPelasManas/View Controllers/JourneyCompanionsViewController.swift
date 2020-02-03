@@ -31,7 +31,9 @@ class JourneyCompanionsViewController: UIViewController {
     let hourFormatter = DateFormatter()
     
     override func viewWillAppear(_ animated: Bool) {
-        <#code#>
+        super.viewWillAppear(animated)
+        
+        setUpInterface()
     }
     
     override func viewDidLoad() {
@@ -40,7 +42,6 @@ class JourneyCompanionsViewController: UIViewController {
         self.companionsTableView.dataSource = self
         self.companionsTableView.delegate = self
         self.companionsTableView.dataSource = self
-        
         
         JourneyServices.findById(objectID: journeyId!) { (error, journey) in
             if(error == nil && journey != nil) {
@@ -70,6 +71,10 @@ class JourneyCompanionsViewController: UIViewController {
                 print("Error retrieving content")
             }
         }
+    }
+    
+    private func setUpInterface() {
+        self.navigationItem.title = NSLocalizedString("Journey details", comment: "Navigation title of screen in which the journey details (meeting point, destination, and time range) are displayed, as well as possible companions for that journey")
     }
     
     func journeyMatchedAndIsValid(journeyA: Journey, journeyB: Journey) -> Bool {
