@@ -13,28 +13,41 @@ class MockData {
     var paths: [Path]! = []
     var journeys: [Journey]! = []
     
+    //IDs
+    let user1Id = UUID()
+    let user2Id = UUID()
+    
     init() {
         createUsers()
+        createJourneys()
     }
     
     //MARK: Criação de objetos para mock
     func createUsers() {
-        let user1 = User(userId: UUID(), name:  "Brenda Santos", bio: "Oi, eu sou a Brenda! Sou inteligente, forte e também enigmática, misteriosa e honesta. Muito dedicada, vou a fundo em tudo o que procuro entender. Tenho uma força de vontade incrível e uma grande capacidade para lidar com situações difíceis. Gosto muito de fazer novas amizades e aproveitar uma boa conversa :) Vamos caminhar juntas e quem sabe nos tornar boas amigas?", bornDate: "12/05/1998", authenticated: 1, photo: "leticia")
-        let user2 = User(userId: UUID(), name: "Julia Silva", bio: "Sou uma garota discreta e tímida. Prefiro ficar na minha, vivo com simplicidade. Prática, super responsável e pé no chão, sou bem madura para a minha idade. Tenho uma vida agitada e sempre preciso andar pelas ruas. Gostaria muito de ter uma companhia para andar comigo, principalmente nos meus percursos noturnos.", bornDate: "25/01/2000", authenticated: 0, photo: "mari")
+        let user1 = User(userId: user1Id, name:  "Brenda Santos", bio: "Oi, eu sou a Brenda! Sou inteligente, forte e também enigmática, misteriosa e honesta. Muito dedicada, vou a fundo em tudo o que procuro entender. Tenho uma força de vontade incrível e uma grande capacidade para lidar com situações difíceis. Gosto muito de fazer novas amizades e aproveitar uma boa conversa :) Vamos caminhar juntas e quem sabe nos tornar boas amigas?", bornDate: "12/05/1998", authenticated: 1, photo: "leticia")
+        let user2 = User(userId: user2Id, name: "Julia Silva", bio: "Sou uma garota discreta e tímida. Prefiro ficar na minha, vivo com simplicidade. Prática, super responsável e pé no chão, sou bem madura para a minha idade. Tenho uma vida agitada e sempre preciso andar pelas ruas. Gostaria muito de ter uma companhia para andar comigo, principalmente nos meus percursos noturnos.", bornDate: "25/01/2000", authenticated: 0, photo: "mari")
         
         self.users?.append(user1)
         self.users?.append(user2)
     }
     
     func createJourneys() {
-        let journey1 = Journey(ownerId: self.users[0].userId, journeyId: UUID(), has_path: self.paths[0], date: createFomattedDate(date: "01/09/2019"), initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T09:30"))
+        createPaths()
+        
+        let journey1 = Journey(ownerId: user1Id, journeyId: UUID(), has_path: self.paths[0], date: createFomattedDate(date: "01/09/2019"), initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T10:30"))
         self.journeys.append(journey1)
     }
     
     func createPaths() {
-        let path1 = Path(pathId: UUID(), originLat: -22.817889, originLong: -47.068661, originRadius: 400, destinyLat: -22.821561, destinyLong: -47.088216, destinyRadius: 200)
-        
-        self.paths.append(path1)
+        let pathCBtoMORAS = Path(pathId: UUID(), originLat: -22.817889, originLong: -47.068661, originRadius: 400, destinyLat: -22.821561, destinyLong: -47.088216, destinyRadius: 200)
+        let pathELDORADOtoAV2 = Path(pathId: UUID(), originLat: -22.812198, originLong: -47.061481, originRadius: 300, destinyLat: -22.821149, destinyLong: -47.076600, destinyRadius: 600)
+        let pathELDORADOtoMORAS = Path(pathId: UUID(), originLat: -22.812198, originLong: -47.061481, originRadius: 300, destinyLat: -22.821561, destinyLong: -47.088216, destinyRadius: 200)
+        let pathIQtoMC = Path(pathId: UUID(), originLat: -22.817829, originLong: -47.068113, originRadius: 500, destinyLat: -22.825397, destinyLong: -47.079328, destinyRadius: 600)
+            
+        self.paths.append(pathCBtoMORAS)
+        self.paths.append(pathELDORADOtoAV2)
+        self.paths.append(pathELDORADOtoMORAS)
+        self.paths.append(pathIQtoMC)
     }
     
     //MARK: Métodos auxiliares
