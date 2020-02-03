@@ -173,7 +173,11 @@
                     <connections>
                         <outlet property="aboutMeContentLabel" destination="bF7-jp-fpC" id="6jX-CQ-jWG"/>
                         <outlet property="aboutMeTitleLabel" destination="ypT-OX-bhQ" id="KD8-9Q-zGu"/>
+                        <outlet property="companionsNumberLabel" destination="IXD-xY-sGc" id="CFD-Wb-cxn"/>
+                        <outlet property="entranceDateLabel" destination="iBW-Ln-aWQ" id="tF1-We-0Dr"/>
+                        <outlet property="habitationLabel" destination="QnD-t1-fzx" id="36h-7g-eq1"/>
                         <outlet property="nameContentLabel" destination="tlr-fA-ma8" id="Q68-6e-R5R"/>
+                        <outlet property="occupationLabel" destination="FQI-n9-kGK" id="KOg-SJ-d0f"/>
                         <outlet property="profileOverviewTitleLabel" destination="glT-yC-Gbd" id="jzE-Gn-Eu1"/>
                         <outlet property="profilePhoto" destination="JHO-Gn-ItB" id="7HK-0Z-bN0"/>
                     </connections>

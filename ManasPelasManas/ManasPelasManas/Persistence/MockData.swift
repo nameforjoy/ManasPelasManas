@@ -57,6 +57,15 @@ class MockData {
         return (formatter.date(from: hour))!
     }
     
+    func getAgeFromBornDate(user: User) -> Int? {
+        let now = Date()
+        let birthday: Date = createFomattedDate(date: user.bornDate ?? "01/01/2001")
+        let calendar = Calendar.current
+
+        let ageComponents = calendar.dateComponents([.year], from: birthday, to: now)
+        return ageComponents.year
+    }
+    
     func createFomattedDate(date: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
