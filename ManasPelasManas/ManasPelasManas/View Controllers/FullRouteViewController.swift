@@ -50,6 +50,9 @@ class FullRouteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+
+        // Guarantees Large Title preference when the view controller has a Table View
+        self.journeyTimeTableView.contentInsetAdjustmentBehavior = .never
         
         // MARK: Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
