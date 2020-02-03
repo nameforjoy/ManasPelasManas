@@ -37,21 +37,11 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Changes Navigation title in case we are fetching the user's destination
-        // They are in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
-        if self.firstTime {
-            self.navigationItem.title = "Onde nos encontramos?"
-        } else {
-            self.navigationItem.title = "Para onde vamos?"
-        }
+        setUpInterface()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // PROVISORY SETTINGS
-        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
-        self.radiusLabel.layer.cornerRadius = self.radiusLabel.frame.height / 4
         
         // Sets up CoreLocation and centers map
         self.locationManager.delegate = self
@@ -139,6 +129,24 @@ class MapViewController: UIViewController {
                 destination.newPath = self.newPath
             }
         }
+    }
+    
+    // Changes Navigation title depending on which stage of the journey we are currently registering
+    private func setUpNavigationTitle() {
+        // This function is called in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
+        if self.firstTime {
+            self.navigationItem.title = NSLocalizedString("Meeting location", comment: "Navigation title of the screen where the user sets the region where she can meet her companion to start her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+        } else {
+            self.navigationItem.title = NSLocalizedString("Destination location", comment: "Navigation title of the screen where the user sets the final destination of her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+        }
+    }
+    
+    private func setUpInterface() {
+        setUpNavigationTitle()
+        
+        let nextButtonTitle = NSLocalizedString("Map next button title", comment: "Main button on the map screen to define the journey, that takes the user to the next screen in the process of defining her journey.")
+        self.nextButton.setTitle(nextButtonTitle, for: .normal)
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
     
 }

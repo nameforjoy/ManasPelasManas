@@ -49,7 +49,8 @@ class FullRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+        
+        setUpInterface()
         
         // MARK: Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
@@ -69,7 +70,14 @@ class FullRouteViewController: UIViewController {
                 //treat error
             }
         }
+    }
+    
+    private func setUpInterface() {
+        self.navigationItem.title = NSLocalizedString("Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
         
+        let searchForCompanionsButtonTitle = NSLocalizedString("Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
+        self.nextButton.setTitle(searchForCompanionsButtonTitle, for: .normal)
+        self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
     
     // MARK: Displaying Map Data
@@ -257,14 +265,14 @@ extension FullRouteViewController: UITableViewDataSource {
 
         switch indexPath.row {
         case 0:
-            cell.leftLabel.text = "Posso sair a partir de"
+            cell.leftLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.earlierDate {
                 cell.rightLabel.text = dateToString(date: time)
             } else {
                 cell.rightLabel.text = " "
             }
         default:
-            cell.leftLabel.text = "Preciso sair até as"
+            cell.leftLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.latestDate {
                 cell.rightLabel.text = dateToString(date: time)
             } else {

@@ -30,6 +30,10 @@ class JourneyCompanionsViewController: UIViewController {
     let dateFormatter = DateFormatter()
     let hourFormatter = DateFormatter()
     
+    override func viewWillAppear(_ animated: Bool) {
+        <#code#>
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -6,6 +6,17 @@
   Copyright © 2020 Luma Gabino Vasconcelos. All rights reserved.
 */
 
+// User profile
 "User profile overview" = "OVERVIEW";
 "User description" = "ABOUT ME";
 
+// Map
+"Meeting location" = "Where can we meet?";
+"Destination location" = "Where will we go?";
+"Map next button title" = "Next";
+
+// Time range
+"Time of journey" = "When can we leave?";
+"Finish creating journey button" = "Find companions";
+"Earliest meeting time" = "We can leave from";
+"Latest meeting time"; = "up to";

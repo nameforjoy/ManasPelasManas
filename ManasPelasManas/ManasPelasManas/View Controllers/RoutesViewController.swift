@@ -17,7 +17,6 @@ class RoutesViewController: UIViewController {
     var passJourneyUUID: UUID? = nil
     let dateFormatter = DateFormatter()
     
-    //let routesDataSource = RoutesVCTableDataSource()
     var newMatches: Bool = true
     
     override func viewDidLoad() {
@@ -30,6 +29,8 @@ class RoutesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setUpInterface()
         
         JourneyServices.getAllJourneys { (error, journeys) in
             if (error == nil) {
@@ -60,6 +61,10 @@ class RoutesViewController: UIViewController {
                 destination.journeyId = self.passJourneyUUID
             }
         }
+    }
+    
+    private func setUpInterface() {
+        self.navigationItem.title = NSLocalizedString("List of journeys title", comment: "Navigation title of the screen which constains the table with all of the user's journeys.")
     }
     
 }
