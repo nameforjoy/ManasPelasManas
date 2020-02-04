@@ -45,11 +45,27 @@ class FullRouteViewController: UIViewController {
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
 
+
+        let nc = NotificationCenter.default
+
+        nc.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+    }
+
+    // Stop observing notifications once class is removed
+    deinit {
+        let nc = NotificationCenter.default
+
+        nc.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+        adjustText()
+        //self.nextButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        //self.nextButton.titleLabel?.numberOfLines = 1
+        //self.nextButton.titleLabel?.sizeToFit()
 
         // Guarantees Large Title preference when the view controller has a Table View
         self.journeyTimeTableView.contentInsetAdjustmentBehavior = .never
@@ -73,6 +89,22 @@ class FullRouteViewController: UIViewController {
             }
         }
         
+    }
+
+    // Listens to changes on Category Size Changes
+    @objc func fontSizeChanged(_ notification: Notification) {
+        adjustText()
+    }
+
+    // Changes text content depending on accessibility status
+    func adjustText() {
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            self.navigationItem.title = "Quando?"
+            self.nextButton.titleLabel?.text = "Procurar"
+        } else {
+            self.navigationItem.title = "Quando vamos?"
+            self.nextButton.titleLabel?.text = "Procurar Companhias"
+        }
     }
     
     // MARK: Displaying Map Data

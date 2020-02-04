@@ -36,14 +36,19 @@ class MapViewController: UIViewController {
     // MARK: Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        //nextButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        //nextButton.titleLabel?.numberOfLines = 1
+        //nextButton.titleLabel?.sizeToFit()
+
         // Changes Navigation title in case we are fetching the user's destination
         // They are in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
-        if self.firstTime {
-            self.navigationItem.title = "Onde nos encontramos?"
-        } else {
-            self.navigationItem.title = "Para onde vamos?"
-        }
+//            if self.firstTime {
+//                self.navigationItem.title = "De onde saímos?"
+//            } else {
+//                self.navigationItem.title = "Para onde vamos?"
+//            }
+        adjustText()
     }
     
     override func viewDidLoad() {
@@ -56,6 +61,11 @@ class MapViewController: UIViewController {
         // Sets up CoreLocation and centers map
         self.locationManager.delegate = self
         self.checkAuthorizationStatus()
+
+        // Handle Notifications for Category Size Changes
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
         
         // MARK: Adress Search configuration
         
@@ -93,8 +103,35 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         self.centerMapOnUserLocation()
     }
-    
+
+    deinit {
+
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
+    }
+
     // MARK: Actions
+
+    @objc func fontSizeChanged(_ notification: Notification) {
+        adjustText()
+    }
+
+    func adjustText() {
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            if self.firstTime {
+                self.navigationItem.title = "De onde?"
+            } else {
+                self.navigationItem.title = "Para onde?"
+            }
+        } else {
+            if self.firstTime {
+                self.navigationItem.title = "De onde saímos?"
+            } else {
+                self.navigationItem.title = "Para onde vamos?"
+            }
+        }
+    }
     
     @IBAction func nextButton(_ sender: Any) {
         
