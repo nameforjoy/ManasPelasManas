@@ -100,10 +100,10 @@ class FullRouteViewController: UIViewController {
     func adjustText() {
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             self.navigationItem.title = "Quando?"
-            self.nextButton.titleLabel?.text = "Procurar"
+            self.nextButton.setTitle("Procurar", for: .normal)
         } else {
             self.navigationItem.title = "Quando vamos?"
-            self.nextButton.titleLabel?.text = "Procurar Companhias"
+            self.nextButton.setTitle("Procurar Companhias", for: .normal)
         }
     }
     

@@ -948,6 +948,9 @@
                                 <state key="normal" title="Procurar Companhias">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTheme" value="Avenir_20"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="confirmButton:" destination="Rfn-Rd-XAt" eventType="touchUpInside" id="Xcz-Fn-K2A"/>
                                 </connections>
