@@ -46,15 +46,25 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Acessibility
     private func setupAccessibility(for user: User) {
-        accessibilityElements = [nameContentLabel, occupationLabel, profileOverviewTitleLabel]
         //1. Nome e Idade
-        self.nameContentLabel.accessibilityLabel = "Nome, \(user.name)"
+        self.nameContentLabel.isAccessibilityElement = true
+        self.nameContentLabel.accessibilityLabel = "Nome, \(user.name!)"
         
         //2. Ocupação
-        self.occupationLabel.accessibilityLabel = "Ocupação, \(occupationLabel.text)"
+        self.occupationLabel.isAccessibilityElement = true
+        self.occupationLabel.accessibilityLabel = "Ocupação, \(occupationLabel.text!)"
 
         //3. Visão geral
-        self.profileOverviewTitleLabel.accessibilityLabel = "Mora em , \(String(describing: habitationLabel.text)), é membro desde \(String(describing: entranceDateLabel.text)), e tem \(String(describing: companionsNumberLabel.text))"
+        self.profileOverviewTitleLabel.isAccessibilityElement = true
+        self.habitationLabel.isAccessibilityElement = false
+        self.entranceDateLabel.isAccessibilityElement = false
+        self.companionsNumberLabel.isAccessibilityElement = false
+        self.profileOverviewTitleLabel.accessibilityLabel = "Mora em , \(habitationLabel.text!), é \(entranceDateLabel.text!), e tem \(companionsNumberLabel.text!)"
+       
+        //4. Sobre mim
+        self.aboutMeTitleLabel.isAccessibilityElement = true
+        self.aboutMeContentLabel.isAccessibilityElement = false
+        self.aboutMeTitleLabel.accessibilityLabel = "Sobre mim, \(aboutMeContentLabel.text!)"
         
     }
     

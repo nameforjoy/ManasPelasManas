@@ -54,7 +54,7 @@
                                                 <color key="textColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="De Rio de Janeiro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnD-t1-fzx">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rio de Janeiro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnD-t1-fzx">
                                                 <rect key="frame" x="50" y="34.5" width="344" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
@@ -262,6 +262,7 @@
                         <outlet property="nextButton" destination="vO1-Xb-wvN" id="Tf5-0n-4Rg"/>
                         <outlet property="radiusLabel" destination="6bO-bL-tSl" id="YCb-eM-8Nc"/>
                         <outlet property="radiusView" destination="yvX-ml-zGz" id="0EU-5y-x9g"/>
+                        <outlet property="vcView" destination="1Xl-jI-bsY" id="vXp-BJ-snE"/>
                         <segue destination="Rfn-Rd-XAt" kind="show" identifier="TimeSetup" id="MEn-dw-S09"/>
                     </connections>
                 </viewController>
