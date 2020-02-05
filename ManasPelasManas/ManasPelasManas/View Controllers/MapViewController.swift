@@ -113,8 +113,10 @@ class MapViewController: UIViewController {
 //            self.mapView.isUserInteractionEnabled = false
         }
         
-        self.resultSearchController!.searchBar.isAccessibilityElement = true
+        
+//        self.resultSearchController!.searchBar.isAccessibilityElement = true
         self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
+
         
         // Por enquanto vou usar a label do raio - mas depois mudar para o slider
         self.radiusLabel.isAccessibilityElement = true
@@ -262,6 +264,7 @@ extension MapViewController: CLLocationManagerDelegate {
         
         // Presents Alert
         present(alertController, animated: true, completion: nil)
+        
     }
 }
 

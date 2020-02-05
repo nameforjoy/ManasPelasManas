@@ -72,6 +72,31 @@ class FullRouteViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //VoiceOver setups
+        setupAccessibility()
+    }
+    
+    // MARK: Acessibility setup
+    private func setupAccessibility() {
+        // Disable map interaction with voiceOver
+        if UIAccessibility.isVoiceOverRunning {
+            
+            //Map haptic feedback configuration
+            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
+            self.mapView.addGestureRecognizer(tap)
+            
+            self.mapView.accessibilityElementsHidden = true
+        }
+        
+
+        self.journeyTimeTableView!.accessibilityLabel = "Posso sair a partir das     do dia    . Toque duas vezes para editar."
+        
+    }
+        
+    
     // MARK: Displaying Map Data
     
     func displayMapItems(path: Path?) {
@@ -276,8 +301,23 @@ extension FullRouteViewController: UITableViewDataSource {
     
     func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, HH:mm"
-        return dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "HH:mm, MMM d"
+        var dateString = dateFormatter.string(from: date)
+        if UIAccessibility.isVoiceOverRunning {
+             dateFormatter.dateStyle = .full
+             dateFormatter.timeStyle = .none
+             dateFormatter.locale = Locale(identifier: "pt_BR")
+             let dayString = dateFormatter.string(from: date) // Jan 2, 2001
+//            dateFormatter.dateFormat = "HH:mm, "
+//            dateString = dateFormatter.string(from: date)
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            
+            dateString = " \(hour) horas e \(minute) minutos, " + "de " + dayString
+         }
+        
+        return dateString
     }
 }
 
@@ -289,6 +329,8 @@ extension FullRouteViewController: UITableViewDelegate {
         datePickerConfig()
         let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
         cell.boxView.backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
+        
+        
         
         let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
         let otherCell = tableView.cellForRow(at: IndexPath(row: otherCellRowIndex, section: indexPath.section)) as! JourneyTimeTableViewCell
