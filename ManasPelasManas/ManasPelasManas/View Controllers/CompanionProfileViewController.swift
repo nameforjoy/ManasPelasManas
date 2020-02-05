@@ -19,6 +19,12 @@ class CompanionProfileViewController: UIViewController {
     
     var companionID: UUID? = nil
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,9 +36,18 @@ class CompanionProfileViewController: UIViewController {
                     self.nameContentLabel.text = user!.name! + ", 22"
                     self.aboutMeContentLabel.text = user!.bio
                     self.profilePhoto.image = UIImage(named: user!.photo!)
+                    self.setUpInterface(name: user!.name!)
                 }
             }
         }
+    }
+    
+    private func setUpInterface(name: String) {
+        let contactButtonName = NSLocalizedString("Contact companion", comment: "Button next to possible companion profile. When clicked, it takes you to Whatsapp with a pre-written message in a conversation with the selected companion asking her to join you in this journey")
+        self.contactButton.setTitle(contactButtonName, for: .normal)
+        
+        let aboutCompanionTitle = NSLocalizedString("Companion description", comment: "Title of section in companion profile in which she writes a brief description of herself")
+        self.aboutMeTitleLabel.text = String.localizedStringWithFormat(aboutCompanionTitle, name)
     }
     
     @IBAction func contactButton(_ sender: Any) {
