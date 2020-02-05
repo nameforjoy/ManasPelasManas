@@ -40,6 +40,7 @@ class MapViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setUpInterface()
+        adjustText()
     }
     
     override func viewDidLoad() {
@@ -48,6 +49,11 @@ class MapViewController: UIViewController {
         // Sets up CoreLocation and centers map
         self.locationManager.delegate = self
         self.checkAuthorizationStatus()
+
+        // Handle Notifications for Category Size Changes
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
         
         // MARK: Adress Search configuration
         
@@ -89,6 +95,14 @@ class MapViewController: UIViewController {
         //VoiceOver setups
         setupAccessibility()
     }
+
+    deinit {
+
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
+    }
+
     
     // MARK: Acessibility setup
     private func setupAccessibility() {
@@ -122,6 +136,26 @@ class MapViewController: UIViewController {
     
     
     // MARK: Actions
+
+    @objc func fontSizeChanged(_ notification: Notification) {
+        adjustText()
+    }
+
+    func adjustText() {
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            if self.firstTime {
+                self.navigationItem.title = "De onde?"
+            } else {
+                self.navigationItem.title = "Para onde?"
+            }
+        } else {
+            if self.firstTime {
+                self.navigationItem.title = "De onde saímos?"
+            } else {
+                self.navigationItem.title = "Para onde vamos?"
+            }
+        }
+    }
     
     @IBAction func nextButton(_ sender: Any) {
         

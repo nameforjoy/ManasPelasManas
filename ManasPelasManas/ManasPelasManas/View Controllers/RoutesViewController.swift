@@ -29,6 +29,9 @@ class RoutesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // Guarantees Large Title preference when the view controller has a Table View
+        self.routesTableView.contentInsetAdjustmentBehavior = .never
         
         setUpInterface()
         

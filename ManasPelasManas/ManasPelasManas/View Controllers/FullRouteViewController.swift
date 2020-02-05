@@ -45,10 +45,25 @@ class FullRouteViewController: UIViewController {
         self.tapView.addGestureRecognizer(tapGesture)
         self.tapView.isUserInteractionEnabled = false
 
+
+        let nc = NotificationCenter.default
+
+        nc.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+    }
+
+    // Stop observing notifications once class is removed
+    deinit {
+        let nc = NotificationCenter.default
+
+        nc.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        adjustText()
+        self.journeyTimeTableView.contentInsetAdjustmentBehavior = .never
+        // Guarantees Large Title preference when the view controller has a Table View
         
         setUpInterface()
         
@@ -78,6 +93,22 @@ class FullRouteViewController: UIViewController {
         let searchForCompanionsButtonTitle = NSLocalizedString("Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
         self.nextButton.setTitle(searchForCompanionsButtonTitle, for: .normal)
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
+    }
+
+    // Listens to changes on Category Size Changes
+    @objc func fontSizeChanged(_ notification: Notification) {
+        adjustText()
+    }
+
+    // Changes text content depending on accessibility status
+    func adjustText() {
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            self.navigationItem.title = "Quando?"
+            self.nextButton.setTitle("Procurar", for: .normal)
+        } else {
+            self.navigationItem.title = "Quando vamos?"
+            self.nextButton.setTitle("Procurar Companhias", for: .normal)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
