@@ -307,6 +307,7 @@ extension FullRouteViewController: UITableViewDataSource {
         return cell
     }
     
+    // LOCALIZAR ISSO
     func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm, MMM d"
@@ -315,9 +316,7 @@ extension FullRouteViewController: UITableViewDataSource {
              dateFormatter.dateStyle = .full
              dateFormatter.timeStyle = .none
              dateFormatter.locale = Locale(identifier: "pt_BR")
-             let dayString = dateFormatter.string(from: date) // Jan 2, 2001
-//            dateFormatter.dateFormat = "HH:mm, "
-//            dateString = dateFormatter.string(from: date)
+            let dayString = dateFormatter.string(from: date) // Jan 2, 2001
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)

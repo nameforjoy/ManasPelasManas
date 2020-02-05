@@ -46,6 +46,7 @@ class ProfileViewController: UIViewController {
         
     }
     
+    // LOCALIZAR ISSO TAMBÉM
     // MARK: - Acessibility
     private func setupAccessibility(for user: User) {
         //1. Nome e Idade
@@ -67,7 +68,6 @@ class ProfileViewController: UIViewController {
         self.aboutMeTitleLabel.isAccessibilityElement = true
         self.aboutMeContentLabel.isAccessibilityElement = false
         self.aboutMeTitleLabel.accessibilityLabel = "Sobre mim, \(aboutMeContentLabel.text!)"
-        
     }
     
     private func displayData(user: User) {

@@ -100,6 +100,7 @@ class MapViewController: UIViewController {
             self.mapView.addGestureRecognizer(tap)
             
             self.mapView.accessibilityElementsHidden = true
+//             Caso seja habilitado o feedback tátil, usar o enable
 //            self.mapView.isUserInteractionEnabled = false
         }
         
