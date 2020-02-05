@@ -63,21 +63,18 @@ class UserDAO: DAO {
     /// - returns: a list of projects from database
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func findAll() throws -> [User] {
-        // list of projects to be returned
+        // list of users to be returned
         var userList:[User] = []
-//
-//        do {
-//            // creating fetch request
-//            let request:NSFetchRequest<User> = fetchRequest()
-//
-//            // perform search
-//            userList = try CoreDataManager.sharedInstance.persistentContainer.viewContext.fetch(request)
-//        }
-//        catch {
-//            throw Errors.DatabaseFailure
-//        }
+        
+        // perform search
+        userList = mock.users
 
-        return userList
+        if userList.count != 0 {
+            return userList
+        }
+        else {
+            throw Errors.DatabaseFailure
+        }
     }
     
     /// Method responsible for retrieving first created project from database

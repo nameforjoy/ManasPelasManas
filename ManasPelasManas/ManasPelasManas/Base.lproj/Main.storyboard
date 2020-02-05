@@ -54,7 +54,7 @@
                                                 <color key="textColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="De Rio de Janeiro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnD-t1-fzx">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rio de Janeiro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnD-t1-fzx">
                                                 <rect key="frame" x="50" y="34.5" width="344" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
@@ -173,7 +173,11 @@
                     <connections>
                         <outlet property="aboutMeContentLabel" destination="bF7-jp-fpC" id="6jX-CQ-jWG"/>
                         <outlet property="aboutMeTitleLabel" destination="ypT-OX-bhQ" id="KD8-9Q-zGu"/>
+                        <outlet property="companionsNumberLabel" destination="IXD-xY-sGc" id="CFD-Wb-cxn"/>
+                        <outlet property="entranceDateLabel" destination="iBW-Ln-aWQ" id="tF1-We-0Dr"/>
+                        <outlet property="habitationLabel" destination="QnD-t1-fzx" id="36h-7g-eq1"/>
                         <outlet property="nameContentLabel" destination="tlr-fA-ma8" id="Q68-6e-R5R"/>
+                        <outlet property="occupationLabel" destination="FQI-n9-kGK" id="KOg-SJ-d0f"/>
                         <outlet property="profileOverviewTitleLabel" destination="glT-yC-Gbd" id="jzE-Gn-Eu1"/>
                         <outlet property="profilePhoto" destination="JHO-Gn-ItB" id="7HK-0Z-bN0"/>
                     </connections>
@@ -216,7 +220,7 @@
                                     <constraint firstAttribute="height" constant="50" id="Zgy-ix-NHN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Próximo">
+                                <state key="normal" title="Confirmar">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -258,6 +262,7 @@
                         <outlet property="nextButton" destination="vO1-Xb-wvN" id="Tf5-0n-4Rg"/>
                         <outlet property="radiusLabel" destination="6bO-bL-tSl" id="YCb-eM-8Nc"/>
                         <outlet property="radiusView" destination="yvX-ml-zGz" id="0EU-5y-x9g"/>
+                        <outlet property="vcView" destination="1Xl-jI-bsY" id="vXp-BJ-snE"/>
                         <segue destination="Rfn-Rd-XAt" kind="show" identifier="TimeSetup" id="MEn-dw-S09"/>
                     </connections>
                 </viewController>

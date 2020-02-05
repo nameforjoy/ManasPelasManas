@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     @IBOutlet weak var radiusView: UIImageView!
     @IBOutlet weak var radiusLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet var vcView: UIView!
+    
     
     let locationManager = CLLocationManager()
     let maxSpan = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
@@ -30,7 +32,7 @@ class MapViewController: UIViewController {
     var firstTime: Bool = true
     
     //var newPath: PathTest = PathTest()
-    @objc var newPath: Path?
+    var newPath: Path?
     var pathId: UUID?
     
     // MARK: Life Cycle
@@ -64,7 +66,7 @@ class MapViewController: UIViewController {
         let searchBar = self.resultSearchController!.searchBar
         // Defines searchBar appearence
         searchBar.sizeToFit()
-        searchBar.placeholder =  "Entre seu endereço..."
+        searchBar.placeholder =  "Busque por seu endereço"
         self.navigationItem.searchController =  self.resultSearchController!
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
@@ -77,12 +79,46 @@ class MapViewController: UIViewController {
         
         // Sets delegate to handle map search with the HandleMapSearch protocol
         locationSearchTable.handleMapSearchDelegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.centerMapOnUserLocation()
+        
+        //VoiceOver setups
+        setupAccessibility()
     }
+    
+    // MARK: Acessibility setup
+    private func setupAccessibility() {
+        // Disable map interaction with voiceOver
+        if UIAccessibility.isVoiceOverRunning {
+            
+            //Map haptic feedback configuration
+            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
+            self.mapView.addGestureRecognizer(tap)
+            
+            self.mapView.accessibilityElementsHidden = true
+//            self.mapView.isUserInteractionEnabled = false
+        }
+        
+        
+//        self.resultSearchController!.searchBar.isAccessibilityElement = true
+        self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
+
+        
+        // Por enquanto vou usar a label do raio - mas depois mudar para o slider
+        self.radiusLabel.isAccessibilityElement = true
+        self.radiusLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
+        
+    }
+    
+    @objc func tap(_ tap: UITapGestureRecognizer) {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+    }
+    
     
     // MARK: Actions
     
@@ -236,6 +272,7 @@ extension MapViewController: CLLocationManagerDelegate {
         
         // Presents Alert
         present(alertController, animated: true, completion: nil)
+        
     }
 }
 

@@ -2,7 +2,6 @@
 
 import Foundation
 import MapKit
-import CoreData
 
 class MatchServices {
     
