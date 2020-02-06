@@ -2,20 +2,56 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "raio.png",
-      "scale" : "1x"
+      "filename" : "raio-ingles-1.pdf"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "filename" : "raio-ingles-dark-1.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "raio-ingles.pdf",
+      "locale" : "en"
+    },
+    {
+      "locale" : "en",
+      "idiom" : "universal",
+      "filename" : "raio-ingles-dark.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "raio.pdf",
+      "locale" : "pt-BR"
+    },
+    {
+      "locale" : "pt-BR",
+      "idiom" : "universal",
+      "filename" : "raio-portugues-dark.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "localizable" : true
   }
 }
