@@ -61,7 +61,6 @@ class FullRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adjustText()
         self.journeyTimeTableView.contentInsetAdjustmentBehavior = .never
         // Guarantees Large Title preference when the view controller has a Table View
         
@@ -88,26 +87,28 @@ class FullRouteViewController: UIViewController {
     }
     
     private func setUpInterface() {
-        self.navigationItem.title = NSLocalizedString("Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
-        
-        let searchForCompanionsButtonTitle = NSLocalizedString("Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
-        self.nextButton.setTitle(searchForCompanionsButtonTitle, for: .normal)
+        adjustTextContent()
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
 
     // Listens to changes on Category Size Changes
     @objc func fontSizeChanged(_ notification: Notification) {
-        adjustText()
+        adjustTextContent()
     }
 
     // Changes text content depending on accessibility status
-    func adjustText() {
+    func adjustTextContent() {
+        let shortTitle = NSLocalizedString("Short Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
+        let longTitle = NSLocalizedString("Long Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
+        let shortSearchForCompanionsButtonTitle = NSLocalizedString("Short Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
+        let longSearchForCompanionsButtonTitle = NSLocalizedString("Long Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
+
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            self.navigationItem.title = "Quando?"
-            self.nextButton.setTitle("Procurar", for: .normal)
+            self.navigationItem.title = shortTitle
+            self.nextButton.setTitle(shortSearchForCompanionsButtonTitle, for: .normal)
         } else {
-            self.navigationItem.title = "Quando vamos?"
-            self.nextButton.setTitle("Procurar Companhias", for: .normal)
+            self.navigationItem.title = longTitle
+            self.nextButton.setTitle(longSearchForCompanionsButtonTitle, for: .normal)
         }
     }
     

@@ -16,8 +16,10 @@
 "Map next button title" = "Próximo";
 
 // Horário
-"Time of journey" = "Quando vamos?";
-"Finish creating journey button" = "Procurar companhias";
+"Short Time of journey" = "Quando?";
+"Long Time of journey" = "Quando vamos?";
+"Short Finish creating journey button" = "Procurar";
+"Long Finish creating journey button" = "Procurar companhias";
 "Earliest meeting time" = "Podemos sair a partir de";
 "Latest meeting time" = "até as";
 
