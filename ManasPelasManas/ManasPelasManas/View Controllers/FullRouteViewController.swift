@@ -121,25 +121,24 @@ class FullRouteViewController: UIViewController {
     // MARK: Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
-        if UIAccessibility.isVoiceOverRunning {
-            
-            //Map haptic feedback configuration
-            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
-            self.mapView.addGestureRecognizer(tap)
-            
-            self.mapView.accessibilityElementsHidden = true
-        }
+        //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
+//        if UIAccessibility.isVoiceOverRunning {
+//            self.mapView.accessibilityElementsHidden = true
+//        }
+//        self.tapView.isAccessibilityElement = true
         
-
-        self.journeyTimeTableView!.accessibilityLabel = "Posso sair a partir das     do dia    . Toque duas vezes para editar."
+        //1. Botão voltar
+        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
+        self.navigationController?.navigationBar.backItem?.accessibilityLabel = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
         
+        //6. Botão procurar companhias
+        self.nextButton.isAccessibilityElement = true
+        self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
     }
         
     
     // MARK: Displaying Map Data
-    
     func displayMapItems(path: Path?) {
-        
         let pathServices = PathServices()
         
         if let path = path {
@@ -185,6 +184,11 @@ class FullRouteViewController: UIViewController {
             self.datePicker.minimumDate = self.earlierDate
             self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
+    }
+    
+    @objc func doneTapped() {
+          self.datePicker.isHidden = true
+          self.tapView.isUserInteractionEnabled = false
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
@@ -324,6 +328,8 @@ extension FullRouteViewController: UITableViewDataSource {
             cell.leftLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.earlierDate {
                 cell.rightLabel.text = dateToString(date: time)
+                cell.rightLabel.isAccessibilityElement = true
+                cell.rightLabel.accessibilityLabel = dateToStringAccessible(date: time)
             } else {
                 cell.rightLabel.text = " "
             }
@@ -331,6 +337,8 @@ extension FullRouteViewController: UITableViewDataSource {
             cell.leftLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.latestDate {
                 cell.rightLabel.text = dateToString(date: time)
+                cell.rightLabel.isAccessibilityElement = true
+                cell.rightLabel.accessibilityLabel = dateToStringAccessible(date: time)
             } else {
                 cell.rightLabel.text = " "
             }
@@ -342,20 +350,21 @@ extension FullRouteViewController: UITableViewDataSource {
     func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm, MMM d"
-        var dateString = dateFormatter.string(from: date)
-        if UIAccessibility.isVoiceOverRunning {
-             dateFormatter.dateStyle = .full
-             dateFormatter.timeStyle = .none
-             dateFormatter.locale = Locale(identifier: "pt_BR")
-            let dayString = dateFormatter.string(from: date) // Jan 2, 2001
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            
-            dateString = " \(hour) horas e \(minute) minutos, " + "de " + dayString
-         }
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateToStringAccessible(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
         
-        return dateString
+        let dayString = dateFormatter.string(from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
+        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
 

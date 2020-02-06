@@ -85,7 +85,6 @@ class MapViewController: UIViewController {
         
         // Sets delegate to handle map search with the HandleMapSearch protocol
         locationSearchTable.handleMapSearchDelegate = self
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,30 +107,25 @@ class MapViewController: UIViewController {
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         if UIAccessibility.isVoiceOverRunning {
-            
-            //Map haptic feedback configuration
-            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
-            self.mapView.addGestureRecognizer(tap)
-            
             self.mapView.accessibilityElementsHidden = true
-//             Caso seja habilitado o feedback tátil, usar o enable
-//            self.mapView.isUserInteractionEnabled = false
         }
         
-        
-//        self.resultSearchController!.searchBar.isAccessibilityElement = true
-        self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
+        //1. Botão voltar
+        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
+        // TODO: PROBLEMA - acessibility label do not
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
 
+        //2. Escolha da localização
+//        self.resultSearchController!.searchBar.isAccessibilityElement = true
+//        self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
         
+        //3. Botão de cancelar
+
+        //4. Raio
         // Por enquanto vou usar a label do raio - mas depois mudar para o slider
         self.radiusLabel.isAccessibilityElement = true
         self.radiusLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
         
-    }
-    
-    @objc func tap(_ tap: UITapGestureRecognizer) {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
     }
     
     
