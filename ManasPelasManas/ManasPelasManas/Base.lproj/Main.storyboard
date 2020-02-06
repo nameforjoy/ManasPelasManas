@@ -51,7 +51,7 @@
                                                                         <rect key="frame" x="0.0" y="43.5" width="384" height="20"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZZ-j9-8Kw">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.000000000000028" height="20"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="bZZ-j9-8Kw" secondAttribute="height" id="MEf-Fk-lXe"/>
                                                                                     <constraint firstAttribute="height" priority="900" constant="20" id="fmL-Gf-gja"/>
@@ -85,7 +85,7 @@
                                                                         <rect key="frame" x="0.0" y="622" width="384" height="20"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="place" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-m4-6Nj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20.000000000000028"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="20" id="0Ix-9G-xEj"/>
                                                                                     <constraint firstAttribute="width" constant="20" id="hLK-5l-WDT"/>
@@ -126,7 +126,7 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CDK-Kc-JNy">
                                                                         <rect key="frame" x="0.0" y="682" width="384" height="20"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comum" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3w-0e-OL9">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="friends" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3w-0e-OL9">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="20" id="bQj-Kc-YhJ"/>
@@ -562,7 +562,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN7-IV-WsN">
-                                <rect key="frame" x="0.0" y="260.5" width="414" height="552.5"/>
+                                <rect key="frame" x="0.0" y="252" width="414" height="561"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="companionCell" rowHeight="134" id="TT7-zG-V9w" customClass="CompanionCell" customModule="ManasPelasManas" customModuleProvider="target">
@@ -645,7 +645,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qui 22 agosto" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uy-iv-Psa">
-                                <rect key="frame" x="20" y="168.5" width="374" height="24"/>
+                                <rect key="frame" x="20" y="160" width="374" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -654,7 +654,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:00-18:30" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1y-QS-BKg">
-                                <rect key="frame" x="20" y="207.5" width="94.5" height="19.5"/>
+                                <rect key="frame" x="20" y="199" width="94.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -663,14 +663,14 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rotinha" translatesAutoresizingMaskIntoConstraints="NO" id="o9M-nq-Vgn">
-                                <rect key="frame" x="124.5" y="207.5" width="20" height="35"/>
+                                <rect key="frame" x="124.5" y="199" width="20" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Tr0-Ga-uTp"/>
                                     <constraint firstAttribute="height" constant="35" id="hfx-Gt-cly"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="De" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqw-VG-oYB">
-                                <rect key="frame" x="149.5" y="204.5" width="18.5" height="17"/>
+                                <rect key="frame" x="149.5" y="196" width="18.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -679,7 +679,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Até" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vj-RA-fYw">
-                                <rect key="frame" x="149.5" y="228.5" width="23" height="17"/>
+                                <rect key="frame" x="149.5" y="220" width="23" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1103,16 +1103,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="clock" width="539" height="539"/>
-        <image name="comum" width="539" height="539"/>
+        <image name="clock" width="134.5" height="134.5"/>
+        <image name="friends" width="138" height="136.5"/>
         <image name="leticia" width="1536" height="1536"/>
         <image name="mapa-cheio" width="22.5" height="25.5"/>
         <image name="mapa-vazado" width="22.5" height="25.5"/>
         <image name="mari" width="1434" height="1440"/>
         <image name="perfil-cheio" width="18.5" height="25.5"/>
         <image name="perfil-vazado" width="19" height="25.5"/>
-        <image name="place" width="539" height="539"/>
-        <image name="profile" width="156" height="214.5"/>
+        <image name="place" width="113.5" height="161"/>
+        <image name="profile" width="118.5" height="155.5"/>
         <image name="raio" width="772" height="772"/>
         <image name="rotinha" width="48" height="207"/>
         <image name="viagens-chio" width="18.5" height="25.5"/>
