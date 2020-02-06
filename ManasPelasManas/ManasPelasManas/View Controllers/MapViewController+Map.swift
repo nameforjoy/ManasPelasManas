@@ -39,6 +39,7 @@ extension MapViewController {
     // Gets current circular region displayed on mao
     func getCurrentCircularRegion() -> MKCircle {
         
+        // NAO NAO NAO NAO NAO NAO
         let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusImageView.frame.width / 2 , y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         
