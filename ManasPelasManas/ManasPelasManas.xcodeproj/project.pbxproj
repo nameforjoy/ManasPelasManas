@@ -47,6 +47,8 @@
 		B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D08B2314114E007BDA06 /* FullRouteViewController.swift */; };
 		B3B9F68923E9DD8900D246A0 /* UILabelAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9F68823E9DD8900D246A0 /* UILabelAccessibility.swift */; };
 		B3B9F68B23E9E1B900D246A0 /* UIButtonAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9F68A23E9E1B800D246A0 /* UIButtonAccessibility.swift */; };
+		B3BD2DA723F1E79800615A7A /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3BD2DA523F1E79800615A7A /* Gilroy-Light.otf */; };
+		B3BD2DA823F1E79800615A7A /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3BD2DA623F1E79800615A7A /* Gilroy-ExtraBold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		B376D08B2314114E007BDA06 /* FullRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRouteViewController.swift; sourceTree = "<group>"; };
 		B3B9F68823E9DD8900D246A0 /* UILabelAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelAccessibility.swift; sourceTree = "<group>"; };
 		B3B9F68A23E9E1B800D246A0 /* UIButtonAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonAccessibility.swift; sourceTree = "<group>"; };
+		B3BD2DA523F1E79800615A7A /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
+		B3BD2DA623F1E79800615A7A /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +208,7 @@
 				15A31D6223155E45007241D2 /* Business */,
 				15012AA823144BDB006617B1 /* Persistence */,
 				B376D08A2310251C007BDA06 /* Storyboards */,
+				B3BD2DA923F1E7CD00615A7A /* Fonts */,
 				B376D081230DECFD007BDA06 /* View Controllers */,
 				1511D1F4230EB38200C0DF60 /* Model */,
 				15A6A8E5230C11A0004E537D /* AppDelegate.swift */,
@@ -278,6 +283,15 @@
 				B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B3BD2DA923F1E7CD00615A7A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B3BD2DA623F1E79800615A7A /* Gilroy-ExtraBold.otf */,
+				B3BD2DA523F1E79800615A7A /* Gilroy-Light.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,7 +379,9 @@
 				15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */,
 				8DC63D6B23E7DFF6008CD7E8 /* Localizable.strings in Resources */,
 				15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */,
+				B3BD2DA723F1E79800615A7A /* Gilroy-Light.otf in Resources */,
 				15A6A8EB230C11A0004E537D /* Main.storyboard in Resources */,
+				B3BD2DA823F1E79800615A7A /* Gilroy-ExtraBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

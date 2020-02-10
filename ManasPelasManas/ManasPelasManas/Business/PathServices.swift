@@ -219,8 +219,8 @@ class PathServices {
                 let postalAddressFormatter = CNPostalAddressFormatter()
                 postalAddressFormatter.style = .mailingAddress
                 
-                if let fullAddress = result.postalAddress {
-                    addressTxt = postalAddressFormatter.string(from: fullAddress)
+                if let fullAddress = result.postalAddress?.street {
+                    addressTxt = fullAddress
                 } else if let city = result.locality, let state = result.administrativeArea {
                     addressTxt = city + ", " + state
                 }
