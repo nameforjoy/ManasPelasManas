@@ -89,30 +89,26 @@ class MapViewController: UIViewController {
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         if UIAccessibility.isVoiceOverRunning {
-            
-            //Map haptic feedback configuration
-            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
-            self.mapView.addGestureRecognizer(tap)
-            
             self.mapView.accessibilityElementsHidden = true
-//             Caso seja habilitado o feedback tátil, usar o enable
-//            self.mapView.isUserInteractionEnabled = false
         }
         
-        
-//        self.resultSearchController!.searchBar.isAccessibilityElement = true
-        self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
+        //1. Botão voltar
+        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
+        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de partida e descartar o local de chegada."
 
+        //2. Escolha da localização
+        self.resultSearchController!.searchBar.accessibilityTraits = UIAccessibilityTraits.searchField
+        self.resultSearchController!.searchBar.searchTextField.isAccessibilityElement = true
+        self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
         
+        //3. Botão de cancelar
+
+        //4. Raio
         // Por enquanto vou usar a label do raio - mas depois mudar para o slider
         self.radiusMetersLabel.isAccessibilityElement = true
         self.radiusMetersLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
         
-    }
-    
-    @objc func tap(_ tap: UITapGestureRecognizer) {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        generator.impactOccurred()
     }
     
     

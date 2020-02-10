@@ -16,8 +16,10 @@
 "Map next button title" = "Next";
 
 // Time range
-"Time of journey" = "When can we leave?";
-"Finish creating journey button" = "Find companions";
+"Short Time of journey" = "When?";
+"Long Time of journey" = "When can we leave?";
+"Short Finish creating journey button" = "Find";
+"Long Finish creating journey button" = "Find companions";
 "Earliest meeting time" = "We can leave from";
 "Latest meeting time" = "up to";
 

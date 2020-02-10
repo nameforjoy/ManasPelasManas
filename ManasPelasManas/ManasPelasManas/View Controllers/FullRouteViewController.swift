@@ -26,30 +26,29 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
-    @IBOutlet weak var journeyTimeTableView: UITableView!
+    //@IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var tapView: UIView!
     @IBOutlet weak var nextButton: UIButton!
     
-    override func viewDidLoad() {
-        
-        self.journeyTimeTableView.dataSource = self
-        self.journeyTimeTableView.delegate = self
-        self.journeyTimeTableView.allowsMultipleSelection = false
-        self.journeyTimeTableView.isScrollEnabled = false
-        
-        self.datePicker.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullRouteViewController.viewTapped(gestureRecognizer:)))
-        self.tapView.addGestureRecognizer(tapGesture)
-        self.tapView.isUserInteractionEnabled = false
+    @IBOutlet weak var fromDateStackView: UIStackView!
+    @IBOutlet weak var toDateStackView: UIStackView!
+    @IBOutlet weak var fromDateLabel: UILabel!
+    @IBOutlet weak var toDateLabel: UILabel!
+    @IBOutlet weak var fromDateTextField: UITextField!
+    @IBOutlet weak var toDateTextField: UITextField!
+    var activeField: UITextField?
 
+    override func viewDidLoad() {
+
+        datePickerConfig()
+        textFieldConfig()
+
+        self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
+        self.toDateLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
 
         let nc = NotificationCenter.default
-
         nc.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
-
     }
 
     // Stop observing notifications once class is removed
@@ -61,11 +60,8 @@ class FullRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        adjustText()
-        self.journeyTimeTableView.contentInsetAdjustmentBehavior = .never
-        // Guarantees Large Title preference when the view controller has a Table View
-        
         setUpInterface()
+
         
         // MARK: Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
@@ -88,26 +84,29 @@ class FullRouteViewController: UIViewController {
     }
     
     private func setUpInterface() {
-        self.navigationItem.title = NSLocalizedString("Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
-        
-        let searchForCompanionsButtonTitle = NSLocalizedString("Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
-        self.nextButton.setTitle(searchForCompanionsButtonTitle, for: .normal)
+        adjustTextContent()
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
 
+    // MARK: Dynamic Type
     // Listens to changes on Category Size Changes
     @objc func fontSizeChanged(_ notification: Notification) {
-        adjustText()
+        adjustTextContent()
     }
 
     // Changes text content depending on accessibility status
-    func adjustText() {
+    func adjustTextContent() {
+        let shortTitle = NSLocalizedString("Short Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
+        let longTitle = NSLocalizedString("Long Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
+        let shortSearchForCompanionsButtonTitle = NSLocalizedString("Short Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
+        let longSearchForCompanionsButtonTitle = NSLocalizedString("Long Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
+
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            self.navigationItem.title = "Quando?"
-            self.nextButton.setTitle("Procurar", for: .normal)
+            self.navigationItem.title = shortTitle
+            self.nextButton.setTitle(shortSearchForCompanionsButtonTitle, for: .normal)
         } else {
-            self.navigationItem.title = "Quando vamos?"
-            self.nextButton.setTitle("Procurar Companhias", for: .normal)
+            self.navigationItem.title = longTitle
+            self.nextButton.setTitle(longSearchForCompanionsButtonTitle, for: .normal)
         }
     }
     
@@ -121,25 +120,25 @@ class FullRouteViewController: UIViewController {
     // MARK: Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
+        //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
         if UIAccessibility.isVoiceOverRunning {
-            
-            //Map haptic feedback configuration
-            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
-            self.mapView.addGestureRecognizer(tap)
-            
             self.mapView.accessibilityElementsHidden = true
         }
         
-
-        self.journeyTimeTableView!.accessibilityLabel = "Posso sair a partir das     do dia    . Toque duas vezes para editar."
+        //1. Botão voltar
+        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
+        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
         
+        //6. Botão procurar companhias
+        self.nextButton.isAccessibilityElement = true
+        self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
+
     }
         
     
     // MARK: Displaying Map Data
-    
     func displayMapItems(path: Path?) {
-        
         let pathServices = PathServices()
         
         if let path = path {
@@ -155,51 +154,6 @@ class FullRouteViewController: UIViewController {
         self.mapView.addOverlays([self.circleA!, self.circleB!])
         
         self.zoomTo(regionA: self.circleA!, regionB: self.circleB!)
-    }
-    
-    // MARK: DatePicker Setup
-    
-    func datePickerConfig() {
-        self.datePicker?.datePickerMode = .dateAndTime
-        self.datePicker?.backgroundColor = .white
-        self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-        self.datePicker?.isHidden = false
-
-        // Set minimum and maximum date
-        self.datePicker.minimumDate = Date()
-        
-        // Setting date format
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, HH:mm"
-        tapView.isUserInteractionEnabled = true
-        
-        self.datePicker.minimumDate = Date() //
-        self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
-        
-        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
-        if self.selectedFirstCell  && self.latestDate != nil {
-            self.datePicker.maximumDate = self.latestDate
-            self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
-        }
-        else if !self.selectedFirstCell && self.earlierDate != nil {
-            self.datePicker.minimumDate = self.earlierDate
-            self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
-        }
-    }
-    
-    @objc func dateChanged(datePicker: UIDatePicker) {
-        
-        if self.selectedFirstCell {
-            self.earlierDate = datePicker.date
-        } else {
-            self.latestDate = datePicker.date
-        }
-        self.journeyTimeTableView.reloadData()
-    }
-    
-    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
-        self.datePicker.isHidden = true
-        self.tapView.isUserInteractionEnabled = false
     }
     
     func presentAlert() {
@@ -297,7 +251,7 @@ extension FullRouteViewController: MKMapViewDelegate {
         annotationB!.coordinate = circleB!.coordinate
     }
     
-    // TODO: Zoom tofit all elements
+    // TODO: Zoom to fit all elements
     private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
         let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
@@ -306,78 +260,131 @@ extension FullRouteViewController: MKMapViewDelegate {
     
 }
 
-extension FullRouteViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "journeyTimeCell") as! JourneyTimeTableViewCell
-        cell.selectionStyle = .none
-        // cell.boxView.backgroundColor = UIColor.white
-
-        switch indexPath.row {
-        case 0:
-            cell.leftLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
-            if let time = self.earlierDate {
-                cell.rightLabel.text = dateToString(date: time)
-            } else {
-                cell.rightLabel.text = " "
-            }
-        default:
-            cell.leftLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
-            if let time = self.latestDate {
-                cell.rightLabel.text = dateToString(date: time)
-            } else {
-                cell.rightLabel.text = " "
-            }
-        }
-        return cell
-    }
+    // MARK: TextField Setup
+extension FullRouteViewController {
     
     // LOCALIZAR ISSO
     func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm, MMM d"
-        var dateString = dateFormatter.string(from: date)
-        if UIAccessibility.isVoiceOverRunning {
-             dateFormatter.dateStyle = .full
-             dateFormatter.timeStyle = .none
-             dateFormatter.locale = Locale(identifier: "pt_BR")
-            let dayString = dateFormatter.string(from: date) // Jan 2, 2001
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            
-            dateString = " \(hour) horas e \(minute) minutos, " + "de " + dayString
-         }
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateToStringAccessible(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
         
-        return dateString
+        let dayString = dateFormatter.string(from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+    
+        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
 
-extension FullRouteViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.selectedFirstCell =  indexPath.row == 0 ? true : false
-        datePickerConfig()
-        let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
-        cell.boxView.backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
-        
-        
-        
-        let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
-        let otherCell = tableView.cellForRow(at: IndexPath(row: otherCellRowIndex, section: indexPath.section)) as! JourneyTimeTableViewCell
-        otherCell.boxView.backgroundColor = UIColor.white
+// MARK: DatePicker Extension
+extension FullRouteViewController {
+
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        guard let activeField = self.activeField else { return }
+
+        if activeField.tag == 0 {
+            self.earlierDate = datePicker.date
+        } else if activeField.tag == 1 {
+            self.latestDate = datePicker.date
+        }
+        activeField.text = dateToString(date: datePicker.date)
     }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
-        cell.boxView.backgroundColor = UIColor.white
+
+    func datePickerConfig() {
+        self.datePicker.isHidden = true
+        self.datePicker?.datePickerMode = .dateAndTime
+        self.datePicker?.backgroundColor = .white
+        self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+
+        // Set minimum and maximum date
+        self.datePicker.minimumDate = Date()
+
+        // Setting date format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, HH:mm"
+
+        self.datePicker.minimumDate = Date() //
+        self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
+
+        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
+        if self.selectedFirstCell  && self.latestDate != nil {
+            self.datePicker.maximumDate = self.latestDate
+            self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
+        }
+        else if !self.selectedFirstCell && self.earlierDate != nil {
+            self.datePicker.minimumDate = self.earlierDate
+            self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
+        }
+
+        createDatePicker(forField: fromDateTextField)
+        createDatePicker(forField: toDateTextField)
     }
-    
+
+    func createDatePicker(forField field : UITextField){
+
+        //Creates ToolBar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        toolbar.isUserInteractionEnabled = true
+
+        // Creates Done Button with Flexible Space for Left Alignment
+        let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(donePressed))
+
+        // Includes items to the toolbar
+        toolbar.setItems([flexButton, done], animated: false)
+
+        // Ties up the toolbar to the datepicker
+        field.inputAccessoryView = toolbar
+        // Sets the datepicker as the textField input
+        field.inputView = datePicker
+    }
+
+    // Dismiss datepicker and saves data if necessary
+    @objc func donePressed() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: TextField Setup Extension
+extension FullRouteViewController: UITextFieldDelegate {
+
+    func textFieldConfig(){
+        self.fromDateTextField.delegate = self
+        self.toDateTextField.delegate = self
+        self.fromDateTextField.tag = 0
+        self.toDateTextField.tag = 1
+        self.fromDateTextField.text = dateToString(date: Date())
+        self.toDateTextField.text = dateToString(date: Date())
+
+
+        // Removing default design for text field
+        self.fromDateTextField.borderStyle = .none
+        self.toDateTextField.borderStyle = .none
+    }
+
+    // This function is called by the delegate when user taps a given text field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 0 {
+            self.earlierDate = datePicker.date
+            self.fromDateLabel.textColor = UIColor(named: "actionColor")
+            self.toDateLabel.textColor = .black
+        } else if textField.tag == 1 {
+            self.latestDate = datePicker.date
+            self.fromDateLabel.textColor = .black
+            self.toDateLabel.textColor = UIColor(named: "actionColor")
+            
+        }
+        self.activeField = textField
+        datePicker.isHidden = false
+    }
 }
