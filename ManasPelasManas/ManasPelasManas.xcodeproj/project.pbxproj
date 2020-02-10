@@ -35,6 +35,9 @@
 		8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94A23164A160014FCDC /* CompanionCell.swift */; };
 		8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */; };
 		8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */; };
+		8DB94E7F23EC6E9600B2F91B /* MapViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */; };
+		8DB94E8123EC6F0F00B2F91B /* MapViewController+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */; };
+		8DB94E8323EC6FB200B2F91B /* MapViewController+AddressSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */; };
 		8DC63D6B23E7DFF6008CD7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DC63D6D23E7DFF6008CD7E8 /* Localizable.strings */; };
 		B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
@@ -89,6 +92,9 @@
 		8D74B94A23164A160014FCDC /* CompanionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionCell.swift; sourceTree = "<group>"; };
 		8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyCompanionsViewController.swift; sourceTree = "<group>"; };
 		8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionProfileViewController.swift; sourceTree = "<group>"; };
+		8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+Map.swift"; sourceTree = "<group>"; };
+		8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+Location.swift"; sourceTree = "<group>"; };
+		8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+AddressSearch.swift"; sourceTree = "<group>"; };
 		8DC63D6C23E7DFF6008CD7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8DC63D6E23E7E00C008CD7E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAccessibility.swift; sourceTree = "<group>"; };
@@ -248,6 +254,9 @@
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
 				8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */,
 				8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */,
+				8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */,
+				8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */,
+				8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -378,6 +387,7 @@
 				B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */,
 				8D74B943231640B50014FCDC /* FullJourneyDetailsCell.swift in Sources */,
 				15A31D5523154F8B007241D2 /* CoreDataManager.swift in Sources */,
+				8DB94E8323EC6FB200B2F91B /* MapViewController+AddressSearch.swift in Sources */,
 				15A6A8E6230C11A0004E537D /* AppDelegate.swift in Sources */,
 				153BF5F423E3033C002AAAB4 /* MockData.swift in Sources */,
 				B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */,
@@ -387,6 +397,7 @@
 				8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */,
 				B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */,
 				15A31D58231555D7007241D2 /* DAO.swift in Sources */,
+				8DB94E7F23EC6E9600B2F91B /* MapViewController+Map.swift in Sources */,
 				B376D08C2314114E007BDA06 /* FullRouteViewController.swift in Sources */,
 				1511D1F8230EB3A200C0DF60 /* Path.swift in Sources */,
 				1511D1F6230EB38E00C0DF60 /* User.swift in Sources */,
@@ -403,6 +414,7 @@
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
 				15A31D682315769D007241D2 /* JourneyServices.swift in Sources */,
+				8DB94E8123EC6F0F00B2F91B /* MapViewController+Location.swift in Sources */,
 				15A31D5A231555FA007241D2 /* UserDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

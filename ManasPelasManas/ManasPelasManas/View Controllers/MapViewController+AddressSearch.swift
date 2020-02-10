@@ -1,0 +1,67 @@
+//
+//  MapViewController+AddressSearch.swift
+//  ManasPelasManas
+//
+//  Created by Joyce Simão Clímaco on 06/02/20.
+//  Copyright © 2020 Luma Gabino Vasconcelos. All rights reserved.
+//
+
+import Foundation
+import MapKit
+
+// Handles Protocol for address search table
+extension MapViewController: HandleMapSearch {
+    
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        selectedPin = placemark
+        // Removes all previous annotations
+        mapView.removeAnnotations(mapView.annotations)
+        
+        // Adds annotation in the  given placemark
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality, let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        
+        // Shows corresponding map region
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: self.defaultSpan)
+        mapView.setRegion(region, animated: true)
+    }
+}
+
+extension MapViewController {
+    
+    func addressSearchConfiguration() {
+        // CREATES SEARCH CONTROLLER AN m D INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // Instantiates the TableViewController that will show the adress results
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTableViewController
+        // Instantiates our search controller and displays its results on the TableView instantiated above
+        self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        // Sets the TableView as the results updater as well
+        self.resultSearchController?.searchResultsUpdater = locationSearchTable
+        // Sets this ViewController mapView as the results table mapView
+        locationSearchTable.mapView = mapView
+        
+        // CREATES AND CONFIGURES THE SEARCHBAR
+        // Make  searchBar from the searchController created above
+        let searchBar = self.resultSearchController!.searchBar
+        // Defines searchBar appearence
+        searchBar.sizeToFit()
+        searchBar.placeholder =  "Busque por seu endereço"
+        self.navigationItem.searchController =  self.resultSearchController!
+        
+        // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
+        // Prevents the NavigationBar from being  hidden when  showing the TableView
+        self.resultSearchController?.hidesNavigationBarDuringPresentation = false
+        // Sets recults table background transparency
+        self.resultSearchController?.obscuresBackgroundDuringPresentation = false
+        // Makes this ViewController the presentation context for the results table, preventing it from overlapping the searchBar
+        self.definesPresentationContext = true
+        
+        // Sets delegate to handle map search with the HandleMapSearch protocol
+        locationSearchTable.handleMapSearchDelegate = self
+    }
+}
