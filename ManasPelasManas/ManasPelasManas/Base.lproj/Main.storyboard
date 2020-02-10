@@ -51,7 +51,7 @@
                                                                         <rect key="frame" x="0.0" y="43.5" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZZ-j9-8Kw">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.500000000000028" height="20.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="6Qv-xe-sda"/>
                                                                                     <constraint firstAttribute="width" secondItem="bZZ-j9-8Kw" secondAttribute="height" id="MEf-Fk-lXe"/>
@@ -85,7 +85,7 @@
                                                                         <rect key="frame" x="0.0" y="1659" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="place" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-m4-6Nj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.500000000000028"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="eKk-m4-6Nj" secondAttribute="height" id="IVV-sz-v3P"/>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="cA1-8k-Ml5"/>
@@ -565,7 +565,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8n3-5m-XEN">
-                                <rect key="frame" x="20" y="150" width="374" height="199"/>
+                                <rect key="frame" x="20" y="158.5" width="374" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qui 22 agosto" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uy-iv-Psa">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -633,7 +633,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN7-IV-WsN">
-                                <rect key="frame" x="0.0" y="359" width="414" height="454"/>
+                                <rect key="frame" x="0.0" y="367.5" width="414" height="445.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="companionCell" rowHeight="134" id="TT7-zG-V9w" customClass="CompanionCell" customModule="ManasPelasManas" customModuleProvider="target">
@@ -800,10 +800,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mari" translatesAutoresizingMaskIntoConstraints="NO" id="XIJ-Du-jcA">
-                                <rect key="frame" x="0.0" y="140" width="414" height="403"/>
+                                <rect key="frame" x="0.0" y="148.5" width="414" height="403"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-46-Q4y">
-                                <rect key="frame" x="0.0" y="611.5" width="414" height="201.5"/>
+                                <rect key="frame" x="0.0" y="620" width="414" height="193"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-ng-DNA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
@@ -848,7 +848,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daniela, 24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUe-di-zfh">
-                                <rect key="frame" x="20" y="563" width="162" height="38.5"/>
+                                <rect key="frame" x="20" y="571.5" width="162" height="38.5"/>
                                 <color key="tintColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                 <color key="textColor" name="textColor"/>
@@ -858,7 +858,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQg-lc-CMf">
-                                <rect key="frame" x="294" y="570" width="100" height="25"/>
+                                <rect key="frame" x="294" y="578.5" width="100" height="25"/>
                                 <color key="backgroundColor" name="actionColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kPe-Da-2Wd"/>
@@ -933,7 +933,7 @@
                     <tabBarItem key="tabBarItem" title="Mapa" image="mapa-vazado" selectedImage="mapa-cheio" id="Ecv-y2-7zy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="395-YP-TaA">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -1037,7 +1037,6 @@
                         <constraints>
                             <constraint firstItem="YcP-Yb-imN" firstAttribute="trailing" secondItem="I7O-NE-d1t" secondAttribute="trailing" constant="20" id="45E-Y3-ilM"/>
                             <constraint firstItem="YcP-Yb-imN" firstAttribute="bottom" secondItem="I7O-NE-d1t" secondAttribute="bottom" constant="10" id="7LR-Hq-nZe"/>
-                            <constraint firstAttribute="top" secondItem="YcP-Yb-imN" secondAttribute="top" constant="5" id="B5c-In-5Ce"/>
                             <constraint firstItem="I7O-NE-d1t" firstAttribute="leading" secondItem="YcP-Yb-imN" secondAttribute="leading" constant="20" id="D4H-U8-U52"/>
                             <constraint firstItem="ROq-nG-V9B" firstAttribute="bottom" secondItem="YcP-Yb-imN" secondAttribute="bottom" id="D5d-x9-72P"/>
                             <constraint firstItem="dyK-8H-CYA" firstAttribute="leading" secondItem="YcP-Yb-imN" secondAttribute="leading" id="FJr-Lv-m7p"/>
@@ -1079,7 +1078,7 @@
                     <tabBarItem key="tabBarItem" title="Viagens" image="viagens-vazado" selectedImage="viagens-chio" id="yMh-dr-QZf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KRv-Cr-CbF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -1122,6 +1121,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ied-Hw-95r"/>
+        <segue reference="5RH-hW-wuu"/>
     </inferredMetricsTieBreakers>
 </document>
