@@ -23,9 +23,9 @@ class MapViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet var vcView: UIView!
     
-    let maxRadius: Double = 2000 // meters
+    let maxRadius: Double = 1200 // meters
     let minRadius: Double = 50 // meters
-    let defaultRadius: Double = 500 // meters
+    let defaultRadius: Double = 250 // meters
     let locationManager = CLLocationManager()
     
     var isTouchingSlider: Bool = false
@@ -111,19 +111,14 @@ class MapViewController: UIViewController {
     
     @IBAction func beganTouchingSlider(_ sender: UISlider) {
         self.isTouchingSlider = true
-        print("Begin touch")
     }
     
     @IBAction func finishedTouchingSlider(_ sender: UISlider) {
         self.isTouchingSlider = false
-        print("END")
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        
-        // COLOCAR IF MAPVIEW NÃO ESTIVER MUDANDO JÁ
         let currentRadius = Double(sender.value)
-        // self.updateRadiusLabel(radius: currentRadius)
         self.zoomMapWithSlider(sliderRadius: currentRadius)
     }
     

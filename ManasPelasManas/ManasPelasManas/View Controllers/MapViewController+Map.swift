@@ -13,7 +13,6 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
-        // SÓ SE O SLIDER NÃO  ESTIVER MUDANDO - COLOCAR IF
         let radius: Double = self.getCurrentCircularRegion().radius
         self.updateRadiusLabel(radius: radius)
         
@@ -52,8 +51,8 @@ extension MapViewController {
     
     // Zooms in to a certain map region
     func zoomMapTo(location: CLLocation) {
-        let region =  MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: self.defaultRadius/0.9, longitudinalMeters: self.defaultRadius/0.9)
-        mapView.setRegion(region, animated: true)
+        let region =  MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: self.defaultRadius*2/0.9, longitudinalMeters: self.defaultRadius*2/0.9)
+        mapView.setRegion(region, animated: false)
     }
     
     // Centers map on user current location
@@ -66,7 +65,7 @@ extension MapViewController {
     
     func zoomMapWithSlider(sliderRadius: Double) {
         let currentCenter: CLLocationCoordinate2D = mapView.centerCoordinate
-        let region =  MKCoordinateRegion.init(center: currentCenter, latitudinalMeters: sliderRadius/0.9, longitudinalMeters: sliderRadius/0.9)
+        let region =  MKCoordinateRegion.init(center: currentCenter, latitudinalMeters: sliderRadius*2/0.9, longitudinalMeters: sliderRadius*2/0.9)
         mapView.setRegion(region, animated: false)
     }
 }
