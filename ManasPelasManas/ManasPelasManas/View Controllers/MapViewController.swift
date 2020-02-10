@@ -112,12 +112,13 @@ class MapViewController: UIViewController {
         
         //1. Botão voltar
         self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
-        // TODO: PROBLEMA - acessibility label do not
-        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
+        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de partida e descartar o local de chegada."
 
         //2. Escolha da localização
-//        self.resultSearchController!.searchBar.isAccessibilityElement = true
-//        self.resultSearchController!.searchBar.accessibilityLabel = "Local de partida: \(self.resultSearchController!.searchBar.placeholder!). Toque duplo para editar local de partida."
+        self.resultSearchController!.searchBar.accessibilityTraits = UIAccessibilityTraits.searchField
+        self.resultSearchController!.searchBar.searchTextField.isAccessibilityElement = true
+        self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
         
         //3. Botão de cancelar
 

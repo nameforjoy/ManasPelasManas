@@ -122,18 +122,20 @@ class FullRouteViewController: UIViewController {
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
-//        if UIAccessibility.isVoiceOverRunning {
-//            self.mapView.accessibilityElementsHidden = true
-//        }
-//        self.tapView.isAccessibilityElement = true
+        if UIAccessibility.isVoiceOverRunning {
+            self.mapView.accessibilityElementsHidden = true
+        }
+        self.tapView.isAccessibilityElement = true
         
         //1. Botão voltar
         self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
-        self.navigationController?.navigationBar.backItem?.accessibilityLabel = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
+        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
         
         //6. Botão procurar companhias
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
+
     }
         
     
@@ -184,6 +186,8 @@ class FullRouteViewController: UIViewController {
             self.datePicker.minimumDate = self.earlierDate
             self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
+        
+        
     }
     
     @objc func doneTapped() {
@@ -323,24 +327,26 @@ extension FullRouteViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         // cell.boxView.backgroundColor = UIColor.white
 
+        cell.rightLabel.isAccessibilityElement = true
+        
         switch indexPath.row {
         case 0:
             cell.leftLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.earlierDate {
                 cell.rightLabel.text = dateToString(date: time)
-                cell.rightLabel.isAccessibilityElement = true
                 cell.rightLabel.accessibilityLabel = dateToStringAccessible(date: time)
             } else {
                 cell.rightLabel.text = " "
+                cell.rightLabel.accessibilityLabel = "Nenhum horário selecionado. Toque duas vezes para editar"
             }
         default:
             cell.leftLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
             if let time = self.latestDate {
                 cell.rightLabel.text = dateToString(date: time)
-                cell.rightLabel.isAccessibilityElement = true
                 cell.rightLabel.accessibilityLabel = dateToStringAccessible(date: time)
             } else {
                 cell.rightLabel.text = " "
+                cell.rightLabel.accessibilityLabel = "Nenhum horário selecionado. Toque duas vezes para editar"
             }
         }
         return cell
@@ -363,7 +369,7 @@ extension FullRouteViewController: UITableViewDataSource {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-        
+    
         return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
@@ -376,7 +382,6 @@ extension FullRouteViewController: UITableViewDelegate {
         datePickerConfig()
         let cell = tableView.cellForRow(at: indexPath) as! JourneyTimeTableViewCell
         cell.boxView.backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
-        
         
         
         let otherCellRowIndex = indexPath.row == 0 ? 1 : 0
