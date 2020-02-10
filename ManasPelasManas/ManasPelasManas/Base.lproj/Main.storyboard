@@ -271,7 +271,8 @@
                                         <rect key="frame" x="94.5" y="0.0" width="281.5" height="31"/>
                                         <color key="tintColor" name="actionColor"/>
                                         <connections>
-                                            <action selector="radiusSliderAction:" destination="3sw-Ev-MV3" eventType="valueChanged" id="59w-BA-CvW"/>
+                                            <action selector="finishedTouchingSlider:" destination="3sw-Ev-MV3" eventType="touchUpInside" id="Iou-5I-4kw"/>
+                                            <action selector="sliderValueChanged:" destination="3sw-Ev-MV3" eventType="valueChanged" id="59w-BA-CvW"/>
                                         </connections>
                                     </slider>
                                 </subviews>

@@ -10,26 +10,12 @@ import Foundation
 import MapKit
 
 extension MapViewController: MKMapViewDelegate {
-
-//    // This function is called everytime map region is changed by user interaction
-//    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-//
-//
-//
-//        // Does not allow a bigger region span than the value allowed
-//        if animated == false {
-//            if self.mapView.region.span.latitudeDelta > self.maxSpan.latitudeDelta || mapView.region.span.longitudeDelta > self.maxSpan.longitudeDelta {
-//                let region =  MKCoordinateRegion(center: mapView.region.center, span: self.maxSpan)
-//                self.mapView.setRegion(region, animated: true)
-//            }
-//        }
-//    }
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
         // SÓ SE O SLIDER NÃO  ESTIVER MUDANDO - COLOCAR IF
         let radius: Double = self.getCurrentCircularRegion().radius
-        self.radiusSlider.setValue(Float(radius), animated: true)
+        // self.radiusSlider.setValue(Float(radius), animated: true)
         self.updateRadiusLabel(radius: radius)
     }
 }

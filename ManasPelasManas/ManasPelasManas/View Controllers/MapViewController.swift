@@ -108,11 +108,15 @@ class MapViewController: UIViewController {
         }
     }
     
-    @IBAction func radiusSliderAction(_ sender: UISlider) {
+    @IBAction func finishedTouchingSlider(_ sender: UISlider) {
+        print("touch up")
+    }
+    
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
         
         // COLOCAR IF MAPVIEW NÃO ESTIVER MUDANDO JÁ
         let currentRadius = Double(sender.value)
-        self.updateRadiusLabel(radius: currentRadius)
+        // self.updateRadiusLabel(radius: currentRadius)
         self.zoomMapWithSlider(sliderRadius: currentRadius)
     }
     
