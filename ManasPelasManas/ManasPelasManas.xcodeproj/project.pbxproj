@@ -36,6 +36,7 @@
 		8D74B94D23164C230014FCDC /* JourneyCompanionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */; };
 		8D74B95123164C8B0014FCDC /* CompanionProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */; };
 		8DC63D6B23E7DFF6008CD7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DC63D6D23E7DFF6008CD7E8 /* Localizable.strings */; };
+		B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
 		B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07B230DECC7007BDA06 /* MapViewController.swift */; };
 		B376D080230DECF3007BDA06 /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07F230DECF3007BDA06 /* RoutesViewController.swift */; };
@@ -90,6 +91,7 @@
 		8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionProfileViewController.swift; sourceTree = "<group>"; };
 		8DC63D6C23E7DFF6008CD7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8DC63D6E23E7E00C008CD7E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAccessibility.swift; sourceTree = "<group>"; };
 		B376D079230DEC86007BDA06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B376D07B230DECC7007BDA06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B376D07F230DECF3007BDA06 /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				B3B9F68823E9DD8900D246A0 /* UILabelAccessibility.swift */,
 				B3B9F68A23E9E1B800D246A0 /* UIButtonAccessibility.swift */,
+				B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */,
 				15A31D6423155EE1007241D2 /* UserServices.swift in Sources */,
 				15A31D6623155FBE007241D2 /* QueueManager.swift in Sources */,
+				B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */,
 				15A31D5F231556B3007241D2 /* JourneyDAO.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
@@ -574,7 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = 2M7ZQ8AZ57;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -593,7 +597,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54KAL6GMBX;
+				DEVELOPMENT_TEAM = 2M7ZQ8AZ57;
 				INFOPLIST_FILE = ManasPelasManas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
