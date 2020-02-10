@@ -130,6 +130,16 @@ class FullRouteViewController: UIViewController {
         // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
         self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
         
+        //4. Escolha de datas - DE
+        self.fromDateLabel.isAccessibilityElement = false
+        self.fromDateTextField.isAccessibilityElement = true
+        self.fromDateTextField.accessibilityLabel = "\(self.fromDateLabel.text!) \(self.fromDateTextField.text!). Toque duas vezes para editar."
+        
+        //5. Escolha de datas - ATÉ
+        self.toDateLabel.isAccessibilityElement = false
+        self.toDateTextField.isAccessibilityElement = true
+        self.toDateTextField.accessibilityLabel = "\(self.toDateLabel.text!) \(self.toDateTextField.text!). Toque duas vezes para editar."
+        
         //6. Botão procurar companhias
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
@@ -297,6 +307,7 @@ extension FullRouteViewController {
             self.latestDate = datePicker.date
         }
         activeField.text = dateToString(date: datePicker.date)
+        activeField.accessibilityLabel = dateToStringAccessible(date: datePicker.date)
     }
 
     func datePickerConfig() {
@@ -347,6 +358,7 @@ extension FullRouteViewController {
         field.inputAccessoryView = toolbar
         // Sets the datepicker as the textField input
         field.inputView = datePicker
+        
     }
 
     // Dismiss datepicker and saves data if necessary
@@ -363,10 +375,14 @@ extension FullRouteViewController: UITextFieldDelegate {
         self.toDateTextField.delegate = self
         self.fromDateTextField.tag = 0
         self.toDateTextField.tag = 1
-        self.fromDateTextField.text = dateToString(date: Date())
-        self.toDateTextField.text = dateToString(date: Date())
-
-
+        self.fromDateTextField.text = ""
+        self.toDateTextField.text = ""
+        
+        
+        //Hiding the editing cursor
+        self.fromDateTextField.tintColor = .clear
+        self.toDateTextField.tintColor = .clear
+        
         // Removing default design for text field
         self.fromDateTextField.borderStyle = .none
         self.toDateTextField.borderStyle = .none

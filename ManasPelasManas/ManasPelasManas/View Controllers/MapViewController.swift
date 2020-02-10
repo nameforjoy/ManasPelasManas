@@ -85,7 +85,7 @@ class MapViewController: UIViewController {
 
     
     // MARK: Acessibility setup
-    
+
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         if UIAccessibility.isVoiceOverRunning {
@@ -106,8 +106,8 @@ class MapViewController: UIViewController {
 
         //4. Raio
         // Por enquanto vou usar a label do raio - mas depois mudar para o slider
-        self.radiusMetersLabel.isAccessibilityElement = true
-        self.radiusMetersLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
+//        self.radiusMetersLabel.isAccessibilityElement = true
+//        self.radiusMetersLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
         
     }
     

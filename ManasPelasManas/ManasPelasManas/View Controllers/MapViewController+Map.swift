@@ -24,6 +24,8 @@ extension MapViewController: MKMapViewDelegate {
             radiusMetersLabel.text = "\(Int(radius))m"
         }
         
+        setupAccessibilityRaduis()
+        
         // Does not allow a bigger region span than the value allowed
         if animated == false {
             if self.mapView.region.span.latitudeDelta > self.maxSpan.latitudeDelta || mapView.region.span.longitudeDelta > self.maxSpan.longitudeDelta {
@@ -32,6 +34,17 @@ extension MapViewController: MKMapViewDelegate {
             }
         }
     }
+    
+    func setupAccessibilityRaduis() {
+        // VoiceOver config for radius
+        self.radiusMetersLabel.isAccessibilityElement = false
+        self.radiusTitleLabel.isAccessibilityElement = false
+        self.radiusSlider.isAccessibilityElement = true
+        self.radiusSlider.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Ajuste o slider para aumentar ou diminuir o raio."
+        self.radiusSlider.accessibilityValue = "\(self.radiusMetersLabel.text!)"
+    }
+    
+    
 }
 
 extension MapViewController {
