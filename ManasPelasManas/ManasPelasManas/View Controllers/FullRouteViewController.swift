@@ -120,25 +120,25 @@ class FullRouteViewController: UIViewController {
     // MARK: Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
+        //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
         if UIAccessibility.isVoiceOverRunning {
-            
-            //Map haptic feedback configuration
-            let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.tap(_:)))
-            self.mapView.addGestureRecognizer(tap)
-            
             self.mapView.accessibilityElementsHidden = true
         }
-
-
-//        self.journeyTimeTableView!.accessibilityLabel = "Posso sair a partir das     do dia    . Toque duas vezes para editar."
+        
+        //1. Botão voltar
+        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
+        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
+        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de chegada e descartar o horário de partida."
+        
+        //6. Botão procurar companhias
+        self.nextButton.isAccessibilityElement = true
+        self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
 
     }
         
     
     // MARK: Displaying Map Data
-    
     func displayMapItems(path: Path?) {
-        
         let pathServices = PathServices()
         
         if let path = path {
@@ -267,20 +267,21 @@ extension FullRouteViewController {
     func dateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm, MMM d"
-        var dateString = dateFormatter.string(from: date)
-        if UIAccessibility.isVoiceOverRunning {
-             dateFormatter.dateStyle = .full
-             dateFormatter.timeStyle = .none
-             dateFormatter.locale = Locale(identifier: "pt_BR")
-            let dayString = dateFormatter.string(from: date) // Jan 2, 2001
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            
-            dateString = " \(hour) horas e \(minute) minutos, " + "de " + dayString
-         }
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateToStringAccessible(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
         
-        return dateString
+        let dayString = dateFormatter.string(from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+    
+        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
 
