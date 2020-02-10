@@ -26,8 +26,9 @@ class MapViewController: UIViewController {
     let maxRadius: Double = 2000 // meters
     let minRadius: Double = 50 // meters
     let defaultRadius: Double = 500 // meters
-    
     let locationManager = CLLocationManager()
+    
+    var isTouchingSlider: Bool = false
     var resultSearchController: UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
     var locationReference: CLLocation? = nil // Future recentre button
@@ -108,8 +109,14 @@ class MapViewController: UIViewController {
         }
     }
     
+    @IBAction func beganTouchingSlider(_ sender: UISlider) {
+        self.isTouchingSlider = true
+        print("Begin touch")
+    }
+    
     @IBAction func finishedTouchingSlider(_ sender: UISlider) {
-        print("touch up")
+        self.isTouchingSlider = false
+        print("END")
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {

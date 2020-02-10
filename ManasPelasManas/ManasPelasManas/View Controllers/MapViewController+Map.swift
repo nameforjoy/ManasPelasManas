@@ -15,8 +15,11 @@ extension MapViewController: MKMapViewDelegate {
         
         // SÓ SE O SLIDER NÃO  ESTIVER MUDANDO - COLOCAR IF
         let radius: Double = self.getCurrentCircularRegion().radius
-        // self.radiusSlider.setValue(Float(radius), animated: true)
         self.updateRadiusLabel(radius: radius)
+        
+        if !self.isTouchingSlider {
+            self.radiusSlider.setValue(Float(radius), animated: true)
+        }
     }
 }
 
