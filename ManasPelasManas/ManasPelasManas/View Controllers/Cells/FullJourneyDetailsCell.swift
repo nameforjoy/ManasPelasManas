@@ -36,3 +36,4 @@ class FullJourneyDetailsCell: UITableViewCell {
         //self.photo3.layer.cornerRadius = self.photo3.frame.height / 2
     }
 }
+

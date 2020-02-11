@@ -70,6 +70,7 @@ class ProfileViewController: UIViewController {
         self.aboutMeTitleLabel.accessibilityLabel = "Sobre mim, \(aboutMeContentLabel.text!)"
     }
     
+    // MARK: - Auxiliary functions
     private func displayData(user: User) {
         self.profilePhoto.image = UIImage(named: (user.photo)!)
         self.nameContentLabel.text = (user.name)! + ", 19"

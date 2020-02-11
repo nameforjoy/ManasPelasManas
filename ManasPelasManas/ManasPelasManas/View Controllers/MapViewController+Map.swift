@@ -29,7 +29,20 @@ extension MapViewController: MKMapViewDelegate {
                 self.radiusSlider.setValue(Float(radius), animated: true)
             }
         }
+        
+        setupAccessibilityRaduis()
     }
+    
+    func setupAccessibilityRaduis() {
+        // VoiceOver config for radius
+        self.radiusMetersLabel.isAccessibilityElement = false
+        self.radiusTitleLabel.isAccessibilityElement = false
+        self.radiusSlider.isAccessibilityElement = true
+        self.radiusSlider.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Ajuste o slider para aumentar ou diminuir o raio."
+        self.radiusSlider.accessibilityValue = "\(self.radiusMetersLabel.text!)"
+    }
+    
+    
 }
 
 extension MapViewController {
