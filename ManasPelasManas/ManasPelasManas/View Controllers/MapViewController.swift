@@ -19,6 +19,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var radiusTitleLabel: UILabel!
     @IBOutlet weak var radiusMetersLabel: UILabel!
     @IBOutlet weak var radiusSlider: UISlider!
+    @IBOutlet weak var radiusLabelAndSliderStackView: UIStackView!
     
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet var vcView: UIView!
@@ -112,7 +113,11 @@ class MapViewController: UIViewController {
     }
 
     func adjustText() {
+        
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            
+            self.radiusLabelAndSliderStackView.axis = .vertical
+            
             if self.firstTime {
                 self.navigationItem.title = "De onde?"
             } else {
