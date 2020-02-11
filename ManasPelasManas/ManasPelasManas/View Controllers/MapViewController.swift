@@ -105,32 +105,7 @@ class MapViewController: UIViewController {
         self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
     }
     
-    
     // MARK: Actions
-
-    @objc func fontSizeChanged(_ notification: Notification) {
-        adjustText()
-    }
-
-    func adjustText() {
-        
-        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            
-            self.radiusLabelAndSliderStackView.axis = .vertical
-            
-            if self.firstTime {
-                self.navigationItem.title = "De onde?"
-            } else {
-                self.navigationItem.title = "Para onde?"
-            }
-        } else {
-            if self.firstTime {
-                self.navigationItem.title = "De onde saímos?"
-            } else {
-                self.navigationItem.title = "Para onde vamos?"
-            }
-        }
-    }
     
     @IBAction func beganTouchingSlider(_ sender: UISlider) {
         self.isTouchingSlider = true
@@ -175,6 +150,33 @@ class MapViewController: UIViewController {
         }
     }
     
+    // MARK: Functions
+    
+    @objc func fontSizeChanged(_ notification: Notification) {
+        adjustText()
+    }
+
+    func adjustText() {
+        
+        self.radiusTitleLabel.text = NSLocalizedString("Radius title", comment: "Title for the radius meters")
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            
+            self.radiusLabelAndSliderStackView.axis = .vertical
+            
+            if self.firstTime {
+                self.navigationItem.title = NSLocalizedString("Meeting location short", comment: "Short version of navigation title of the screen where the user sets the region where she can meet her companion to start her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+            } else {
+                self.navigationItem.title = NSLocalizedString("Destination location short", comment: "Short version of navigation title of the screen where the user sets the final destination of her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+            }
+        } else {
+            if self.firstTime {
+                self.navigationItem.title = NSLocalizedString("Meeting location long", comment: "Long version of navigation title of the screen where the user sets the region where she can meet her companion to start her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+            } else {
+                self.navigationItem.title = NSLocalizedString("Destination location long", comment: "Long version of navigation title of the screen where the user sets the final destination of her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "TimeSetup" {
@@ -190,20 +192,7 @@ class MapViewController: UIViewController {
         }
     }
 
-    
-    // Changes Navigation title depending on which stage of the journey we are currently registering
-    private func setUpNavigationTitle() {
-        // This function is called in viewDidAppear since viewDidLoad only loads once (when the class is called the first time)
-        if self.firstTime {
-            self.navigationItem.title = NSLocalizedString("Meeting location", comment: "Navigation title of the screen where the user sets the region where she can meet her companion to start her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
-        } else {
-            self.navigationItem.title = NSLocalizedString("Destination location", comment: "Navigation title of the screen where the user sets the final destination of her journey. This region is determined by a circle in the map, of which the user sets its center and radius.")
-        }
-    }
-    
     private func setUpInterface() {
-        setUpNavigationTitle()
-        
         let nextButtonTitle = NSLocalizedString("Map next button title", comment: "Main button on the map screen to define the journey, that takes the user to the next screen in the process of defining her journey.")
         self.nextButton.setTitle(nextButtonTitle, for: .normal)
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
