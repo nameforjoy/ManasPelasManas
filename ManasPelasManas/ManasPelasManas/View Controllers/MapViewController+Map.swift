@@ -29,6 +29,8 @@ extension MapViewController: MKMapViewDelegate {
                 self.radiusSlider.setValue(Float(radius), animated: true)
             }
         }
+        
+        setupAccessibilityRaduis()
     }
     
     func setupAccessibilityRaduis() {

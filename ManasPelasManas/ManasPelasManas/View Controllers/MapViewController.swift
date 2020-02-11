@@ -87,7 +87,6 @@ class MapViewController: UIViewController {
     }
     
     // MARK: Acessibility setup
-
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         if UIAccessibility.isVoiceOverRunning {
@@ -103,14 +102,6 @@ class MapViewController: UIViewController {
         self.resultSearchController!.searchBar.accessibilityTraits = UIAccessibilityTraits.searchField
         self.resultSearchController!.searchBar.searchTextField.isAccessibilityElement = true
         self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
-        
-        //3. Botão de cancelar
-
-        //4. Raio
-        // Por enquanto vou usar a label do raio - mas depois mudar para o slider
-//        self.radiusMetersLabel.isAccessibilityElement = true
-//        self.radiusMetersLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
-        
     }
     
     
@@ -193,33 +184,7 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: Acessibility setup
-    
-    private func setupAccessibility() {
-        // Disable map interaction with voiceOver
-        if UIAccessibility.isVoiceOverRunning {
-            self.mapView.accessibilityElementsHidden = true
-        }
-        
-        //1. Botão voltar
-        self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
-        // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
-        self.navigationController?.navigationBar.backItem?.title = "Voltar. Botão. Toque duplo para voltar à tela do ponto de partida e descartar o local de chegada."
 
-        //2. Escolha da localização
-        self.resultSearchController!.searchBar.accessibilityTraits = UIAccessibilityTraits.searchField
-        self.resultSearchController!.searchBar.searchTextField.isAccessibilityElement = true
-        self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
-        
-        //3. Botão de cancelar
-
-        //4. Raio
-        // Por enquanto vou usar a label do raio - mas depois mudar para o slider
-        self.radiusMetersLabel.isAccessibilityElement = true
-        self.radiusMetersLabel.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Arraste o slider para os lados para aumentar ou diminuir o raio."
-        
-    }
     
     // Changes Navigation title depending on which stage of the journey we are currently registering
     private func setUpNavigationTitle() {
