@@ -313,7 +313,6 @@ extension FullRouteViewController {
     func datePickerConfig() {
         self.datePicker.isHidden = true
         self.datePicker?.datePickerMode = .dateAndTime
-        self.datePicker?.backgroundColor = .white
         self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
 
         // Set minimum and maximum date
@@ -350,6 +349,7 @@ extension FullRouteViewController {
         // Creates Done Button with Flexible Space for Left Alignment
         let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done = UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(donePressed))
+        done.tintColor = UIColor(named: "actionColor")
 
         // Includes items to the toolbar
         toolbar.setItems([flexButton, done], animated: false)
@@ -393,10 +393,10 @@ extension FullRouteViewController: UITextFieldDelegate {
         if textField.tag == 0 {
             self.earlierDate = datePicker.date
             self.fromDateLabel.textColor = UIColor(named: "actionColor")
-            self.toDateLabel.textColor = .black
+            self.toDateLabel.textColor = UIColor(named: "textColor")
         } else if textField.tag == 1 {
             self.latestDate = datePicker.date
-            self.fromDateLabel.textColor = .black
+            self.fromDateLabel.textColor = UIColor(named: "textColor")
             self.toDateLabel.textColor = UIColor(named: "actionColor")
             
         }
