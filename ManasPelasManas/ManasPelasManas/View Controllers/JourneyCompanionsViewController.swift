@@ -17,6 +17,10 @@ class JourneyCompanionsViewController: UIViewController {
     @IBOutlet weak var toLabel: UILabel!
     @IBOutlet weak var companionsTableView: UITableView!
     
+    @IBOutlet weak var departureLabel: UILabel!
+    @IBOutlet weak var arrivalLabel: UILabel!
+    @IBOutlet weak var companionsLabel: UILabel!
+    
     var journeyId: UUID?
     var journeyToMatch = Journey()
     var test = MatchServices()
@@ -47,7 +51,11 @@ class JourneyCompanionsViewController: UIViewController {
             if(error == nil && journey != nil) {
                 self.journeyToMatch = journey!
                 DispatchQueue.main.async {
-                    self.displayJourneyDescription()
+                    self.displayJourneyDescription(completion: { error in
+                        if error == nil {
+                            self.setupAccessibility()
+                        }
+                    })
                 }
             }
         }
@@ -73,6 +81,26 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
     
+    // MARK: - Accessibility setup
+     private func setupAccessibility() {
+        //1. Data e horário
+        self.dateLabel.isAccessibilityElement = true
+        self.timeRangeLabel.isAccessibilityElement = false
+        //accessibility label setado na célula
+        
+        //2. Saída e chegada
+        self.departureLabel.isAccessibilityElement = true
+        self.fromLabel.isAccessibilityElement = false
+        self.arrivalLabel.isAccessibilityElement = false
+        self.toLabel.isAccessibilityElement = false
+        self.departureLabel.accessibilityLabel = "\(self.departureLabel.text!) de \(self.fromLabel.text!) e \(self.arrivalLabel.text!) em \(self.toLabel.text!)"
+
+        //4. Companheiras
+        self.companionsLabel.isAccessibilityElement = true
+        self.companionsLabel.accessibilityLabel = "Suas companheiras são"
+     }
+    
+    // MARK: - VC methods
     private func setUpInterface() {
         self.navigationItem.title = NSLocalizedString("Journey details", comment: "Navigation title of screen in which the journey details (meeting point, destination, and time range) are displayed, as well as possible companions for that journey")
     }
@@ -110,31 +138,57 @@ class JourneyCompanionsViewController: UIViewController {
         }
     }
         
-        func displayJourneyDescription() {
-            
-            let pathServices = PathServices()
-            
-            self.dateFormatter.dateFormat = "E, d MMM yyyy"
-            self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
-            
-            self.hourFormatter.dateFormat = "HH:mm"
-            let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
-            let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
-            self.timeRangeLabel.text = initialHour + " - "  + finalHour
-            
-            
-            
-            guard let pathJourney = self.journeyToMatch.has_path else { return }
-            
-            pathServices.getAddressText(path: pathJourney, stage: .origin, completion: { (text, error)  -> Void in
-                // TODO: Tratar erro
-                self.fromLabel.text = text
-            })
-            pathServices.getAddressText(path: pathJourney, stage: .destiny, completion: { (text, error)  -> Void in
-                // TODO: Tratar erro
-                self.toLabel.text = text
-            })
+    func displayJourneyDescription(completion: @escaping (Error?) -> Void) {
+        
+        let pathServices = PathServices()
+        
+        self.dateFormatter.dateFormat = "E, d MMM yyyy"
+        self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
+        
+        self.hourFormatter.dateFormat = "HH:mm"
+        let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
+        let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+        self.timeRangeLabel.text = initialHour + " - "  + finalHour
+        
+        
+        
+        
+        //Accessibility label
+//        self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
+        
+        
+        guard let pathJourney = self.journeyToMatch.has_path else { return }
+        
+        //Passando o completion dogetAddress de volta para a chamada dessa msm função atual
+        let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+        dispatchGroup.enter()
+        
+        pathServices.getAddressText(path: pathJourney, stage: .origin, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            self.fromLabel.text = text
+            dispatchGroup.leave()
+        })
+        pathServices.getAddressText(path: pathJourney, stage: .destiny, completion: { (text, error)  -> Void in
+            // TODO: Tratar erro
+            self.toLabel.text = text
+            dispatchGroup.leave()
+        })
+        
+        dispatchGroup.notify(queue: .main) {
+           completion(nil)
         }
+
+    }
+    
+    func dateAccessible(initialHour: Date, finalHour: Date) -> String {
+//        let calendar = Calendar.current
+//        let initialHour = calendar.component(.hour, from: initialHour)
+//        let initialMinute = calendar.component(.minute, from: initialHour)
+        
+        return ""
+    }
     
 }
 

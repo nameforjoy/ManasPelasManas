@@ -51,7 +51,7 @@
                                                                         <rect key="frame" x="0.0" y="43.5" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZZ-j9-8Kw">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.500000000000028" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="6Qv-xe-sda"/>
                                                                                     <constraint firstAttribute="width" secondItem="bZZ-j9-8Kw" secondAttribute="height" id="MEf-Fk-lXe"/>
@@ -85,7 +85,7 @@
                                                                         <rect key="frame" x="0.0" y="1659" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="place" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-m4-6Nj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.500000000000028"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="eKk-m4-6Nj" secondAttribute="height" id="IVV-sz-v3P"/>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="cA1-8k-Ml5"/>
@@ -565,7 +565,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8n3-5m-XEN">
-                                <rect key="frame" x="20" y="158.5" width="374" height="199"/>
+                                <rect key="frame" x="20" y="150" width="374" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qui 22 agosto" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uy-iv-Psa">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -633,7 +633,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN7-IV-WsN">
-                                <rect key="frame" x="0.0" y="367.5" width="414" height="445.5"/>
+                                <rect key="frame" x="0.0" y="359" width="414" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="companionCell" rowHeight="134" id="TT7-zG-V9w" customClass="CompanionCell" customModule="ManasPelasManas" customModuleProvider="target">
@@ -732,8 +732,11 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="6jK-5X-drL"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="arrivalLabel" destination="wtv-j0-YfS" id="fwB-TD-g8Q"/>
+                        <outlet property="companionsLabel" destination="gv9-L0-G9y" id="BZ6-3C-4ol"/>
                         <outlet property="companionsTableView" destination="dN7-IV-WsN" id="fBX-06-TUL"/>
                         <outlet property="dateLabel" destination="9uy-iv-Psa" id="6HG-hh-hDO"/>
+                        <outlet property="departureLabel" destination="T8C-SL-UN5" id="ogh-ef-Czj"/>
                         <outlet property="fromLabel" destination="Uqw-VG-oYB" id="kSd-bb-OF6"/>
                         <outlet property="timeRangeLabel" destination="s1y-QS-BKg" id="6L9-56-kNl"/>
                         <outlet property="toLabel" destination="6vj-RA-fYw" id="Ysu-bz-QwQ"/>
@@ -933,7 +936,7 @@
                     <tabBarItem key="tabBarItem" title="Mapa" image="mapa-vazado" selectedImage="mapa-cheio" id="Ecv-y2-7zy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="395-YP-TaA">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -1078,7 +1081,7 @@
                     <tabBarItem key="tabBarItem" title="Viagens" image="viagens-vazado" selectedImage="viagens-chio" id="yMh-dr-QZf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KRv-Cr-CbF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
