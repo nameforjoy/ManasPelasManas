@@ -154,7 +154,7 @@ class JourneyCompanionsViewController: UIViewController {
         
         
         //Accessibility label
-//        self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
+        self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
         
         
         guard let pathJourney = self.journeyToMatch.has_path else { return }
@@ -183,11 +183,19 @@ class JourneyCompanionsViewController: UIViewController {
     }
     
     func dateAccessible(initialHour: Date, finalHour: Date) -> String {
-//        let calendar = Calendar.current
-//        let initialHour = calendar.component(.hour, from: initialHour)
-//        let initialMinute = calendar.component(.minute, from: initialHour)
+        let calendar = Calendar.current
+        let iniHour = calendar.component(.hour, from: initialHour)
+        let iniMinute = calendar.component(.minute, from: initialHour)
+        let finHour = calendar.component(.hour, from: finalHour)
+        let finMinute = calendar.component(.minute, from: finalHour)
         
-        return ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
+        let dayString = dateFormatter.string(from: initialHour)
+        
+        return "\(dayString), entre \(iniHour) horas e \(iniMinute) minutos e as \(finHour) e \(finMinute) minutos"
     }
     
 }
