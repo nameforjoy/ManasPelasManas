@@ -27,7 +27,8 @@ extension MapViewController: HandleMapSearch {
         mapView.addAnnotation(annotation)
         
         // Shows corresponding map region
-        let region = MKCoordinateRegion(center: placemark.coordinate, span: self.defaultSpan)
+        // We divide the default distance span per 0.9 since the radius image over the map  occupies 0.9 of its width
+        let region = MKCoordinateRegion.init(center: placemark.coordinate, latitudinalMeters: self.defaultRadius/0.9, longitudinalMeters: self.defaultRadius/0.9)
         mapView.setRegion(region, animated: true)
     }
 }

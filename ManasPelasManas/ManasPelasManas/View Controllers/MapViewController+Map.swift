@@ -10,27 +10,23 @@ import Foundation
 import MapKit
 
 extension MapViewController: MKMapViewDelegate {
-
-    // This function is called everytime map region is changed by user interaction
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
-        var radius: Double = self.getCurrentCircularRegion().radius
-        self.radiusSlider.setValue(Float(radius), animated: true)
+        let radius: Double = self.getCurrentCircularRegion().radius
         
-        if radius >= 1000 {
-            radius = Double(round(10 * radius) / 10000)
-            radiusMetersLabel.text = "\(Int(radius))km"
-        } else {
-            radiusMetersLabel.text = "\(Int(radius))m"
+        if radius > self.maxRadius*1.05 {
+            let newDistanceSpan = self.maxRadius*2/0.9
+            limitRadiusInMap(newDistanceSpan: newDistanceSpan)
         }
-        
-        setupAccessibilityRaduis()
-        
-        // Does not allow a bigger region span than the value allowed
-        if animated == false {
-            if self.mapView.region.span.latitudeDelta > self.maxSpan.latitudeDelta || mapView.region.span.longitudeDelta > self.maxSpan.longitudeDelta {
-                let region =  MKCoordinateRegion(center: mapView.region.center, span: self.maxSpan)
-                self.mapView.setRegion(region, animated: true)
+        else if radius < self.minRadius*0.98 {
+            let newDistanceSpan = self.minRadius*2/0.9
+            limitRadiusInMap(newDistanceSpan: newDistanceSpan)
+        }
+        else {
+            self.updateRadiusLabel(radius: radius)
+            if !self.isTouchingSlider {
+                self.radiusSlider.setValue(Float(radius), animated: true)
             }
         }
     }
@@ -49,10 +45,28 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController {
     
+    func limitRadiusInMap(newDistanceSpan: Double) {
+        
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        let region =  MKCoordinateRegion.init(center: mapView.centerCoordinate, latitudinalMeters: newDistanceSpan, longitudinalMeters: newDistanceSpan)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    func updateRadiusLabel(radius: Double) {
+        
+        if radius >= self.maxRadius {
+            self.radiusMetersLabel.text = "\(round(self.maxRadius/100) / 10)km"
+        } else if radius >= 1000 {
+            self.radiusMetersLabel.text = "\(round(radius/100) / 10)km"
+        } else {
+            self.radiusMetersLabel.text = "\(Int(radius))m"
+        }
+    }
+    
     // Gets current circular region displayed on mao
     func getCurrentCircularRegion() -> MKCircle {
         
-        // NAO NAO NAO NAO NAO NAO
         let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusImageView.frame.width / 2 , y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         
@@ -63,17 +77,19 @@ extension MapViewController {
         return MKCircle(center: center.coordinate, radius: distance)
     }
     
-    // Zooms in to a certain map region
-    func zoomMapTo(location: CLLocation) {
-        let region =  MKCoordinateRegion(center: location.coordinate, span: self.defaultSpan)
-        mapView.setRegion(region, animated: true)
-    }
-    
     // Centers map on user current location
     func centerMapOnUserLocation() {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            self.zoomMapTo(location: location)
+            let distanceSpan = self.defaultRadius*2/0.9
+            let region =  MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: distanceSpan, longitudinalMeters: distanceSpan)
+            mapView.setRegion(region, animated: false)
         }
+    }
+    
+    func zoomMapWithSlider(sliderRadius: Double) {
+        let distanceSpan = sliderRadius*2/0.9
+        let region =  MKCoordinateRegion.init(center: mapView.centerCoordinate, latitudinalMeters: distanceSpan, longitudinalMeters: distanceSpan)
+        mapView.setRegion(region, animated: false)
     }
 }

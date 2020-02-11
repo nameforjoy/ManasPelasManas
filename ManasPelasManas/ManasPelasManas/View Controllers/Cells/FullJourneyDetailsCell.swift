@@ -17,9 +17,9 @@ class FullJourneyDetailsCell: UITableViewCell {
     @IBOutlet weak var dateTitle: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var photo1: UIImageView!
-    @IBOutlet weak var photo2: UIImageView!
-    @IBOutlet weak var photo3: UIImageView!
+    //@IBOutlet weak var photo1: UIImageView!
+    //@IBOutlet weak var photo2: UIImageView!
+    //@IBOutlet weak var photo3: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,9 +31,9 @@ class FullJourneyDetailsCell: UITableViewCell {
         
         // Rounding photos and notification view
         self.notificationView.layer.cornerRadius = self.notificationView.frame.height / 2
-        self.photo1.layer.cornerRadius = self.photo1.frame.height / 2
-        self.photo2.layer.cornerRadius = self.photo2.frame.height / 2
-        self.photo3.layer.cornerRadius = self.photo3.frame.height / 2
+        //self.photo1.layer.cornerRadius = self.photo1.frame.height / 2
+        //self.photo2.layer.cornerRadius = self.photo2.frame.height / 2
+        //self.photo3.layer.cornerRadius = self.photo3.frame.height / 2
     }
 }
 
