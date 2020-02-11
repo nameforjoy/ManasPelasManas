@@ -37,7 +37,7 @@ class JourneyCompanionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setUpInterface()
+        self.setUpInterface()
     }
     
     override func viewDidLoad() {
@@ -102,6 +102,11 @@ class JourneyCompanionsViewController: UIViewController {
     
     // MARK: - VC methods
     private func setUpInterface() {
+        
+        self.departureLabel.text = NSLocalizedString("Departure MyJourney", comment: "Departure address title lable on the screen for a selected journey")
+        self.arrivalLabel.text = NSLocalizedString("Arrival MyJourney", comment: "Arrival address title lable on the screen for a selected journey")
+        self.companionsLabel.text = NSLocalizedString("Companions MyJourney", comment: "Title for tableView with all companions found for a selected journey")
+        
         self.navigationItem.title = NSLocalizedString("Journey details", comment: "Navigation title of screen in which the journey details (meeting point, destination, and time range) are displayed, as well as possible companions for that journey")
     }
     

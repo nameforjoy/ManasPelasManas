@@ -520,8 +520,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <connections>
+                                            <outlet property="arrivalLabel" destination="1lb-Pi-m2l" id="zWw-N2-KCI"/>
                                             <outlet property="contourView" destination="6zK-pT-dG2" id="iXl-Md-ivM"/>
                                             <outlet property="dateTitle" destination="Eq2-IK-0SO" id="tVg-j7-c83"/>
+                                            <outlet property="departureLabel" destination="qWa-Kp-DcR" id="ObZ-LY-ps9"/>
                                             <outlet property="fromLabel" destination="QM3-At-d8Q" id="JxM-MW-e7N"/>
                                             <outlet property="notificationView" destination="Q3C-jL-Fpo" id="zG7-iS-ZZE"/>
                                             <outlet property="toLabel" destination="AIV-fc-bqC" id="re1-CT-EjT"/>
@@ -560,7 +562,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8n3-5m-XEN">
-                                <rect key="frame" x="20" y="145" width="374" height="199"/>
+                                <rect key="frame" x="20" y="153.5" width="374" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qui 22 agosto" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uy-iv-Psa">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
@@ -628,7 +630,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dN7-IV-WsN">
-                                <rect key="frame" x="0.0" y="349" width="414" height="464"/>
+                                <rect key="frame" x="0.0" y="357.5" width="414" height="455.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="companionCell" rowHeight="134" id="TT7-zG-V9w" customClass="CompanionCell" customModule="ManasPelasManas" customModuleProvider="target">
@@ -731,7 +733,7 @@
                         <outlet property="companionsLabel" destination="gv9-L0-G9y" id="BZ6-3C-4ol"/>
                         <outlet property="companionsTableView" destination="dN7-IV-WsN" id="fBX-06-TUL"/>
                         <outlet property="dateLabel" destination="9uy-iv-Psa" id="6HG-hh-hDO"/>
-                        <outlet property="departureLabel" destination="T8C-SL-UN5" id="ogh-ef-Czj"/>
+                        <outlet property="departureLabel" destination="T8C-SL-UN5" id="Sl0-3M-ctz"/>
                         <outlet property="fromLabel" destination="Uqw-VG-oYB" id="kSd-bb-OF6"/>
                         <outlet property="timeRangeLabel" destination="s1y-QS-BKg" id="6L9-56-kNl"/>
                         <outlet property="toLabel" destination="6vj-RA-fYw" id="Ysu-bz-QwQ"/>
@@ -751,10 +753,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mari" translatesAutoresizingMaskIntoConstraints="NO" id="XIJ-Du-jcA">
-                                <rect key="frame" x="0.0" y="148.5" width="414" height="403"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="403"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-46-Q4y">
-                                <rect key="frame" x="0.0" y="620" width="414" height="193"/>
+                                <rect key="frame" x="0.0" y="611.5" width="414" height="201.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-ng-DNA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
@@ -799,7 +801,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daniela, 24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUe-di-zfh">
-                                <rect key="frame" x="20" y="571.5" width="162" height="38.5"/>
+                                <rect key="frame" x="20" y="563" width="162" height="38.5"/>
                                 <color key="tintColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                 <color key="textColor" name="textColor"/>
@@ -809,7 +811,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQg-lc-CMf">
-                                <rect key="frame" x="294" y="578.5" width="100" height="25"/>
+                                <rect key="frame" x="294" y="570" width="100" height="25"/>
                                 <color key="backgroundColor" name="actionColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kPe-Da-2Wd"/>
@@ -1034,7 +1036,7 @@
                     <tabBarItem key="tabBarItem" title="Viagens" image="viagens-vazado" selectedImage="viagens-chio" id="yMh-dr-QZf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KRv-Cr-CbF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -1045,7 +1047,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kNd-zZ-JZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2528.985507246377" y="124.55357142857142"/>
+            <point key="canvasLocation" x="3128" y="-300"/>
         </scene>
     </scenes>
     <resources>

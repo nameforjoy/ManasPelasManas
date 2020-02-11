@@ -31,9 +31,14 @@
 
 // Journey list
 "List of journeys title" = "My Journeys";
+"Departure cell on tableView" = "Departure";
+"Arrival cell on tableView" = "Arrival";
 
 // Journey details
 "Journey details" = "Journey details";
+"Departure MyJourney" = "Departure";
+"Arrival MyJourney" = "Arrival";
+"Companions MyJourney" = "Companions";
 
 // Companion profile
 "Contact companion" = "Contact";
