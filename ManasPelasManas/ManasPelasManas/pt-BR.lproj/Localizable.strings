@@ -11,9 +11,13 @@
 "User description" = "SOBRE MIM";
 
 // Mapa
-"Meeting location" = "De onde saímos?";
-"Destination location" = "Para onde vamos?";
+"Meeting location long" = "De onde saímos?";
+"Destination location long" = "Para onde vamos?";
+"Meeting location short" = "De onde?";
+"Destination location short" = "Para onde?";
 "Map next button title" = "Próximo";
+"Radius title" = "Raio";
+"Address search" = "Busque por um endereço";
 
 // Horário
 "Short Time of journey" = "Quando?";

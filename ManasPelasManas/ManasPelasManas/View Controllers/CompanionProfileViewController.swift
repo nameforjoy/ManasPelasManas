@@ -43,6 +43,7 @@ class CompanionProfileViewController: UIViewController {
     }
     
     private func setUpInterface(name: String) {
+        
         let contactButtonName = NSLocalizedString("Contact companion", comment: "Button next to possible companion profile. When clicked, it takes you to Whatsapp with a pre-written message in a conversation with the selected companion asking her to join you in this journey")
         self.contactButton.setTitle(contactButtonName, for: .normal)
         

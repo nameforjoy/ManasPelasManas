@@ -51,8 +51,8 @@ extension MapViewController {
         let searchBar = self.resultSearchController!.searchBar
         // Defines searchBar appearence
         searchBar.sizeToFit()
-        searchBar.placeholder =  "Busque por seu endereço"
         self.navigationItem.searchController =  self.resultSearchController!
+        searchBar.placeholder =  NSLocalizedString("Address search", comment: "Placeholder for address search controller")
         
         // PREVENTS THE TABLEVIEW FROM VANISHING WITH OTHER ELEMENTS
         // Prevents the NavigationBar from being  hidden when  showing the TableView
