@@ -14,15 +14,33 @@ extension MapViewController: MKMapViewDelegate {
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
         let radius: Double = self.getCurrentCircularRegion().radius
-        self.updateRadiusLabel(radius: radius)
         
-        if !self.isTouchingSlider {
-            self.radiusSlider.setValue(Float(radius), animated: true)
+        if radius > self.maxRadius*1.05 {
+            let newDistanceSpan = self.maxRadius*2/0.9
+            limitRadiusInMap(newDistanceSpan: newDistanceSpan)
+        }
+        else if radius < self.minRadius*0.98 {
+            let newDistanceSpan = self.minRadius*2/0.9
+            limitRadiusInMap(newDistanceSpan: newDistanceSpan)
+        }
+        else {
+            self.updateRadiusLabel(radius: radius)
+            if !self.isTouchingSlider {
+                self.radiusSlider.setValue(Float(radius), animated: true)
+            }
         }
     }
 }
 
 extension MapViewController {
+    
+    func limitRadiusInMap(newDistanceSpan: Double) {
+        
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        let region =  MKCoordinateRegion.init(center: mapView.centerCoordinate, latitudinalMeters: newDistanceSpan, longitudinalMeters: newDistanceSpan)
+        mapView.setRegion(region, animated: false)
+    }
     
     func updateRadiusLabel(radius: Double) {
         
@@ -38,7 +56,6 @@ extension MapViewController {
     // Gets current circular region displayed on mao
     func getCurrentCircularRegion() -> MKCircle {
         
-        // NAO NAO NAO NAO NAO NAO
         let edge2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: 0, y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         let center2D: CLLocationCoordinate2D = mapView.convert(CGPoint(x: self.radiusImageView.frame.width / 2 , y: self.radiusImageView.frame.height / 2), toCoordinateFrom: self.radiusImageView)
         
@@ -49,23 +66,19 @@ extension MapViewController {
         return MKCircle(center: center.coordinate, radius: distance)
     }
     
-    // Zooms in to a certain map region
-    func zoomMapTo(location: CLLocation) {
-        let region =  MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: self.defaultRadius*2/0.9, longitudinalMeters: self.defaultRadius*2/0.9)
-        mapView.setRegion(region, animated: false)
-    }
-    
     // Centers map on user current location
     func centerMapOnUserLocation() {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            self.zoomMapTo(location: location)
+            let distanceSpan = self.defaultRadius*2/0.9
+            let region =  MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: distanceSpan, longitudinalMeters: distanceSpan)
+            mapView.setRegion(region, animated: false)
         }
     }
     
     func zoomMapWithSlider(sliderRadius: Double) {
-        let currentCenter: CLLocationCoordinate2D = mapView.centerCoordinate
-        let region =  MKCoordinateRegion.init(center: currentCenter, latitudinalMeters: sliderRadius*2/0.9, longitudinalMeters: sliderRadius*2/0.9)
+        let distanceSpan = sliderRadius*2/0.9
+        let region =  MKCoordinateRegion.init(center: mapView.centerCoordinate, latitudinalMeters: distanceSpan, longitudinalMeters: distanceSpan)
         mapView.setRegion(region, animated: false)
     }
 }
