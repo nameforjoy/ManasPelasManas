@@ -11,9 +11,13 @@
 "User description" = "ABOUT ME";
 
 // Map
-"Meeting location" = "Where can we meet?";
-"Destination location" = "Where will we go?";
+"Meeting location long" = "Where can we meet?";
+"Destination location long" = "Where will we go?";
+"Meeting location short" = "Where from?";
+"Destination location short" = "Where to?";
 "Map next button title" = "Next";
+"Radius title" = "Radius";
+"Address search" = "Search for an address";
 
 // Time range
 "Short Time of journey" = "When?";
