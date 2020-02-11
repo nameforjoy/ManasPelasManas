@@ -22,6 +22,8 @@
 "Long Finish creating journey button" = "Procurar companhias";
 "Earliest meeting time" = "Podemos sair a partir de";
 "Latest meeting time" = "até as";
+"Time Table Alert Title" = "Horário de saída";
+"Time Table Alert Message" = "Defina o intervalo de tempo em que você deseja iniciar seu trajeto para continuar";
 
 // Lista de viagens
 "List of journeys title" = "Minhas viagens";

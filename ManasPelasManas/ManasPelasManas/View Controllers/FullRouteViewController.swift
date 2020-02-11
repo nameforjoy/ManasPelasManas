@@ -167,7 +167,9 @@ class FullRouteViewController: UIViewController {
     }
     
     func presentAlert() {
-        let alertController = UIAlertController (title: "Horário de saída", message: "Defina o intervalo de tempo em que você deseja iniciar seu trajeto para continuar", preferredStyle: .alert)
+        let alertTitle = NSLocalizedString("Time Table Alert Title", comment: "Title of Alert")
+        let alertMessage = NSLocalizedString("Time Table Alert Message", comment: "Message of Alert")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         
         // Adds Cancel button action
         let cancelAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
