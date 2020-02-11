@@ -8,11 +8,18 @@
 
 import UIKit
 
+struct JourneyRepresentation {
+    var journey: Journey
+    var origin: String?
+    var destiny: String?
+    var isAllInfoLoaded: Bool = false
+}
+
 class RoutesViewController: UIViewController {
     
     @IBOutlet weak var routesTableView: UITableView!
     
-    fileprivate var journeys: [Journey] = []
+    fileprivate var journeyRepresentations: [JourneyRepresentation] = []
     var autheticatedUser = User()
     var passJourneyUUID: UUID? = nil
     let dateFormatter = DateFormatter()
@@ -24,6 +31,8 @@ class RoutesViewController: UIViewController {
         
         self.routesTableView.delegate = self
         self.routesTableView.dataSource = self
+        self.routesTableView.estimatedRowHeight = 165
+        self.routesTableView.rowHeight = UITableView.automaticDimension
         self.dateFormatter.dateFormat = "E, d MMM yyyy HH:mm"
     }
     
@@ -37,7 +46,10 @@ class RoutesViewController: UIViewController {
         
         JourneyServices.getAllJourneys { (error, journeys) in
             if (error == nil) {
-                self.journeys = journeys!
+                self.journeyRepresentations = journeys!.map { (journey) -> JourneyRepresentation in
+                    JourneyRepresentation(journey: journey)
+                }
+                //self.journeys = journeys!
  
                 UserServices.getAuthenticatedUser({ (error, user) in
                     if(error == nil && user != nil) {
@@ -45,7 +57,7 @@ class RoutesViewController: UIViewController {
                         
                         // reload table view with season information
                         DispatchQueue.main.async {
-                            self.journeys = self.journeys.filter() { $0.ownerId == self.autheticatedUser.userId }
+                            self.journeyRepresentations = self.journeyRepresentations.filter() { $0.journey.ownerId == self.autheticatedUser.userId }
                             
                             self.routesTableView.reloadData()
                         }
@@ -75,59 +87,80 @@ class RoutesViewController: UIViewController {
 extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.journeys.count
+        return self.journeyRepresentations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // get a new cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
-        
+
         cell.fromLabel.text = ""
         cell.toLabel.text = ""
-        
+
         // get the season data to be displayed
-        let journey: Journey = self.journeys[indexPath.row]
+        let journeyRepresentation: JourneyRepresentation = self.journeyRepresentations[indexPath.row]
+
+        // checks if address text has been loaded already
+        if (journeyRepresentation.isAllInfoLoaded) {
+            //Fill information
+            cell.fromLabel.text = journeyRepresentation.origin
+            cell.toLabel.text = journeyRepresentation.destiny
+        } else {
+            //Get missing information
+            loadJourneyAdditionalInfo(journey: journeyRepresentation, index: indexPath.row)
+        }
         
         // fill cell with extracted information
-        cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
-        
-        let pathServices = PathServices()
-        pathServices.getAddressText(path: journey.has_path!, stage: .origin, completion: { (text, error)  -> Void in
-            // TODO: Tratar erro
-            cell.fromLabel.text = text
-        })
-        pathServices.getAddressText(path: journey.has_path!, stage: .destiny, completion: { (text, error)  -> Void in
-            // TODO: Tratar erro
-            cell.toLabel.text = text
-        })
-        
-        switch indexPath.row {
-        case 0:
-            cell.photo1.image = UIImage(named: "mari")
-            cell.photo2.image = UIImage(named: "ana")
-            cell.photo3.image = UIImage(named: "rebeca")
-        case 1:
-            cell.photo1.image = UIImage(named: "sara")
-            cell.photo2.image = UIImage(named: "aline")
-            cell.photo3.image = UIImage(named: "brenda")
-        case 2:
-            cell.photo1.image = nil
-            cell.photo2.image = UIImage(named: "ana")
-            cell.photo3.image = UIImage(named: "elisa")
-            cell.notificationView.isHidden = true
-        default:
-            cell.photo1.image = nil
-            cell.photo2.image = UIImage(named: "lana")
-            cell.photo3.image = UIImage(named: "mari")
-            cell.notificationView.isHidden = true
-        }
+        cell.dateTitle.text = self.dateFormatter.string(from: journeyRepresentation.journey.initialHour!)
         
         return cell
     }
-    
+
+    private func loadJourneyAdditionalInfo(journey: JourneyRepresentation, index: Int) {
+        let group = DispatchGroup()
+        let pathServices = PathServices()
+        var filledJourney = journey
+        var error: Error? = nil
+        group.enter()
+        group.enter()
+
+        pathServices.getAddressText(path: journey.journey.has_path!,
+                                    stage: .origin) { (origin, resultError) in
+                                        if let originError = resultError {
+                                            error = originError
+                                        } else {
+                                            filledJourney.origin = origin
+                                        }
+                                        group.leave()
+        }
+
+        pathServices.getAddressText(path: journey.journey.has_path!,
+                                           stage: .destiny) { (destiny, resultError) in
+                                               if let destinyError = resultError {
+                                                   error = destinyError
+                                               } else {
+                                                   filledJourney.destiny = destiny
+                                               }
+                                               group.leave()
+               }
+
+
+        group.notify(queue: .main) {
+            filledJourney.isAllInfoLoaded = true
+            self.journeyRepresentations[index] = filledJourney
+            self.routesTableView.reloadRows(at: [IndexPath(row: index, section: 0)],
+                                       with: .automatic)
+        }
+
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.passJourneyUUID = self.journeys[indexPath.row].journeyId
+        self.passJourneyUUID = self.journeyRepresentations[indexPath.row].journey.journeyId
         performSegue(withIdentifier: "selectJourney", sender: self)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
