@@ -31,14 +31,14 @@
 
 // Lista de viagens
 "List of journeys title" = "Minhas viagens";
-"Departure cell on tableView" = "Saída";
-"Arrival cell on tableView" = "Chegada";
+"Departure tableView" = "SAÍDA";
+"Arrival tableView" = "CHEGADA";
 
 // Detalhe das viagens
 "Journey details" = "Detalhes da viagem";
-"Departure MyJourney" = "Saída";
-"Arrival MyJourney" = "Chegada";
-"Companions MyJourney" = "Companhias";
+"Departure MyJourney" = "SAÍDA";
+"Arrival MyJourney" = "CHEGADA";
+"Companions MyJourney" = "COMPANHIAS";
 
 // Companion profile
 "Contact companion" = "Contatar";

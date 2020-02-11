@@ -23,8 +23,8 @@ class FullJourneyDetailsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.departureLabel.text = NSLocalizedString("Departure cell on tableView", comment: "Address of departure from journey")
-        self.arrivalLabel.text = NSLocalizedString("Arrival address on tableView", comment: "Address of arrival from journey")
+        self.departureLabel.text = NSLocalizedString("Departure tableView", comment: "Address of departure from journey")
+        self.arrivalLabel.text = NSLocalizedString("Arrival tableView", comment: "Address of arrival from journey")
         
         self.contourView.layer.borderWidth = 1
         // self.contourView.backgroundColor = UIColor(named: "backgroundColor")

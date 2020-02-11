@@ -51,7 +51,7 @@
                                                                         <rect key="frame" x="0.0" y="43.5" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZZ-j9-8Kw">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.500000000000028" height="20.5"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="6Qv-xe-sda"/>
                                                                                     <constraint firstAttribute="width" secondItem="bZZ-j9-8Kw" secondAttribute="height" id="MEf-Fk-lXe"/>
@@ -85,7 +85,7 @@
                                                                         <rect key="frame" x="0.0" y="1659" width="384" height="20.5"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="place" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-m4-6Nj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.500000000000028"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="eKk-m4-6Nj" secondAttribute="height" id="IVV-sz-v3P"/>
                                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="cA1-8k-Ml5"/>
@@ -753,10 +753,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mari" translatesAutoresizingMaskIntoConstraints="NO" id="XIJ-Du-jcA">
-                                <rect key="frame" x="0.0" y="140" width="414" height="403"/>
+                                <rect key="frame" x="0.0" y="148.5" width="414" height="403"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-46-Q4y">
-                                <rect key="frame" x="0.0" y="611.5" width="414" height="201.5"/>
+                                <rect key="frame" x="0.0" y="620" width="414" height="193"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-ng-DNA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
@@ -801,7 +801,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daniela, 24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUe-di-zfh">
-                                <rect key="frame" x="20" y="563" width="162" height="38.5"/>
+                                <rect key="frame" x="20" y="571.5" width="162" height="38.5"/>
                                 <color key="tintColor" red="0.0098811946810000006" green="0.38402521610000001" blue="0.43895667789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                 <color key="textColor" name="textColor"/>
@@ -811,7 +811,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQg-lc-CMf">
-                                <rect key="frame" x="294" y="570" width="100" height="25"/>
+                                <rect key="frame" x="294" y="578.5" width="100" height="25"/>
                                 <color key="backgroundColor" name="actionColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="kPe-Da-2Wd"/>
@@ -887,7 +887,7 @@
                     <tabBarItem key="tabBarItem" title="Mapa" image="mapa-vazado" selectedImage="mapa-cheio" id="Ecv-y2-7zy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="395-YP-TaA">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -908,8 +908,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qFy-kG-Xpx">
-                                <rect key="frame" x="20" y="153.5" width="374" height="78"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qFy-kG-Xpx">
+                                <rect key="frame" x="20" y="158.5" width="374" height="83"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yWc-Sz-OHy" userLabel="From Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
@@ -936,7 +936,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e1h-MY-lnA" userLabel="To Stack View">
-                                        <rect key="frame" x="0.0" y="44" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="49" width="374" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFj-YR-hKt">
                                                 <rect key="frame" x="0.0" y="0.0" width="182" height="34"/>
@@ -963,7 +963,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dyK-8H-CYA">
-                                <rect key="frame" x="0.0" y="236.5" width="414" height="576.5"/>
+                                <rect key="frame" x="0.0" y="251.5" width="414" height="561.5"/>
                                 <connections>
                                     <outlet property="delegate" destination="Rfn-Rd-XAt" id="U1r-zd-M1F"/>
                                 </connections>
@@ -1003,9 +1003,9 @@
                             <constraint firstItem="dyK-8H-CYA" firstAttribute="trailing" secondItem="YcP-Yb-imN" secondAttribute="trailing" id="TyO-M8-Z4V"/>
                             <constraint firstItem="dyK-8H-CYA" firstAttribute="bottom" secondItem="YcP-Yb-imN" secondAttribute="bottom" id="UuJ-av-xbc"/>
                             <constraint firstItem="qFy-kG-Xpx" firstAttribute="leading" secondItem="YcP-Yb-imN" secondAttribute="leading" constant="20" id="a0o-kF-pY8"/>
-                            <constraint firstItem="qFy-kG-Xpx" firstAttribute="top" secondItem="YcP-Yb-imN" secondAttribute="top" constant="5" id="clp-18-G97"/>
+                            <constraint firstItem="qFy-kG-Xpx" firstAttribute="top" secondItem="YcP-Yb-imN" secondAttribute="top" constant="10" id="clp-18-G97"/>
                             <constraint firstItem="ROq-nG-V9B" firstAttribute="trailing" secondItem="YcP-Yb-imN" secondAttribute="trailing" id="pGG-sU-y0G"/>
-                            <constraint firstItem="dyK-8H-CYA" firstAttribute="top" secondItem="qFy-kG-Xpx" secondAttribute="bottom" constant="5" id="z4Q-Fw-H9A"/>
+                            <constraint firstItem="dyK-8H-CYA" firstAttribute="top" secondItem="qFy-kG-Xpx" secondAttribute="bottom" constant="10" id="z4Q-Fw-H9A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YcP-Yb-imN"/>
                     </view>
@@ -1036,7 +1036,7 @@
                     <tabBarItem key="tabBarItem" title="Viagens" image="viagens-vazado" selectedImage="viagens-chio" id="yMh-dr-QZf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KRv-Cr-CbF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                     </navigationBar>
@@ -1078,6 +1078,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ied-Hw-95r"/>
+        <segue reference="5RH-hW-wuu"/>
     </inferredMetricsTieBreakers>
 </document>
