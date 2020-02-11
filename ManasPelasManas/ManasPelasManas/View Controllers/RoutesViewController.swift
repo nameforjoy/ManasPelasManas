@@ -113,6 +113,11 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         // fill cell with extracted information
         cell.dateTitle.text = self.dateFormatter.string(from: journeyRepresentation.journey.initialHour!)
         
+        //Accesibility date
+        //Tentar enteder isso!!!
+       // cell.dateTitle.isAccessibilityElement = true
+        cell.dateTitle.accessibilityLabel = dateAccessible(initialHour: journeyRepresentation.journey.initialHour!, finalHour: journeyRepresentation.journey.finalHour!)
+        
         return cell
     }
 
@@ -152,6 +157,22 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
                                        with: .automatic)
         }
 
+    }
+    
+    func dateAccessible(initialHour: Date, finalHour: Date) -> String {
+        let calendar = Calendar.current
+        let iniHour = calendar.component(.hour, from: initialHour)
+        let iniMinute = calendar.component(.minute, from: initialHour)
+        let finHour = calendar.component(.hour, from: finalHour)
+        let finMinute = calendar.component(.minute, from: finalHour)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
+        let dayString = dateFormatter.string(from: initialHour)
+        
+        return "\(dayString), entre \(iniHour) horas e \(iniMinute) minutos e as \(finHour) e \(finMinute) minutos"
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
