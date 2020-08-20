@@ -101,12 +101,11 @@ class MapViewController: UIViewController {
 
         //2. Escolha da localização
         self.resultSearchController!.searchBar.accessibilityTraits = UIAccessibilityTraits.searchField
-        
         if #available(iOS 13.0, *) {
             self.resultSearchController!.searchBar.searchTextField.isAccessibilityElement = true
             self.resultSearchController!.searchBar.searchTextField.accessibilityLabel = "Local de partida. Toque duplo para editar local de partida."
         } else {
-            // Fallback on earlier versions
+            print("Versão do iOS anterior ao 13.0")
         }
     }
     

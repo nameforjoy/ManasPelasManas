@@ -6,7 +6,6 @@ import MapKit
 class MatchServices {
     
     func checkMatchingRegion(regionA: MKCircle, regionB: MKCircle) throws -> Bool {
-        
         let maxRadius: Double = 11*1000
         let minRadius: Double = 0.5*1000
         
