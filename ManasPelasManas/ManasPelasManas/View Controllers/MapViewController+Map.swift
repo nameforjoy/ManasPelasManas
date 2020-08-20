@@ -18,12 +18,10 @@ extension MapViewController: MKMapViewDelegate {
         if radius > self.maxRadius*1.05 {
             let newDistanceSpan = self.maxRadius*2/0.9
             limitRadiusInMap(newDistanceSpan: newDistanceSpan)
-        }
-        else if radius < self.minRadius*0.98 {
+        } else if radius < self.minRadius*0.98 {
             let newDistanceSpan = self.minRadius*2/0.9
             limitRadiusInMap(newDistanceSpan: newDistanceSpan)
-        }
-        else {
+        } else {
             self.updateRadiusLabel(radius: radius)
             if !self.isTouchingSlider {
                 self.radiusSlider.setValue(Float(radius), animated: true)
@@ -41,7 +39,6 @@ extension MapViewController: MKMapViewDelegate {
         self.radiusSlider.accessibilityLabel = "Raio de deslocamento: \(self.radiusMetersLabel.text!). Ajuste o slider para aumentar ou diminuir o raio."
         self.radiusSlider.accessibilityValue = "\(self.radiusMetersLabel.text!)"
     }
-    
     
 }
 

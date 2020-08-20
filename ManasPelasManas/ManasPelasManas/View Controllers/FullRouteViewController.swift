@@ -45,9 +45,9 @@ class FullRouteViewController: UIViewController {
         
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
         self.toDateLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
-        
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,15 +65,15 @@ class FullRouteViewController: UIViewController {
     
     // Stop observing notifications once class is removed
     deinit {
-        let nc = NotificationCenter.default
-        
-        nc.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     func getDataFromDB() {
         // MARK: Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
-            if (error == nil && path != nil){
+            if (error == nil && path != nil) {
                 self.newPath = path
                 self.displayMapItems(path: path)
             } else {

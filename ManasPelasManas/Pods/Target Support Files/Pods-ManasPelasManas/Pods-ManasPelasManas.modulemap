@@ -1,0 +1,6 @@
+framework module Pods_ManasPelasManas {
+  umbrella header "Pods-ManasPelasManas-umbrella.h"
+
+  export *
+  module * { export * }
+}
