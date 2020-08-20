@@ -204,34 +204,22 @@ extension FullRouteViewController: MKMapViewDelegate {
             let userId = self.currentUser?.userId,
             let newPath = self.newPath {
             
-            self.createJourneyDB(earlierDate: earlier, latestDate: latest, userId: userId, newPath: newPath, completion: { (newJourney) in
-                DispatchQueue.main.async {
-                    self.newJourney = newJourney
-                    self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+            let journey = Journey(ownerId: userId, journeyId: UUID(), has_path: newPath, initialHour: earlier, finalHour: latest)
+            
+            JourneyServices.createJourney(journey: journey, { (error) in
+                if (error == nil) {
+                    DispatchQueue.main.async {
+                        self.newJourney = journey
+                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                    }
+                } else {
+                    print(error?.localizedDescription ?? "Error")
                 }
             })
+            
         } else {
             presentAlert()
         }
-    }
-    
-    
-    func createJourneyDB(earlierDate: Date, latestDate: Date, userId: UUID, newPath: Path, completion: @escaping (_ : Journey) -> Void) {
-        //set attributes for newJorney
-        let journey = Journey()
-        journey.initialHour = earlierDate
-        journey.finalHour = latestDate
-        journey.journeyId = UUID()
-        journey.ownerId = userId
-        journey.has_path = newPath
-        
-        JourneyServices.createJourney(journey: journey, { (error) in
-            if (error == nil) {
-                completion(journey)
-            } else {
-                print(error?.localizedDescription ?? "Error")
-            }
-        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
