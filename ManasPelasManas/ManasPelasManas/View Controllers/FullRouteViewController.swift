@@ -26,7 +26,6 @@ class FullRouteViewController: UIViewController {
     var circleA: MKCircle?
     var circleB: MKCircle?
     
-    //@IBOutlet weak var journeyTimeTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var nextButton: UIButton!
@@ -38,31 +37,40 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var fromDateTextField: UITextField!
     @IBOutlet weak var toDateTextField: UITextField!
     var activeField: UITextField?
-
+    
     override func viewDidLoad() {
-
+        
         datePickerConfig()
         textFieldConfig()
-
+        
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
         self.toDateLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
-
+        
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
-    }
-
-    // Stop observing notifications once class is removed
-    deinit {
-        let nc = NotificationCenter.default
-
-        nc.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpInterface()
-
+        self.getDataFromDB()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        //VoiceOver setups
+        setupAccessibility()
+    }
+    
+    // Stop observing notifications once class is removed
+    deinit {
+        let nc = NotificationCenter.default
+        
+        nc.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
+    }
+    
+    func getDataFromDB() {
         // MARK: Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil){
@@ -87,20 +95,20 @@ class FullRouteViewController: UIViewController {
         adjustTextContent()
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
-
+    
     // MARK: Dynamic Type
     // Listens to changes on Category Size Changes
     @objc func fontSizeChanged(_ notification: Notification) {
         adjustTextContent()
     }
-
+    
     // Changes text content depending on accessibility status
     func adjustTextContent() {
         let shortTitle = NSLocalizedString("Short Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
         let longTitle = NSLocalizedString("Long Time of journey", comment: "Navigation title of the screen in which the user inputs the time range in which she can start the journey.")
         let shortSearchForCompanionsButtonTitle = NSLocalizedString("Short Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
         let longSearchForCompanionsButtonTitle = NSLocalizedString("Long Finish creating journey button", comment: "Button localized in the last screen in which the user inputs information to create a journey. Upon pressing this button, her journey will be officially created and the app will automatically search for companions for her.")
-
+        
         if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
             self.navigationItem.title = shortTitle
             self.nextButton.setTitle(shortSearchForCompanionsButtonTitle, for: .normal)
@@ -108,13 +116,6 @@ class FullRouteViewController: UIViewController {
             self.navigationItem.title = longTitle
             self.nextButton.setTitle(longSearchForCompanionsButtonTitle, for: .normal)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //VoiceOver setups
-        setupAccessibility()
     }
     
     // MARK: Acessibility setup
@@ -143,9 +144,8 @@ class FullRouteViewController: UIViewController {
         //6. Botão procurar companhias
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
-
     }
-        
+    
     
     // MARK: Displaying Map Data
     func displayMapItems(path: Path?) {
@@ -199,49 +199,39 @@ extension FullRouteViewController: MKMapViewDelegate {
     }
     
     @IBAction func confirmButton(_ sender: Any) {
-        
-        if self.earlierDate != nil && self.latestDate != nil {
+        if let earlier = self.earlierDate,
+            let latest = self.latestDate,
+            let userId = self.currentUser?.userId,
+            let newPath = self.newPath {
             
-            //criar Journey no CoreData
-            newJourney = Journey()
-            
-            //set attributes for newJorney
-            //date from datepicker
-            newJourney!.initialHour = self.earlierDate
-            newJourney!.finalHour = self.latestDate
-            newJourney!.journeyId = UUID()
-            
-            UserServices.getAuthenticatedUser({ (error, user) in
-                
-                if(error == nil && user != nil) {
-                    self.newJourney!.ownerId = user!.userId
-                    
-                    if(self.newPath != nil) {
-                        //criar metodo no services para salvar path antes de criar journey
-                        //self.newPath?.managedObjectContext?.insert(self.newJourney!)
-                        
-                        do {
-                            self.newJourney!.has_path = self.newPath!
-                            JourneyServices.createJourney(journey: self.newJourney!, { (error) in
-                                
-                                if (error == nil) {
-                                    DispatchQueue.main.async {
-                                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
-                                    }
-                                } else {
-                                    print(error?.localizedDescription ?? "Error")
-                                }
-                            })
-                        } catch {
-                            print("Error: \(error)")
-                        }
-                    }
+            self.createJourneyDB(earlierDate: earlier, latestDate: latest, userId: userId, newPath: newPath, completion: { (newJourney) in
+                DispatchQueue.main.async {
+                    self.newJourney = newJourney
+                    self.performSegue(withIdentifier: "checkForMatches", sender: sender)
                 }
             })
-            
         } else {
             presentAlert()
         }
+    }
+    
+    
+    func createJourneyDB(earlierDate: Date, latestDate: Date, userId: UUID, newPath: Path, completion: @escaping (_ : Journey) -> Void) {
+        //set attributes for newJorney
+        let journey = Journey()
+        journey.initialHour = earlierDate
+        journey.finalHour = latestDate
+        journey.journeyId = UUID()
+        journey.ownerId = userId
+        journey.has_path = newPath
+        
+        JourneyServices.createJourney(journey: journey, { (error) in
+            if (error == nil) {
+                completion(journey)
+            } else {
+                print(error?.localizedDescription ?? "Error")
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -272,7 +262,7 @@ extension FullRouteViewController: MKMapViewDelegate {
     
 }
 
-    // MARK: TextField Setup
+// MARK: TextField Setup
 extension FullRouteViewController {
     
     // LOCALIZAR ISSO
@@ -292,17 +282,17 @@ extension FullRouteViewController {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-    
+        
         return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
 
 // MARK: DatePicker Extension
 extension FullRouteViewController {
-
+    
     @objc func dateChanged(datePicker: UIDatePicker) {
         guard let activeField = self.activeField else { return }
-
+        
         if activeField.tag == 0 {
             self.earlierDate = datePicker.date
         } else if activeField.tag == 1 {
@@ -311,22 +301,22 @@ extension FullRouteViewController {
         activeField.text = dateToString(date: datePicker.date)
         activeField.accessibilityLabel = dateToStringAccessible(date: datePicker.date)
     }
-
+    
     func datePickerConfig() {
         self.datePicker.isHidden = true
         self.datePicker?.datePickerMode = .dateAndTime
         self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-
+        
         // Set minimum and maximum date
         self.datePicker.minimumDate = Date()
-
+        
         // Setting date format
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, HH:mm"
-
+        
         self.datePicker.minimumDate = Date() //
         self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
-
+        
         // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
         if self.selectedFirstCell  && self.latestDate != nil {
             self.datePicker.maximumDate = self.latestDate
@@ -336,33 +326,33 @@ extension FullRouteViewController {
             self.datePicker.minimumDate = self.earlierDate
             self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
-
+        
         createDatePicker(forField: fromDateTextField)
         createDatePicker(forField: toDateTextField)
     }
-
+    
     func createDatePicker(forField field : UITextField){
-
+        
         //Creates ToolBar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         toolbar.isUserInteractionEnabled = true
-
+        
         // Creates Done Button with Flexible Space for Left Alignment
         let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done = UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(donePressed))
         done.tintColor = UIColor(named: "actionColor")
-
+        
         // Includes items to the toolbar
         toolbar.setItems([flexButton, done], animated: false)
-
+        
         // Ties up the toolbar to the datepicker
         field.inputAccessoryView = toolbar
         // Sets the datepicker as the textField input
         field.inputView = datePicker
         
     }
-
+    
     // Dismiss datepicker and saves data if necessary
     @objc func donePressed() {
         view.endEditing(true)
@@ -371,7 +361,7 @@ extension FullRouteViewController {
 
 // MARK: TextField Setup Extension
 extension FullRouteViewController: UITextFieldDelegate {
-
+    
     func textFieldConfig(){
         self.fromDateTextField.delegate = self
         self.toDateTextField.delegate = self
@@ -389,7 +379,7 @@ extension FullRouteViewController: UITextFieldDelegate {
         self.fromDateTextField.borderStyle = .none
         self.toDateTextField.borderStyle = .none
     }
-
+    
     // This function is called by the delegate when user taps a given text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 0 {
