@@ -11,23 +11,23 @@ import MapKit
 
 // MARK: HandleMapSearch protocol
 // Delegate the interaction between the MapViewController and the search adress table
-protocol HandleMapSearch {
+protocol HandleMapSearch: AnyObject {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
-class LocationSearchTableViewController: UITableViewController {
+class LocationSearchTable: UITableViewController {
     
     var matchingItems: [MKMapItem] = []
-    var mapView: MKMapView? =  nil
-    var handleMapSearchDelegate: HandleMapSearch? = nil
+    var mapView: MKMapView?
     var dateLastUpdated: Date = Date()
+    weak var handleMapSearchDelegate: HandleMapSearch?
     
     lazy var adressSearchQeue: OperationQueue = {
         var qeue = OperationQueue()
         qeue.name = "Adress search results qeue"
         qeue.maxConcurrentOperationCount = 1
         return qeue
-    } ()
+    }()
 
     // MARK: Parsing Address
     // This method was based on US Address and might not be entirely effective for our standards.
@@ -59,7 +59,7 @@ class LocationSearchTableViewController: UITableViewController {
 }
 
 // MARK: Update Search Results
-extension LocationSearchTableViewController: UISearchResultsUpdating {
+extension LocationSearchTable: UISearchResultsUpdating {
     
     // This method is called everytime the user changes the input on the SearchBar
     func updateSearchResults(for searchController: UISearchController) {
@@ -108,7 +108,7 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
                 let search = MKLocalSearch(request: request)
                 
                 // Makes search query
-                search.start { (response, error) in
+                search.start { (response, _) in
                     guard let response = response else {return}
                     completion(response.mapItems)
                 }
@@ -118,7 +118,7 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
     
 }
 
-extension LocationSearchTableViewController {
+extension LocationSearchTable {
     
     // Number of cells in the TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -27,14 +27,14 @@ class TestData {
         return formatter.date(from: hour)!
     }
 
-
-    func createCircularRegion(latitude: Double, longitude: Double , radius: Double, referencia: String) -> CLCircularRegion {
-        guard let lat = CLLocationDegrees(exactly: latitude), let long = CLLocationDegrees(exactly: longitude) else {
+    func createCircularRegion(latitude: Double, longitude: Double , radius: Double, reference: String) -> CLCircularRegion {
+        
+        guard let latitude = CLLocationDegrees(exactly: latitude), let long = CLLocationDegrees(exactly: longitude) else {
             return CLCircularRegion(center: CLLocationCoordinate2D(latitude: -15.792953 , longitude: -47.886961), radius: 100, identifier: "brasilia")
         }
-        let rad = CLLocationDistance(exactly: radius)!
-        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        let cirularRegion = CLCircularRegion(center: coordinate, radius: rad, identifier: referencia)
+        let radius = CLLocationDistance(exactly: radius)!
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: long)
+        let cirularRegion = CLCircularRegion(center: coordinate, radius: radius, identifier: reference)
         return cirularRegion
     }
 }
