@@ -19,8 +19,8 @@ class FullRouteViewController: UIViewController {
     
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
-    var earlierDate: Date? = nil
-    var latestDate: Date? = nil
+    var earlierDate: Date?
+    var latestDate: Date?
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8
     var circleA: MKCircle?
@@ -145,8 +145,7 @@ class FullRouteViewController: UIViewController {
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
     }
-    
-    
+
     // MARK: Displaying Map Data
     func displayMapItems(path: Path?) {
         let pathServices = PathServices()
@@ -180,7 +179,6 @@ class FullRouteViewController: UIViewController {
     }
     
 }
-
 
 // MARK: Defining Map functions
 extension FullRouteViewController: MKMapViewDelegate {
@@ -309,8 +307,7 @@ extension FullRouteViewController {
         if self.selectedFirstCell  && self.latestDate != nil {
             self.datePicker.maximumDate = self.latestDate
             self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
-        }
-        else if !self.selectedFirstCell && self.earlierDate != nil {
+        } else if !self.selectedFirstCell && self.earlierDate != nil {
             self.datePicker.minimumDate = self.earlierDate
             self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
         }
@@ -319,7 +316,7 @@ extension FullRouteViewController {
         createDatePicker(forField: toDateTextField)
     }
     
-    func createDatePicker(forField field : UITextField){
+    func createDatePicker(forField field : UITextField) {
         
         //Creates ToolBar
         let toolbar = UIToolbar()
@@ -350,14 +347,13 @@ extension FullRouteViewController {
 // MARK: TextField Setup Extension
 extension FullRouteViewController: UITextFieldDelegate {
     
-    func textFieldConfig(){
+    func textFieldConfig() {
         self.fromDateTextField.delegate = self
         self.toDateTextField.delegate = self
         self.fromDateTextField.tag = 0
         self.toDateTextField.tag = 1
         self.fromDateTextField.text = ""
         self.toDateTextField.text = ""
-        
         
         //Hiding the editing cursor
         self.fromDateTextField.tintColor = .clear
