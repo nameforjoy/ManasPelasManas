@@ -34,7 +34,7 @@ class MockData {
     func createJourneys() {
         createPaths()
         
-        let journey1 = Journey(ownerId: user1Id, journeyId: UUID(), has_path: self.paths[0], date: createFomattedDate(date: "01/09/2019"), initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T10:30"))
+        let journey1 = Journey(ownerId: user1Id, journeyId: UUID(), has_path: self.paths[0], initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T10:30"))
         self.journeys.append(journey1)
     }
     

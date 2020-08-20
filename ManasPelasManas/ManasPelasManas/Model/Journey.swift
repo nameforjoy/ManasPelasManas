@@ -13,7 +13,6 @@ class Journey: NSObject {
     public var ownerId: UUID?
     public var journeyId: UUID?
     public var has_path: Path?
-    public var date: Date?
     public var initialHour: Date?
     public var finalHour: Date?
     public var status: String?
@@ -24,11 +23,10 @@ class Journey: NSObject {
         
     }
     
-    init(ownerId: UUID?, journeyId: UUID?, has_path: Path?, date: Date?, initialHour: Date?, finalHour: Date?) {
+    init(ownerId: UUID?, journeyId: UUID?, has_path: Path?, initialHour: Date?, finalHour: Date?) {
         self.ownerId = ownerId
         self.journeyId = journeyId
         self.has_path = has_path
-        self.date = date
         self.initialHour = initialHour
         self.finalHour = finalHour
     }
