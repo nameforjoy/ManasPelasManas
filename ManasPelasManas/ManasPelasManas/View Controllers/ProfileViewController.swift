@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController {
     private func displayData(user: User) {
         self.profilePhoto.image = UIImage(named: (user.photo)!)
         self.nameContentLabel.text = (user.name)! + ", 19"
-        self.aboutMeContentLabel.text = (user.bio)!
+        self.aboutMeContentLabel.text = (user.about)!
     }
     
     private func setUpLabels() {

@@ -157,7 +157,7 @@ class JourneyCompanionsViewController: UIViewController {
         //Accessibility label
         self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
         
-        guard let pathJourney = self.journeyToMatch.has_path else { return }
+        guard let pathJourney = self.journeyToMatch.hasPath else { return }
         
         //Passando o completion dogetAddress de volta para a chamada dessa msm função atual
         let dispatchGroup = DispatchGroup()
@@ -219,7 +219,7 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
         // fill cell with extracted information
         cell.userPhoto.image = UIImage(named: user.photo!)
         cell.nameLabel.text = user.name?.description
-        cell.descriptionLabel.text = user.bio
+        cell.descriptionLabel.text = user.about
         
         return cell
     }

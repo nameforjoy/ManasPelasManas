@@ -18,7 +18,7 @@ class JourneyDAO: DAO {
         self.mock.journeys.append(objectToBeSaved)
         
         if self.mock.journeys[self.mock.journeys.count-1] != objectToBeSaved {
-            throw Errors.DatabaseFailure
+            throw Errors.databaseFailure
         }
     }
     
@@ -63,11 +63,10 @@ class JourneyDAO: DAO {
         // perform search
         journeyList = mock.journeys
         
-        if journeyList.count != 0 {
+        if !journeyList.isEmpty {
             return journeyList
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
     
@@ -79,11 +78,10 @@ class JourneyDAO: DAO {
         journeyList = mock.journeys
         journeyList = journeyList.filter() { $0.ownerId == user.userId }
         
-        if journeyList.count != 0 {
+        if !journeyList.isEmpty {
             return journeyList
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
     
@@ -95,9 +93,8 @@ class JourneyDAO: DAO {
         
         if journey != nil {
             return journey
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
 }

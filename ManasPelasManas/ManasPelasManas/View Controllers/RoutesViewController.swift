@@ -104,8 +104,8 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
 
         // checks if address text has been loaded already
         
-        if let originAddress: String = journey.has_path?.originAddress,
-            let destinyAddress: String = journey.has_path?.destinyAddress {
+        if let originAddress: String = journey.hasPath?.originAddress,
+            let destinyAddress: String = journey.hasPath?.destinyAddress {
             cell.fromLabel.text = originAddress
             cell.toLabel.text = destinyAddress
         } else {
@@ -131,22 +131,22 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         group.enter()
         group.enter()
 
-        pathServices.getAddressText(path: journey.has_path!,
+        pathServices.getAddressText(path: journey.hasPath!,
                                     stage: .origin) { (origin, resultError) in
                                         if let originError = resultError {
                                             print("Origin error: \(originError)")
                                         } else {
-                                            filledJourney.has_path?.originAddress = origin
+                                            filledJourney.hasPath?.originAddress = origin
                                         }
                                         group.leave()
         }
 
-        pathServices.getAddressText(path: journey.has_path!,
+        pathServices.getAddressText(path: journey.hasPath!,
                                            stage: .destiny) { (destiny, resultError) in
                                                if let destinyError = resultError {
                                                 print("Destiny error: \(destinyError)")
                                                } else {
-                                                filledJourney.has_path?.destinyAddress = destiny
+                                                filledJourney.hasPath?.destinyAddress = destiny
                                                }
                                                group.leave()
         }

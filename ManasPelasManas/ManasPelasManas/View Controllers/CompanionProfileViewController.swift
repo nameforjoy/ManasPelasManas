@@ -33,7 +33,7 @@ class CompanionProfileViewController: UIViewController {
             if(error == nil && user != nil) {
                 DispatchQueue.main.async {
                     self.nameContentLabel.text = user!.name! + ", 22"
-                    self.aboutMeContentLabel.text = user!.bio
+                    self.aboutMeContentLabel.text = user!.about
                     self.profilePhoto.image = UIImage(named: user!.photo!)
                     self.setUpInterface(name: user!.name!)
                 }

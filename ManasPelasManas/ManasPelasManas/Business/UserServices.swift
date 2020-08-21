@@ -19,13 +19,11 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try UserDAO.create(user)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -51,13 +49,11 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try UserDAO.update(user)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -83,13 +79,11 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try UserDAO.delete(user)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -114,14 +108,12 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var users: [User]?
             
-            do {
-                // save information
+            do { // save information
                 users = try UserDAO.findAll()
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -146,14 +138,12 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var user: User?
             
-            do {
-                // save information
+            do { // save information
                 user = try UserDAO.findFirst()
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -178,14 +168,12 @@ class UserServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var user: User?
             
-            do {
-                // save information
+            do { // save information
                 user = try UserDAO.getAuthenticatedUser()
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -202,20 +190,17 @@ class UserServices {
         // execute block in background
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
     }
-    
     
     static func findById(objectID: UUID , _ completion: ((_ error: Error?, _ user: User?) -> Void)?) {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var user: User?
             
-            do {
-                // save information
+            do { // save information
                 user = try UserDAO.findById(objectID: objectID)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -231,9 +216,5 @@ class UserServices {
         // execute block in background
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
     }
-    
-
-    
-    
     
 }

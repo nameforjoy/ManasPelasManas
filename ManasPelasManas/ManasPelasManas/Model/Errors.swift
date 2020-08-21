@@ -8,8 +8,8 @@
 
 import UIKit
 
-enum Errors : Error , Equatable{
-    case DatabaseFailure
-    case LatitudeOutsideRange
-    case RegionRadiusOutsideTheAllowedRange
+enum Errors : Error, Equatable {
+    case databaseFailure
+    case latitudeOutsideRange
+    case regionRadiusOutsideTheAllowedRange
 }

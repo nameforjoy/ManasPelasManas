@@ -1,5 +1,3 @@
-
-
 import Foundation
 import MapKit
 
@@ -10,10 +8,10 @@ class MatchServices {
         let minRadius: Double = 0.5*1000
         
         if regionA.radius < minRadius || regionA.radius > maxRadius || regionB.radius < minRadius || regionB.radius > maxRadius {
-            throw Errors.RegionRadiusOutsideTheAllowedRange
+            throw Errors.regionRadiusOutsideTheAllowedRange
         }
         if abs(regionA.coordinate.latitude) > 90 || abs(regionB.coordinate.latitude) > 90 {
-            throw Errors.LatitudeOutsideRange
+            throw Errors.latitudeOutsideRange
         }
         
         let coordA = CLLocation(latitude: regionA.coordinate.latitude, longitude: regionA.coordinate.longitude)
@@ -49,8 +47,8 @@ class MatchServices {
     func compareJourneys(journeyA: Journey, journeyB: Journey) throws -> Bool {
         let pathServices = PathServices()
         
-        guard let pathJourneyA = journeyA.has_path else { return false }
-        guard let pathJourneyB = journeyB.has_path else { return false }
+        guard let pathJourneyA = journeyA.hasPath else { return false }
+        guard let pathJourneyB = journeyB.hasPath else { return false }
         
         let mkcOriginA = (pathServices.getCircle(path: pathJourneyA, stage: .origin))
         let mkcOriginB = (pathServices.getCircle(path: pathJourneyB, stage: .origin))
@@ -72,5 +70,4 @@ class MatchServices {
         return false
     }
     
-
 }

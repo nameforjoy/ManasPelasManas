@@ -55,7 +55,7 @@ class MatchServicesTest: XCTestCase {
             XCTAssertFalse(noMatchCase)
             XCTAssertTrue(limitCase)
         } catch {
-            XCTFail()
+            XCTFail("Value obtained by algorithm does not correspond to actual distance between the two places being tested")
         }
     }
     
@@ -75,7 +75,7 @@ class MatchServicesTest: XCTestCase {
         
         // Checks  for specific error and returns message if no error is encountered
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: latitudeBelowLimitCircle), "Should return latitude outside range error") { (error) in
-            XCTAssertEqual(error  as! Errors , .LatitudeOutsideRange)
+            XCTAssertEqual(error as! Errors, .latitudeOutsideRange)
         }
     }
     
@@ -93,7 +93,7 @@ class MatchServicesTest: XCTestCase {
             let longitudeCycle = try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: longitudeCycleCircle)
             XCTAssertTrue(longitudeCycle)
         } catch {
-            XCTFail()
+            XCTFail("Longitude not accepting values outside of range [0, 360]")
         }
     }
     
@@ -114,11 +114,11 @@ class MatchServicesTest: XCTestCase {
         let matchServices = MatchServices()
         
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: bigCircle, regionB: referenceCircle), "Radius above allowed range") { (error) in
-            XCTAssertEqual(error as! Errors, .RegionRadiusOutsideTheAllowedRange)
+            XCTAssertEqual(error as! Errors, .regionRadiusOutsideTheAllowedRange)
         }
         
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: smallCircle, regionB: referenceCircle), "Radius  below allowed range") { (error) in
-            XCTAssertEqual(error as! Errors, .RegionRadiusOutsideTheAllowedRange)
+            XCTAssertEqual(error as! Errors, .regionRadiusOutsideTheAllowedRange)
         }
     }
     
@@ -143,7 +143,6 @@ class MatchServicesTest: XCTestCase {
             
             XCTAssertTrue(result)
         }
-        
         
         func testIntervalsWithoutIntersectionTimetable() {
              let journeyA = Journey()
@@ -208,7 +207,6 @@ class MatchServicesTest: XCTestCase {
 
             XCTAssertFalse(result)
          }
-        
         
     //    As datas são escolhidas por date picker logo irei considerar impossível a seleção de uma data inválida para anos não bissextos
         func testTrueLeapYearWithIntersection() {
