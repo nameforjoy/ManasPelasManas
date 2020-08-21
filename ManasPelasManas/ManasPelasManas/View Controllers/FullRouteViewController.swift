@@ -11,7 +11,7 @@ import MapKit
 import CoreData
 
 class FullRouteViewController: UIViewController {
-    
+
     var currentUser: User?
     var newPath: Path?
     var newJourney: Journey?
@@ -37,10 +37,10 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var fromDateTextField: UITextField!
     @IBOutlet weak var toDateTextField: UITextField!
     var activeField: UITextField?
+    var dateManager: DatePickerManager?
     
     override func viewDidLoad() {
-        
-        datePickerConfig(datePicker: self.datePicker)
+        self.datePickerSetup()
         textFieldConfig()
         
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
@@ -249,77 +249,26 @@ extension FullRouteViewController: MKMapViewDelegate {
 }
 
 // MARK: DatePicker Extension
-extension FullRouteViewController {
-    
-    @objc func dateChanged(datePicker: UIDatePicker) {
+extension FullRouteViewController: DatePickerParentView {
+
+    func datePickerSetup() {
+        self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
+        self.dateManager?.datePickerConfig(fromDateTextField: fromDateTextField, toDateTextField: toDateTextField)
+    }
+
+    func updateDateLabels(newDate: Date) {
         guard let activeField = self.activeField else { return }
-        
+
         if activeField.tag == 0 {
-            self.earlierDate = datePicker.date
+            self.earlierDate = newDate
         } else if activeField.tag == 1 {
-            self.latestDate = datePicker.date
+            self.latestDate = newDate
         }
-        activeField.text = dateToString(date: datePicker.date)
-        activeField.accessibilityLabel = dateToStringAccessible(date: datePicker.date)
-    }
-    
-    func datePickerConfig(datePicker: UIDatePicker) {
-        datePicker.isHidden = true
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
-        
-        // Set minimum and maximum date
-        datePicker.minimumDate = Date()
-        
-        // Setting date format
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, HH:mm"
-        
-        datePicker.minimumDate = Date()
-        datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
-
-        self.checkDateIntervalConsistency(datePicker: datePicker)
-
-        createDatePicker(forField: fromDateTextField)
-        createDatePicker(forField: toDateTextField)
+        activeField.text = dateToString(date: newDate)
+        activeField.accessibilityLabel = dateToStringAccessible(date: newDate)
     }
 
-    // This part is only happening on startup, therefore it doesn't work
-    func checkDateIntervalConsistency(datePicker: UIDatePicker) {
-        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
-        if self.selectedFirstCell  && self.latestDate != nil {
-            datePicker.maximumDate = self.latestDate
-            datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
-        } else if !self.selectedFirstCell && self.earlierDate != nil {
-            datePicker.minimumDate = self.earlierDate
-            datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
-        }
-    }
-    
-    func createDatePicker(forField field : UITextField) {
-        
-        //Creates ToolBar
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        toolbar.isUserInteractionEnabled = true
-        
-        // Creates Done Button with Flexible Space for Left Alignment
-        let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done = UIBarButtonItem(barButtonSystemItem:.done, target: self, action: #selector(donePressed))
-        done.tintColor = UIColor(named: "actionColor")
-        
-        // Includes items to the toolbar
-        toolbar.setItems([flexButton, done], animated: false)
-        
-        // Ties up the toolbar to the datepicker
-        field.inputAccessoryView = toolbar
-        // Sets the datepicker as the textField input
-        field.inputView = datePicker
-        
-    }
-    
-    // Dismiss datepicker and saves data if necessary
-    @objc func donePressed() {
+    func dismissDatePicker() {
         view.endEditing(true)
     }
 }

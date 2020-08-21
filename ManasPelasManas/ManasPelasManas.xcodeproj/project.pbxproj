@@ -282,13 +282,13 @@
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
 				B376D08B2314114E007BDA06 /* FullRouteViewController.swift */,
+				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
 				8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */,
 				8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */,
 				8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */,
 				8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */,
 				8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */,
-				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
