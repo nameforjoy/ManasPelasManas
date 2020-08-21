@@ -16,9 +16,11 @@ enum Stage {
 class Path: NSObject {
 
     public var pathId: UUID?
+    public var originAddress: String?
     public var originLat: Double?
     public var originLong: Double?
     public var originRadius: Double?
+    public var destinyAddress: String?
     public var destinyLat: Double?
     public var destinyLong: Double?
     public var destinyRadius: Double?
