@@ -19,10 +19,10 @@ class FullRouteViewController: UIViewController {
     
     var annotationA: MKPointAnnotation?
     var annotationB: MKPointAnnotation?
-    var earlierDate: Date?
-    var latestDate: Date?
+    var earlierDate: Date? // To be decoupled
+    var latestDate: Date? // To be decoupled
     var selectedFirstCell: Bool = true
-    let maxTimeDifferenceInHours: Double = 8
+    let maxTimeDifferenceInHours: Double = 8 // To be decoupled
     var circleA: MKCircle?
     var circleB: MKCircle?
     
@@ -40,7 +40,7 @@ class FullRouteViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        datePickerConfig()
+        datePickerConfig(datePicker: self.datePicker)
         textFieldConfig()
         
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
@@ -248,31 +248,6 @@ extension FullRouteViewController: MKMapViewDelegate {
     
 }
 
-// MARK: TextField Setup
-extension FullRouteViewController {
-    
-    // LOCALIZAR ISSO
-    func dateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm, MMM d"
-        return dateFormatter.string(from: date)
-    }
-    
-    func dateToStringAccessible(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        
-        let dayString = dateFormatter.string(from: date)
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        
-        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
-    }
-}
-
 // MARK: DatePicker Extension
 extension FullRouteViewController {
     
@@ -288,32 +263,37 @@ extension FullRouteViewController {
         activeField.accessibilityLabel = dateToStringAccessible(date: datePicker.date)
     }
     
-    func datePickerConfig() {
-        self.datePicker.isHidden = true
-        self.datePicker?.datePickerMode = .dateAndTime
-        self.datePicker?.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
+    func datePickerConfig(datePicker: UIDatePicker) {
+        datePicker.isHidden = true
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.addTarget(self, action: #selector(FullRouteViewController.dateChanged(datePicker: )), for: .valueChanged)
         
         // Set minimum and maximum date
-        self.datePicker.minimumDate = Date()
+        datePicker.minimumDate = Date()
         
         // Setting date format
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, HH:mm"
         
-        self.datePicker.minimumDate = Date() //
-        self.datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
-        
-        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
-        if self.selectedFirstCell  && self.latestDate != nil {
-            self.datePicker.maximumDate = self.latestDate
-            self.datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
-        } else if !self.selectedFirstCell && self.earlierDate != nil {
-            self.datePicker.minimumDate = self.earlierDate
-            self.datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
-        }
-        
+        datePicker.minimumDate = Date()
+        datePicker.maximumDate = Date().addingTimeInterval(TimeInterval(60*60*24*60))
+
+        self.checkDateIntervalConsistency(datePicker: datePicker)
+
         createDatePicker(forField: fromDateTextField)
         createDatePicker(forField: toDateTextField)
+    }
+
+    // This part is only happening on startup, therefore it doesn't work
+    func checkDateIntervalConsistency(datePicker: UIDatePicker) {
+        // Do not let time range be bigger than self.maxTimeDifferenceInHours for security reasons
+        if self.selectedFirstCell  && self.latestDate != nil {
+            datePicker.maximumDate = self.latestDate
+            datePicker.minimumDate = self.latestDate?.addingTimeInterval(TimeInterval(-self.maxTimeDifferenceInHours*60*60))
+        } else if !self.selectedFirstCell && self.earlierDate != nil {
+            datePicker.minimumDate = self.earlierDate
+            datePicker.maximumDate = self.earlierDate?.addingTimeInterval(TimeInterval(self.maxTimeDifferenceInHours*60*60))
+        }
     }
     
     func createDatePicker(forField field : UITextField) {
@@ -341,6 +321,31 @@ extension FullRouteViewController {
     // Dismiss datepicker and saves data if necessary
     @objc func donePressed() {
         view.endEditing(true)
+    }
+}
+
+// MARK: TextField Setup
+extension FullRouteViewController {
+
+    // LOCALIZAR ISSO
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm, MMM d"
+        return dateFormatter.string(from: date)
+    }
+
+    func dateToStringAccessible(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "pt_BR")
+
+        let dayString = dateFormatter.string(from: date)
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+
+        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
     }
 }
 
