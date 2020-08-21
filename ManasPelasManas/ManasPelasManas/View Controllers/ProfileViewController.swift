@@ -19,7 +19,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var entranceDateLabel: UILabel!
     @IBOutlet weak var companionsNumberLabel: UILabel!
     
-    
     @IBOutlet weak var aboutMeTitleLabel: UILabel!
     @IBOutlet weak var occupationLabel: UILabel!
     
@@ -82,4 +81,3 @@ class ProfileViewController: UIViewController {
         aboutMeTitleLabel.text = NSLocalizedString("User description", comment: "Titled 'Acout me' in english, this is the title for a section in which the users may write about themselves in their profile. This description will be exibited to users who are doing the same journey as she is, and may influence other women's decision of whether accepting their companionship through the journey or not. Must be in all caps.")
     }
 }
-

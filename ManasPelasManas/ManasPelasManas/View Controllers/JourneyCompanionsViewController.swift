@@ -25,7 +25,7 @@ class JourneyCompanionsViewController: UIViewController {
     var journeyToMatch = Journey()
     var test = MatchServices()
     
-    var companionID: UUID? = nil
+    var companionID: UUID?
     var userMatches = [User]()
     
     fileprivate var journeysNotUser: [Journey] = []
@@ -74,8 +74,7 @@ class JourneyCompanionsViewController: UIViewController {
                         }
                     }
                 })
-            }
-            else {
+            } else {
                 print("Error retrieving content")
             }
         }
@@ -123,9 +122,9 @@ class JourneyCompanionsViewController: UIViewController {
             
             let journeysMatched = journeyMatchedAndIsValid(journeyA: self.journeyToMatch, journeyB: journey)
             
-            if journeysMatched && journey.ownerId != nil{
+            if journeysMatched && journey.ownerId != nil {
                 UserServices.findById(objectID: journey.ownerId!) { (error, user) in
-                    if(error == nil && user != nil)  {
+                    if(error == nil && user != nil) {
                         self.userMatches.append(user!)
                         OperationQueue.main.addOperation {
                             self.companionsTableView.reloadData()
@@ -155,12 +154,8 @@ class JourneyCompanionsViewController: UIViewController {
         let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
         self.timeRangeLabel.text = initialHour + " - "  + finalHour
         
-        
-        
-        
         //Accessibility label
         self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
-        
         
         guard let pathJourney = self.journeyToMatch.has_path else { return }
         
@@ -170,15 +165,17 @@ class JourneyCompanionsViewController: UIViewController {
         dispatchGroup.enter()
         dispatchGroup.enter()
         
-        pathServices.getAddressText(path: pathJourney, stage: .origin, completion: { (text, error)  -> Void in
+        pathServices.getAddressText(path: pathJourney, stage: .origin, completion: { (text, error) -> Void in
             // TODO: Tratar erro
             self.fromLabel.text = text
             dispatchGroup.leave()
+            print(error ?? "Error getting origin address from reverse geocode")
         })
-        pathServices.getAddressText(path: pathJourney, stage: .destiny, completion: { (text, error)  -> Void in
+        pathServices.getAddressText(path: pathJourney, stage: .destiny, completion: { (text, error) -> Void in
             // TODO: Tratar erro
             self.toLabel.text = text
             dispatchGroup.leave()
+            print(error ?? "Error getting destiny address from reverse geocode")
         })
         
         dispatchGroup.notify(queue: .main) {

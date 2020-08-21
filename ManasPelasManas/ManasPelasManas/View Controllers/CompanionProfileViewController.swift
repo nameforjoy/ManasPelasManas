@@ -17,11 +17,10 @@ class CompanionProfileViewController: UIViewController {
     @IBOutlet weak var aboutMeContentLabel: UILabel!
     @IBOutlet weak var contactButton: UIButton!
     
-    var companionID: UUID? = nil
+    var companionID: UUID?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
     }
     
@@ -31,7 +30,7 @@ class CompanionProfileViewController: UIViewController {
         self.contactButton.layer.cornerRadius = self.contactButton.frame.height / 4
         
         UserServices.findById(objectID: self.companionID!) { (error, user) in
-            if(error == nil && user != nil)  {
+            if(error == nil && user != nil) {
                 DispatchQueue.main.async {
                     self.nameContentLabel.text = user!.name! + ", 22"
                     self.aboutMeContentLabel.text = user!.bio
@@ -56,10 +55,10 @@ class CompanionProfileViewController: UIViewController {
         let appStoreWhatsappURL = URL(string: "https://apps.apple.com/us/app/whatsapp-messenger/id310633997")
         
         if UIApplication.shared.canOpenURL(whatsappURL!) {
-            UIApplication.shared.open(whatsappURL!, completionHandler: { (sucess) in
+            UIApplication.shared.open(whatsappURL!, completionHandler: { _ in
             })
         } else {
-            UIApplication.shared.open(appStoreWhatsappURL!, completionHandler: { (sucess) in
+            UIApplication.shared.open(appStoreWhatsappURL!, completionHandler: { _ in
             })
         }
     }

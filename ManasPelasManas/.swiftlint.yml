@@ -23,17 +23,6 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - ManasPelasManas/Extensions
   - ManasPelasManas/Fonts
   - ManasPelasManasTests
-  - ManasPelasManas/View Controllers/ProfileViewController.swift
-  - ManasPelasManas/View Controllers/LocationSearchTable.swift
-  - ManasPelasManas/View Controllers/MapViewController.swift
-  - ManasPelasManas/View Controllers/MapViewController+Map.swift
-  - ManasPelasManas/View Controllers/MapViewController+Location.swift
-  - ManasPelasManas/View Controllers/MapViewController+AddressSearch.swift
-  - ManasPelasManas/View Controllers/RoutesViewController.swift
-  - ManasPelasManas/View Controllers/JourneyCompanionsViewController.swift
-  - ManasPelasManas/View Controllers/RoutesViewController.swift
-  - ManasPelasManas/View Controllers/CompanionProfileViewController.swift
-  - ManasPelasManas/View Controllers/LocationSearchTable.swift
 #
 analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
   - explicit_self

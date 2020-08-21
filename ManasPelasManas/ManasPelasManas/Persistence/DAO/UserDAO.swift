@@ -81,8 +81,9 @@ class UserDAO: DAO {
     /// - returns: the first created project from database
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func findFirst() throws -> User? {
+        
         // list of projects to be returned
-        var userList:[User] = []
+        let userList:[User] = []
 
 //        do {
 //            // creating fetch request
