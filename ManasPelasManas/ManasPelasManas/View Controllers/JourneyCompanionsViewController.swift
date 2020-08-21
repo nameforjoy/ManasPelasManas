@@ -69,7 +69,7 @@ class JourneyCompanionsViewController: UIViewController {
                         self.autheticatedUser = user!
                         // reload table view with season information
                         DispatchQueue.main.async {
-                            self.journeysNotUser = self.journeysNotUser.filter() { $0.ownerId! != self.autheticatedUser.userId }
+                            self.journeysNotUser = self.journeysNotUser.filter { $0.ownerId! != self.autheticatedUser.userId }
                             self.searchForMatch()
                         }
                     }
