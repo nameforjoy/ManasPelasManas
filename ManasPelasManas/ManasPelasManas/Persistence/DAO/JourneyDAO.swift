@@ -27,13 +27,13 @@ class JourneyDAO: DAO {
     ///     - objectToBeUpdated: guiding data to be updated on database
     /// - throws: if an error occurs during updating an object into database (Errors.DatabaseFailure)
     static func update(_ objectToBeUpdated: Journey) throws {
-//        do {
-//            // persist changes at the context
-//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-//        }
-//        catch {
-//            throw Errors.DatabaseFailure
-//        }
+        //        do {
+        //            // persist changes at the context
+        //            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
+        //        }
+        //        catch {
+        //            throw Errors.DatabaseFailure
+        //        }
     }
     
     /// Method responsible for deleting a guiding data from database
@@ -41,16 +41,16 @@ class JourneyDAO: DAO {
     ///     - objectToBeSaved: guiding data to be saved on database
     /// - throws: if an error occurs during deleting an object into database (Errors.DatabaseFailure)
     static func delete(_ objectToBeDeleted: Journey) throws {
-//        do {
-//            // delete element from context
-//            CoreDataManager.sharedInstance.persistentContainer.viewContext.delete(objectToBeDeleted)
-//
-//            // persist the operation
-//            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
-//        }
-//        catch {
-//            throw Errors.DatabaseFailure
-//        }
+        //        do {
+        //            // delete element from context
+        //            CoreDataManager.sharedInstance.persistentContainer.viewContext.delete(objectToBeDeleted)
+        //
+        //            // persist the operation
+        //            try CoreDataManager.sharedInstance.persistentContainer.viewContext.save()
+        //        }
+        //        catch {
+        //            throw Errors.DatabaseFailure
+        //        }
     }
     
     /// Method responsible for retrieving all guiding data from database
@@ -62,7 +62,23 @@ class JourneyDAO: DAO {
         
         // perform search
         journeyList = mock.journeys
-
+        
+        if journeyList.count != 0 {
+            return journeyList
+        }
+        else {
+            throw Errors.DatabaseFailure
+        }
+    }
+    
+    static func findAllFromUser(user: User) throws -> [Journey] {
+        // list of journeys to be returned
+        var journeyList:[Journey] = []
+        
+        // perform search
+        journeyList = mock.journeys
+        journeyList = journeyList.filter() { $0.ownerId == user.userId }
+        
         if journeyList.count != 0 {
             return journeyList
         }
@@ -73,7 +89,7 @@ class JourneyDAO: DAO {
     
     static func findById(objectID: UUID) throws -> Journey? {
         var journey: Journey?
-
+        
         // perform search
         journey = mock.findJourneyById(id: objectID)
         

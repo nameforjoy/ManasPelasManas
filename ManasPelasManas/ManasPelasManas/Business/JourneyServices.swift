@@ -138,6 +138,38 @@ class JourneyServices {
         QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
     }
     
+    /// Function responsible for getting all projects
+    /// - parameters:
+    ///     - completion: closure to be executed at the end of this method
+    /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
+    static func getAllJourneysFromUser(user: User, _ completion: ((_ error: Error?, _ journeys: [Journey]?) -> Void)?) {
+        // block to be executed in background
+        let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
+            // error to be returned in case of failure
+            var raisedError: Error? = nil
+            var journeys: [Journey]?
+            
+            do {
+                // save information
+                journeys = try JourneyDAO.findAllFromUser(user: user)
+            }
+            catch let error {
+                raisedError = error
+            }
+            
+            // completion block execution
+            if (completion != nil) {
+                let blockForExecutionInMain: BlockOperation = BlockOperation(block: {completion!(raisedError, journeys)})
+                
+                // execute block in main
+                QueueManager.sharedInstance.executeBlock(blockForExecutionInMain, queueType: QueueManager.QueueType.main)
+            }
+        })
+        
+        // execute block in background
+        QueueManager.sharedInstance.executeBlock(blockForExecutionInBackground, queueType: QueueManager.QueueType.serial)
+    }
+    
     static func findById(objectID: UUID , _ completion: ((_ error: Error?, _ journey: Journey?) -> Void)?) {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
