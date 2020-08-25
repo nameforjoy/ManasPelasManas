@@ -76,7 +76,7 @@ class JourneyDAO: DAO {
         
         // perform search
         journeyList = mock.journeys
-        journeyList = journeyList.filter() { $0.ownerId == user.userId }
+        journeyList = journeyList.filter { $0.ownerId == user.userId }
         
         if !journeyList.isEmpty {
             return journeyList

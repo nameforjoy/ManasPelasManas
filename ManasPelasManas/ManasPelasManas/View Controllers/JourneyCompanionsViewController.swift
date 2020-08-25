@@ -136,8 +136,8 @@ class JourneyCompanionsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showCompanionProfile" {
-            let destination = segue.destination as! CompanionProfileViewController
+        if segue.identifier == "showCompanionProfile",
+            let destination = segue.destination as? CompanionProfileViewController {
             destination.companionID = self.companionID
         }
     }
@@ -210,7 +210,9 @@ extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // get a new cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as! CompanionCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "companionCell", for: indexPath) as? CompanionCell else {
+            print("Cell not CompanionCell type")
+        return UITableViewCell()}
         
         // get the season data to be displayed
         let user: User = self.userMatches[indexPath.row]

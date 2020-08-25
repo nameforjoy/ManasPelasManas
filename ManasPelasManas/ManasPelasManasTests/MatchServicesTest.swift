@@ -75,7 +75,11 @@ class MatchServicesTest: XCTestCase {
         
         // Checks  for specific error and returns message if no error is encountered
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: referenceCircle, regionB: latitudeBelowLimitCircle), "Should return latitude outside range error") { (error) in
-            XCTAssertEqual(error as! Errors, .latitudeOutsideRange)
+            if let error = error as? Errors {
+                XCTAssertEqual(error, .latitudeOutsideRange)
+            } else {
+                XCTFail("Error should be Errors instance")
+            }
         }
     }
     
@@ -114,11 +118,19 @@ class MatchServicesTest: XCTestCase {
         let matchServices = MatchServices()
         
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: bigCircle, regionB: referenceCircle), "Radius above allowed range") { (error) in
-            XCTAssertEqual(error as! Errors, .regionRadiusOutsideTheAllowedRange)
+            if let error = error as? Errors {
+                XCTAssertEqual(error, .regionRadiusOutsideTheAllowedRange)
+            } else {
+                XCTFail("Error should be Errors instance")
+            }
         }
         
         XCTAssertThrowsError(try matchServices.checkMatchingRegion(regionA: smallCircle, regionB: referenceCircle), "Radius  below allowed range") { (error) in
-            XCTAssertEqual(error as! Errors, .regionRadiusOutsideTheAllowedRange)
+            if let error = error as? Errors {
+                XCTAssertEqual(error, .regionRadiusOutsideTheAllowedRange)
+            } else {
+                XCTFail("Error should be Errors instance")
+            }
         }
     }
     
