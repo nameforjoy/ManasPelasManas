@@ -21,8 +21,8 @@ class RoutesViewController: UIViewController {
     
     fileprivate var journeys: [Journey] = []
     var autheticatedUser = User()
-    var passJourneyUUID: UUID? = nil
     let dateFormatter = DateFormatter()
+    var passJourneyUUID: UUID?
     
     var newMatches: Bool = true
     
@@ -93,9 +93,9 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // get a new cell
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
-
+        
         cell.fromLabel.text = ""
         cell.toLabel.text = ""
 
@@ -104,8 +104,8 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
 
         // checks if address text has been loaded already
         
-        if let originAddress: String = journey.has_path?.originAddress,
-            let destinyAddress: String = journey.has_path?.destinyAddress {
+        if let originAddress: String = journey.hasPath?.originAddress,
+            let destinyAddress: String = journey.hasPath?.destinyAddress {
             cell.fromLabel.text = originAddress
             cell.toLabel.text = destinyAddress
         } else {
@@ -116,9 +116,9 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         // fill cell with extracted information
         cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
         
-        //Accesibility date
-        //Tentar enteder isso!!!
-       // cell.dateTitle.isAccessibilityElement = true
+        // Accesibility date
+        // Tentar enteder isso!!!
+        // cell.dateTitle.isAccessibilityElement = true
         cell.dateTitle.accessibilityLabel = dateAccessible(initialHour: journey.initialHour!, finalHour: journey.finalHour!)
         
         return cell
@@ -127,31 +127,29 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
     private func loadJourneyAdditionalInfo(journey: Journey, index: Int) {
         let group = DispatchGroup()
         let pathServices = PathServices()
-        var filledJourney = journey
-        var error: Error? = nil
+        let filledJourney = journey
         group.enter()
         group.enter()
 
-        pathServices.getAddressText(path: journey.has_path!,
+        pathServices.getAddressText(path: journey.hasPath!,
                                     stage: .origin) { (origin, resultError) in
                                         if let originError = resultError {
-                                            error = originError
+                                            print("Origin error: \(originError)")
                                         } else {
-                                            filledJourney.has_path?.originAddress = origin
+                                            filledJourney.hasPath?.originAddress = origin
                                         }
                                         group.leave()
         }
 
-        pathServices.getAddressText(path: journey.has_path!,
+        pathServices.getAddressText(path: journey.hasPath!,
                                            stage: .destiny) { (destiny, resultError) in
                                                if let destinyError = resultError {
-                                                   error = destinyError
+                                                print("Destiny error: \(destinyError)")
                                                } else {
-                                                filledJourney.has_path?.destinyAddress = destiny
+                                                filledJourney.hasPath?.destinyAddress = destiny
                                                }
                                                group.leave()
         }
-
 
         group.notify(queue: .main) {
             //filledJourney.isAllInfoLoaded = true

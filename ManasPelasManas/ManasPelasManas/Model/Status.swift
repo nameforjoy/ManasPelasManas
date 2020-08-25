@@ -9,7 +9,7 @@
 import Foundation
 
 enum Status: String {
-    case requested = "requested"
-    case confirmed = "confirmed"
-    case finished = "finished"
+    case requested
+    case confirmed
+    case finished
 }

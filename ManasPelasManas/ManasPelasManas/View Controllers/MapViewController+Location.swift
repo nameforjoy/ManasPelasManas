@@ -60,7 +60,7 @@ extension MapViewController {
     
     // Presents alert if location is turned off
     func presentLocationPermissionAlert() {
-        let alertController = UIAlertController (title: "Localização", message: "Seus serviços de localização encontram-se desativados para esse app. Utilizamos  esse serviço para facilitar sua definição  de rota, porém o app pode ser utilizado sem ele normalmente. Caso deseje habilitar sua localização nesse app, basta ligar  esse serviço em suas Configurações.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Localização", message: "Seus serviços de localização encontram-se desativados para esse app. Utilizamos  esse serviço para facilitar sua definição  de rota, porém o app pode ser utilizado sem ele normalmente. Caso deseje habilitar sua localização nesse app, basta ligar  esse serviço em suas Configurações.", preferredStyle: .alert)
         
         // Adds settings button action
         let settingsAction = UIAlertAction(title: "Configurações", style: .default) { (_) -> Void in

@@ -21,13 +21,11 @@ class PathServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try PathDAO.create(path)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -53,13 +51,11 @@ class PathServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try PathDAO.update(path)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -85,13 +81,11 @@ class PathServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try PathDAO.delete(path)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -116,14 +110,12 @@ class PathServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var paths: [Path]?
             
-            do {
-                // save information
+            do { // save information
                 paths = try PathDAO.findAll()
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -144,14 +136,12 @@ class PathServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var path: Path?
             
-            do {
-                // save information
+            do { // save information
                 path = try PathDAO.findById(objectID: objectID)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -175,14 +165,14 @@ class PathServices {
         
         switch stage {
         case .origin:
-            let lat = path.originLat!
-            let long = path.originLong!
-            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let latitude = path.originLat!
+            let longitude = path.originLong!
+            coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             radius = path.originRadius!
         case .destiny:
-            let lat = path.destinyLat!
-            let long = path.destinyLong!
-            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let latitude = path.destinyLat!
+            let longitude = path.destinyLong!
+            coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             radius = path.destinyRadius!
         }
         
@@ -197,13 +187,13 @@ class PathServices {
         
         switch stage {
         case .origin:
-            let lat = path.originLat!
-            let long = path.originLong!
-            coordinate = CLLocation(latitude: lat, longitude: long)
+            let latitude = path.originLat!
+            let longitude = path.originLong!
+            coordinate = CLLocation(latitude: latitude, longitude: longitude)
         case .destiny:
-            let lat = path.destinyLat!
-            let long = path.destinyLong!
-            coordinate = CLLocation(latitude: lat, longitude: long)
+            let latitude = path.destinyLat!
+            let longitude = path.destinyLong!
+            coordinate = CLLocation(latitude: latitude, longitude: longitude)
         }
         
         var addressTxt = ""
@@ -213,7 +203,7 @@ class PathServices {
                 //handle error
                 completion(nil,error)
             } else if let results = placemarks,
-                results.count > 0 {
+                !results.isEmpty {
                 let result = results[0]
                 
                 let postalAddressFormatter = CNPostalAddressFormatter()
@@ -228,8 +218,6 @@ class PathServices {
                 completion(addressTxt,nil)
             }
         })
-        
     }
-
-
+    
 }

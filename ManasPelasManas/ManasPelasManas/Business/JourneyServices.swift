@@ -19,13 +19,11 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try JourneyDAO.create(journey)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -51,13 +49,11 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try JourneyDAO.update(journey)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -83,13 +79,11 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             
-            do {
-                // save information
+            do { // save information
                 try JourneyDAO.delete(journey)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -114,14 +108,12 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var journeys: [Journey]?
             
-            do {
-                // save information
+            do { // save information
                 journeys = try JourneyDAO.findAll()
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -146,14 +138,12 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var journeys: [Journey]?
             
-            do {
-                // save information
+            do { // save information
                 journeys = try JourneyDAO.findAllFromUser(user: user)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             
@@ -174,14 +164,12 @@ class JourneyServices {
         // block to be executed in background
         let blockForExecutionInBackground: BlockOperation = BlockOperation(block: {
             // error to be returned in case of failure
-            var raisedError: Error? = nil
+            var raisedError: Error?
             var journey: Journey?
             
-            do {
-                // save information
+            do { // save information
                 journey = try JourneyDAO.findById(objectID: objectID)
-            }
-            catch let error {
+            } catch let error {
                 raisedError = error
             }
             

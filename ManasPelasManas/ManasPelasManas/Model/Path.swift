@@ -25,7 +25,6 @@ class Path: NSObject {
     public var destinyLong: Double?
     public var destinyRadius: Double?
     
-    
     override init() {
 
     }
