@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol DatePickerParentView {
+protocol DatePickerParentView: class {
     func updateDateLabels(newDate: Date)
     func dismissDatePicker()
 }
 
 class DatePickerManager {
-    var datePicker: UIDatePicker
-    var parentView: DatePickerParentView
+    weak var datePicker: UIDatePicker!
+    weak var parentView: DatePickerParentView!
 
     init(datePicker: UIDatePicker, parentView: DatePickerParentView) {
         self.datePicker = datePicker
