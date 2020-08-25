@@ -24,8 +24,8 @@ class MockData {
     
     //MARK: Criação de objetos para mock
     func createUsers() {
-        let user1 = User(userId: user1Id, name:  "Brenda Santos", bio: "Oi, eu sou a Brenda! Sou inteligente, forte e também enigmática, misteriosa e honesta. Muito dedicada, vou a fundo em tudo o que procuro entender. Tenho uma força de vontade incrível e uma grande capacidade para lidar com situações difíceis. Gosto muito de fazer novas amizades e aproveitar uma boa conversa :) Vamos caminhar juntas e quem sabe nos tornar boas amigas?", bornDate: "12/05/1998", authenticated: 1, photo: "leticia")
-        let user2 = User(userId: user2Id, name: "Julia Silva", bio: "Sou uma garota discreta e tímida. Prefiro ficar na minha, vivo com simplicidade. Prática, super responsável e pé no chão, sou bem madura para a minha idade. Tenho uma vida agitada e sempre preciso andar pelas ruas. Gostaria muito de ter uma companhia para andar comigo, principalmente nos meus percursos noturnos.", bornDate: "25/01/2000", authenticated: 0, photo: "mari")
+        let user1 = User(userId: user1Id, name:  "Brenda Santos", about: "Oi, eu sou a Brenda! Sou inteligente, forte e também enigmática, misteriosa e honesta. Muito dedicada, vou a fundo em tudo o que procuro entender. Tenho uma força de vontade incrível e uma grande capacidade para lidar com situações difíceis. Gosto muito de fazer novas amizades e aproveitar uma boa conversa :) Vamos caminhar juntas e quem sabe nos tornar boas amigas?", bornDate: "12/05/1998", authenticated: 1, photo: "leticia")
+        let user2 = User(userId: user2Id, name: "Julia Silva", about: "Sou uma garota discreta e tímida. Prefiro ficar na minha, vivo com simplicidade. Prática, super responsável e pé no chão, sou bem madura para a minha idade. Tenho uma vida agitada e sempre preciso andar pelas ruas. Gostaria muito de ter uma companhia para andar comigo, principalmente nos meus percursos noturnos.", bornDate: "25/01/2000", authenticated: 0, photo: "mari")
         
         self.users?.append(user1)
         self.users?.append(user2)
@@ -34,7 +34,7 @@ class MockData {
     func createJourneys() {
         createPaths()
         
-        let journey1 = Journey(ownerId: user1Id, journeyId: UUID(), has_path: self.paths[0], initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T10:30"))
+        let journey1 = Journey(ownerId: user1Id, journeyId: UUID(), hasPath: self.paths[0], initialHour: createFormattedHour(hour: "01/09/2019T09:30"), finalHour: createFormattedHour(hour: "01/09/2019T10:30"))
         self.journeys.append(journey1)
     }
     
@@ -58,11 +58,11 @@ class MockData {
     }
     
     func getAgeFromBornDate(user: User) -> Int? {
-        let now = Date()
+        let currentDate = Date()
         let birthday: Date = createFomattedDate(date: user.bornDate ?? "01/01/2001")
         let calendar = Calendar.current
 
-        let ageComponents = calendar.dateComponents([.year], from: birthday, to: now)
+        let ageComponents = calendar.dateComponents([.year], from: birthday, to: currentDate)
         return ageComponents.year
     }
     
@@ -72,41 +72,31 @@ class MockData {
         return (formatter.date(from: date))!
     }
     
-    
-    
     //MARK: Métodos DAO
     func getAuthenticatedUser() -> User? {
-        for user in self.users! {
-            if user.authenticated == 1 {
-                return user
-            }
+        for user in self.users! where user.authenticated == 1 {
+            return user
         }
         return nil
     }
     
     func findUserById(id: UUID) -> User? {
-        for user in self.users! {
-           if user.userId == id {
-               return user
-           }
+        for user in self.users! where user.userId == id {
+            return user
         }
         return nil
     }
     
     func findPathById(id: UUID) -> Path? {
-        for path in self.paths! {
-            if path.pathId == id {
-                return path
-            }
+        for path in self.paths! where path.pathId == id {
+            return path
          }
          return nil
     }
     
     func findJourneyById(id: UUID) -> Journey? {
-        for journey in self.journeys! {
-            if journey.journeyId == id {
-                return journey
-            }
+        for journey in self.journeys! where journey.journeyId == id {
+            return journey
          }
          return nil
     }

@@ -30,9 +30,9 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     
     var isTouchingSlider: Bool = false
-    var resultSearchController: UISearchController? = nil
-    var selectedPin: MKPlacemark? = nil
-    var locationReference: CLLocation? = nil // Future recentre button
+    var resultSearchController: UISearchController?
+    var selectedPin: MKPlacemark?
+    var locationReference: CLLocation? // Future recentre button
     
     //Setting Up Different Behaviors for Origin and Destination Screens
     var firstTime: Bool = true
@@ -137,8 +137,7 @@ class MapViewController: UIViewController {
             self.newPath?.originRadius = firstArea.radius as Double
             
             performSegue(withIdentifier: "goToDestination", sender: sender)
-        }
-        else {
+        } else {
             let secondArea = self.getCurrentCircularRegion()
             self.newPath?.destinyLat = secondArea.coordinate.latitude as Double
             self.newPath?.destinyLong = secondArea.coordinate.longitude as Double
@@ -187,8 +186,7 @@ class MapViewController: UIViewController {
             if let destination = segue.destination as? FullRouteViewController {
                 destination.pathId = self.newPath?.pathId
             }
-        }
-        else if segue.identifier == "goToDestination" {
+        } else if segue.identifier == "goToDestination" {
             if let destination = segue.destination as? MapViewController {
                 destination.firstTime = false
                 destination.newPath = self.newPath

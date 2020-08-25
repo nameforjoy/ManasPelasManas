@@ -6,7 +6,6 @@
 //  Copyright © 2019 Luma Gabino Vasconcelos. All rights reserved.
 //
 
-
 import UIKit
 
 class PathDAO: DAO {
@@ -19,7 +18,7 @@ class PathDAO: DAO {
         self.mock.paths.append(objectToBeSaved)
         
         if self.mock.paths[self.mock.paths.count-1] != objectToBeSaved {
-            throw Errors.DatabaseFailure
+            throw Errors.databaseFailure
         }
     }
     
@@ -64,11 +63,10 @@ class PathDAO: DAO {
         // perform search
         pathList = mock.paths
         
-        if pathList.count != 0 {
+        if !pathList.isEmpty {
             return pathList
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
     
@@ -80,9 +78,8 @@ class PathDAO: DAO {
         
         if path != nil {
             return path
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
 }

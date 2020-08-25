@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class UserDAO: DAO {
     
     /// Method responsible for saving a project into database
@@ -69,11 +68,10 @@ class UserDAO: DAO {
         // perform search
         userList = mock.users
 
-        if userList.count != 0 {
+        if !userList.isEmpty {
             return userList
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
     
@@ -81,8 +79,9 @@ class UserDAO: DAO {
     /// - returns: the first created project from database
     /// - throws: if an error occurs during getting an object from database (Errors.DatabaseFailure)
     static func findFirst() throws -> User? {
+        
         // list of projects to be returned
-        var userList:[User] = []
+        let userList:[User] = []
 
 //        do {
 //            // creating fetch request
@@ -95,7 +94,7 @@ class UserDAO: DAO {
 //            throw Errors.DatabaseFailure
 //        }
 
-        if userList.count > 0 {
+        if !userList.isEmpty {
             return userList[0]
         } else {
             return nil
@@ -115,9 +114,8 @@ class UserDAO: DAO {
         
         if user != nil {
              return user
-         }
-         else {
-             throw Errors.DatabaseFailure
+         } else {
+             throw Errors.databaseFailure
          }
     }
     
@@ -129,9 +127,8 @@ class UserDAO: DAO {
         
         if user != nil {
             return user
-        }
-        else {
-            throw Errors.DatabaseFailure
+        } else {
+            throw Errors.databaseFailure
         }
     }
 }

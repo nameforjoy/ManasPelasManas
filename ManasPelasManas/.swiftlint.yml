@@ -5,6 +5,7 @@ disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
   - line_length
   - todo
+  - mark
 #
 opt_in_rules: # some rules are only opt-in
   - empty_count
@@ -14,26 +15,8 @@ included: # paths to include during linting. `--path` is ignored if present.
 #
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
-  - ManasPelasManas/Model
-  - ManasPelasManas/Business
-  - ManasPelasManas/Mechanisms
   - ManasPelasManas/Storyboards
-  - ManasPelasManas/Persistence
-  - ManasPelasManas/View Controllers/Cells
-  - ManasPelasManas/Extensions
   - ManasPelasManas/Fonts
-  - ManasPelasManasTests
-  - ManasPelasManas/View Controllers/ProfileViewController.swift
-  - ManasPelasManas/View Controllers/LocationSearchTable.swift
-  - ManasPelasManas/View Controllers/MapViewController.swift
-  - ManasPelasManas/View Controllers/MapViewController+Map.swift
-  - ManasPelasManas/View Controllers/MapViewController+Location.swift
-  - ManasPelasManas/View Controllers/MapViewController+AddressSearch.swift
-  - ManasPelasManas/View Controllers/RoutesViewController.swift
-  - ManasPelasManas/View Controllers/JourneyCompanionsViewController.swift
-  - ManasPelasManas/View Controllers/RoutesViewController.swift
-  - ManasPelasManas/View Controllers/CompanionProfileViewController.swift
-  - ManasPelasManas/View Controllers/LocationSearchTable.swift
 #
 analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
   - explicit_self

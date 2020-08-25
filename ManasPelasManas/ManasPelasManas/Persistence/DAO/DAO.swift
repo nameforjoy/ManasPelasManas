@@ -8,8 +8,7 @@
 
 import UIKit
 
-/// Data Access Object base class
-/// Every DAO should extend this class
+// swiftlint:disable type_name
 class DAO {
     static var mock = MockData()
     

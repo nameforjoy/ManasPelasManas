@@ -35,4 +35,3 @@ class FullJourneyDetailsCell: UITableViewCell {
         self.notificationView.layer.cornerRadius = self.notificationView.frame.height / 2
     }
 }
-

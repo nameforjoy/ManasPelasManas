@@ -202,7 +202,7 @@ extension FullRouteViewController: MKMapViewDelegate {
             let userId = self.currentUser?.userId,
             let newPath = self.newPath {
             
-            let journey = Journey(ownerId: userId, journeyId: UUID(), has_path: newPath, initialHour: earlier, finalHour: latest)
+            let journey = Journey(ownerId: userId, journeyId: UUID(), hasPath: newPath, initialHour: earlier, finalHour: latest)
             
             JourneyServices.createJourney(journey: journey, { (error) in
                 if (error == nil) {
