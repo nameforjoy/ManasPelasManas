@@ -41,6 +41,7 @@
 		8DB94E8123EC6F0F00B2F91B /* MapViewController+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */; };
 		8DB94E8323EC6FB200B2F91B /* MapViewController+AddressSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */; };
 		8DC63D6B23E7DFF6008CD7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DC63D6D23E7DFF6008CD7E8 /* Localizable.strings */; };
+		B32CD34424EFFB6E00C334EE /* DatePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */; };
 		B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
 		B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07B230DECC7007BDA06 /* MapViewController.swift */; };
@@ -105,6 +106,7 @@
 		8DC63D6E23E7E00C008CD7E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		945B7A0523AAC6BF3A309F89 /* Pods-ManasPelasManasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManasPelasManasTests.release.xcconfig"; path = "Target Support Files/Pods-ManasPelasManasTests/Pods-ManasPelasManasTests.release.xcconfig"; sourceTree = "<group>"; };
 		952D9E6B8C650B71BD850F28 /* Pods-ManasPelasManas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManasPelasManas.debug.xcconfig"; path = "Target Support Files/Pods-ManasPelasManas/Pods-ManasPelasManas.debug.xcconfig"; sourceTree = "<group>"; };
+		B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerManager.swift; sourceTree = "<group>"; };
 		B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAccessibility.swift; sourceTree = "<group>"; };
 		B376D079230DEC86007BDA06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B376D07B230DECC7007BDA06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
 				B376D08B2314114E007BDA06 /* FullRouteViewController.swift */,
+				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
 				8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */,
 				8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */,
@@ -521,6 +524,7 @@
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
 				15A31D682315769D007241D2 /* JourneyServices.swift in Sources */,
+				B32CD34424EFFB6E00C334EE /* DatePickerManager.swift in Sources */,
 				8DB94E8123EC6F0F00B2F91B /* MapViewController+Location.swift in Sources */,
 				15A31D5A231555FA007241D2 /* UserDAO.swift in Sources */,
 			);
