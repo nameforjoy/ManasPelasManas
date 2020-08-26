@@ -94,7 +94,10 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as! FullJourneyDetailsCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "journeyCell", for: indexPath) as? FullJourneyDetailsCell else {
+            print("Failed to load a FullJourneyDetailsCell from the table")
+            // Return empty cell - prevent this from Unit Tests
+            return UITableViewCell()}
         
         cell.fromLabel.text = ""
         cell.toLabel.text = ""

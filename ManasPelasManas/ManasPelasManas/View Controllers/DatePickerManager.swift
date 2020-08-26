@@ -74,8 +74,7 @@ class DatePickerManager {
         if selectedFirstCell && latestDate != nil {
             datePicker.maximumDate = latestDate
             datePicker.minimumDate = latestDate?.addingTimeInterval(TimeInterval(-maxTimeDifferenceInHours*60*60))
-        }
-        else if !selectedFirstCell && earlierDate != nil {
+        } else if !selectedFirstCell && earlierDate != nil {
             datePicker.minimumDate = earlierDate
             datePicker.maximumDate = earlierDate?.addingTimeInterval(TimeInterval(maxTimeDifferenceInHours*60*60))
         }

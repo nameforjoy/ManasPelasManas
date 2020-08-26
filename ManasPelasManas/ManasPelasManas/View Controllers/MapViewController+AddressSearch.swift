@@ -36,9 +36,11 @@ extension MapViewController: HandleMapSearch {
 extension MapViewController {
     
     func addressSearchConfiguration() {
-        // CREATES SEARCH CONTROLLER AN m D INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
+        // CREATES SEARCH CONTROLLER AND INSTANTIATES A TABLEVIEWCONTROLLER TO HANDLE THE RESULTS
         // Instantiates the TableViewController that will show the adress results
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        guard let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTable") as? LocationSearchTable else {
+            fatalError("View Controller is LocationSearchTable type")
+        }
         // Instantiates our search controller and displays its results on the TableView instantiated above
         self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         // Sets the TableView as the results updater as well
