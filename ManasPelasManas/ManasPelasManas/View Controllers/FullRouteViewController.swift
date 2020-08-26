@@ -253,7 +253,14 @@ extension FullRouteViewController: DatePickerParentView {
 
     func datePickerSetup() {
         self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
-        self.dateManager?.datePickerConfig(fromDateTextField: fromDateTextField, toDateTextField: toDateTextField)
+
+        self.dateManager?.createToolbar { (toolbar) in
+            self.fromDateTextField.inputAccessoryView = toolbar
+            self.toDateTextField.inputAccessoryView = toolbar
+        }
+
+        self.fromDateTextField.inputView = self.datePicker
+        self.toDateTextField.inputView = self.datePicker
     }
 
     func updateDateLabels(newDate: Date) {
@@ -271,6 +278,7 @@ extension FullRouteViewController: DatePickerParentView {
     func dismissDatePicker() {
         view.endEditing(true)
     }
+
 }
 
 // MARK: TextField Setup
@@ -300,7 +308,7 @@ extension FullRouteViewController {
 
 // MARK: TextField Setup Extension
 extension FullRouteViewController: UITextFieldDelegate {
-    
+
     func textFieldConfig() {
         self.fromDateTextField.delegate = self
         self.toDateTextField.delegate = self
