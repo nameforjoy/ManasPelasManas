@@ -271,8 +271,8 @@ extension FullRouteViewController: DatePickerParentView {
         } else if activeField.tag == 1 {
             self.latestDate = newDate
         }
-        activeField.text = dateToString(date: newDate)
-        activeField.accessibilityLabel = dateToStringAccessible(date: newDate)
+        activeField.text = DateHelper.dateToString(date: newDate, format: "HH:mm, MMM d")
+        activeField.accessibilityLabel = DateHelper.dateToStringAccessible(date: newDate)
     }
 
     func dismissDatePicker() {
@@ -284,26 +284,6 @@ extension FullRouteViewController: DatePickerParentView {
 // MARK: TextField Setup
 extension FullRouteViewController {
 
-    // LOCALIZAR ISSO
-    func dateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm, MMM d"
-        return dateFormatter.string(from: date)
-    }
-
-    func dateToStringAccessible(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-
-        let dayString = dateFormatter.string(from: date)
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-
-        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
-    }
 }
 
 // MARK: TextField Setup Extension

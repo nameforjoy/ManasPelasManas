@@ -21,7 +21,6 @@ class RoutesViewController: UIViewController {
     
     fileprivate var journeys: [Journey] = []
     var autheticatedUser = User()
-    let dateFormatter = DateFormatter()
     var passJourneyUUID: UUID?
     
     var newMatches: Bool = true
@@ -33,7 +32,6 @@ class RoutesViewController: UIViewController {
         self.routesTableView.dataSource = self
         self.routesTableView.estimatedRowHeight = 165
         self.routesTableView.rowHeight = UITableView.automaticDimension
-        self.dateFormatter.dateFormat = "E, d MMM yyyy HH:mm"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,12 +115,10 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         // fill cell with extracted information
-        cell.dateTitle.text = self.dateFormatter.string(from: journey.initialHour!)
+        cell.dateTitle.text = DateHelper.dateToString(date: journey.initialHour!, format: "E, d MMM yyyy HH:mm")
         
         // Accesibility date
-        // Tentar enteder isso!!!
-        // cell.dateTitle.isAccessibilityElement = true
-        cell.dateTitle.accessibilityLabel = dateAccessible(initialHour: journey.initialHour!, finalHour: journey.finalHour!)
+        cell.dateTitle.accessibilityLabel = DateHelper.dateToStringAccessible(initialHour: journey.initialHour!, finalHour: journey.finalHour!)
         
         return cell
     }
@@ -161,22 +157,6 @@ extension RoutesViewController: UITableViewDataSource, UITableViewDelegate {
                                        with: .automatic)
         }
 
-    }
-    
-    func dateAccessible(initialHour: Date, finalHour: Date) -> String {
-        let calendar = Calendar.current
-        let iniHour = calendar.component(.hour, from: initialHour)
-        let iniMinute = calendar.component(.minute, from: initialHour)
-        let finHour = calendar.component(.hour, from: finalHour)
-        let finMinute = calendar.component(.minute, from: finalHour)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        let dayString = dateFormatter.string(from: initialHour)
-        
-        return "\(dayString), entre \(iniHour) horas e \(iniMinute) minutos e as \(finHour) e \(finMinute) minutos"
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
