@@ -40,7 +40,7 @@ class DatePickerManager {
 
     func createToolbar(_ completion: (_ toolbar: UIToolbar) -> Void) {
 
-        //Creates ToolBar
+        // Creates ToolBar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         toolbar.isUserInteractionEnabled = true
