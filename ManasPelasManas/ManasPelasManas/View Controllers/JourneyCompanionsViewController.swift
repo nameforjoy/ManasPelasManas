@@ -31,9 +31,6 @@ class JourneyCompanionsViewController: UIViewController {
     fileprivate var journeysNotUser: [Journey] = []
     var autheticatedUser = User()
     
-    let dateFormatter = DateFormatter()
-    let hourFormatter = DateFormatter()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -146,17 +143,15 @@ class JourneyCompanionsViewController: UIViewController {
         
         let pathServices = PathServices()
         
-        self.dateFormatter.dateFormat = "E, d MMM yyyy"
-        self.dateLabel.text = self.dateFormatter.string(from: self.journeyToMatch.initialHour!)
+        self.dateLabel.text = DateHelper.dateToString(date: self.journeyToMatch.initialHour!, format: "E, d MMM yyyy")
         
-        self.hourFormatter.dateFormat = "HH:mm"
-        let initialHour: String = self.hourFormatter.string(from: self.journeyToMatch.initialHour!)
-        let finalHour: String = self.hourFormatter.string(from: self.journeyToMatch.finalHour!)
+        let initialHour = DateHelper.dateToString(date: self.journeyToMatch.initialHour!, format: "HH:mm")
+        let finalHour = DateHelper.dateToString(date: self.journeyToMatch.finalHour!, format: "HH:mm")
+        
         self.timeRangeLabel.text = initialHour + " - "  + finalHour
         
         //Accessibility label
-        self.dateLabel.accessibilityLabel = dateAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
-        
+        self.dateLabel.accessibilityLabel = DateHelper.dateToStringAccessible(initialHour: self.journeyToMatch.initialHour!, finalHour: self.journeyToMatch.finalHour!)
         guard let pathJourney = self.journeyToMatch.hasPath else { return }
         
         //Passando o completion dogetAddress de volta para a chamada dessa msm função atual
@@ -183,23 +178,6 @@ class JourneyCompanionsViewController: UIViewController {
         }
 
     }
-    
-    func dateAccessible(initialHour: Date, finalHour: Date) -> String {
-        let calendar = Calendar.current
-        let iniHour = calendar.component(.hour, from: initialHour)
-        let iniMinute = calendar.component(.minute, from: initialHour)
-        let finHour = calendar.component(.hour, from: finalHour)
-        let finMinute = calendar.component(.minute, from: finalHour)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-        let dayString = dateFormatter.string(from: initialHour)
-        
-        return "\(dayString), entre \(iniHour) horas e \(iniMinute) minutos e as \(finHour) e \(finMinute) minutos"
-    }
-    
 }
 
 extension JourneyCompanionsViewController: UITableViewDataSource, UITableViewDelegate {
