@@ -248,7 +248,7 @@ extension FullRouteViewController: MKMapViewDelegate {
     
 }
 
-// MARK: DatePicker Extension
+// MARK: DatePicker Delegate Methods
 extension FullRouteViewController: DatePickerParentView {
 
     func updateDateLabels(newDate: Date) {
