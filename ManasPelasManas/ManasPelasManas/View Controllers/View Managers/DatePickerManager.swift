@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DatePickerParentView: class {
+protocol DatePickerManagerDelegate: class {
     func updateDateLabels(newDate: Date)
     func dismissDatePicker()
 }
@@ -16,11 +16,10 @@ protocol DatePickerParentView: class {
 class DatePickerManager {
     
     weak var datePicker: UIDatePicker!
-    weak var parentView: DatePickerParentView!
+    weak var delegate: DatePickerManagerDelegate!
 
-    init(datePicker: UIDatePicker, parentView: DatePickerParentView) {
+    init(datePicker: UIDatePicker) {
         self.datePicker = datePicker
-        self.parentView = parentView
         self.datePickerConfig()
     }
 
@@ -35,7 +34,7 @@ class DatePickerManager {
     }
 
     @objc func dateChanged(datePicker: UIDatePicker) {
-        self.parentView.updateDateLabels(newDate: datePicker.date)
+        self.delegate.updateDateLabels(newDate: datePicker.date)
     }
 
     func createToolbar(_ completion: (_ toolbar: UIToolbar) -> Void) {
@@ -58,7 +57,7 @@ class DatePickerManager {
 
     // Dismiss datepicker and saves data if necessary
     @objc func donePressed() {
-        self.parentView.dismissDatePicker()
+        self.delegate.dismissDatePicker()
     }
 
 }

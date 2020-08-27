@@ -37,7 +37,8 @@ class FullRouteViewController: UIViewController {
     var mapViewManager: MapViewManager?
     
     override func viewDidLoad() {
-        self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
+        self.dateManager = DatePickerManager(datePicker: self.datePicker)
+        self.dateManager?.delegate = self
         self.configTextFields()
         
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
@@ -197,7 +198,7 @@ class FullRouteViewController: UIViewController {
     
 }
 
-// MARK: MapView delegate
+// MARK: MapView Delegate
 extension FullRouteViewController: MKMapViewDelegate {
 
     // Renders Map overlays
@@ -215,8 +216,8 @@ extension FullRouteViewController: MKMapViewDelegate {
 
 }
 
-// MARK: DatePicker Delegate Methods
-extension FullRouteViewController: DatePickerParentView {
+// MARK: DatePicker Delegate
+extension FullRouteViewController: DatePickerManagerDelegate {
 
     func updateDateLabels(newDate: Date) {
         guard let activeField = self.activeField else { return }
