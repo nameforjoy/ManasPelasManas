@@ -40,8 +40,8 @@ class FullRouteViewController: UIViewController {
     var dateManager: DatePickerManager?
     
     override func viewDidLoad() {
-        self.datePickerSetup()
-        textFieldConfig()
+        self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
+        self.configTextFields()
         
         self.fromDateLabel.text = NSLocalizedString("Earliest meeting time", comment: "Title of the table cell in which the user clicks to set up the earlier boundary of the time range in which she can encounter her companion for this journey.")
         self.toDateLabel.text = NSLocalizedString("Latest meeting time", comment: "Title of the table cell in which the user clicks to set up the latest boundary of the time range in which she can encounter her companion for this journey.")
@@ -248,13 +248,8 @@ extension FullRouteViewController: MKMapViewDelegate {
     
 }
 
-// MARK: DatePicker Extension
+// MARK: DatePicker Delegate Methods
 extension FullRouteViewController: DatePickerParentView {
-
-    func datePickerSetup() {
-        self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
-        self.dateManager?.datePickerConfig(fromDateTextField: fromDateTextField, toDateTextField: toDateTextField)
-    }
 
     func updateDateLabels(newDate: Date) {
         guard let activeField = self.activeField else { return }
@@ -264,58 +259,43 @@ extension FullRouteViewController: DatePickerParentView {
         } else if activeField.tag == 1 {
             self.latestDate = newDate
         }
-        activeField.text = dateToString(date: newDate)
-        activeField.accessibilityLabel = dateToStringAccessible(date: newDate)
+        activeField.text = DateHelper.dateToString(date: newDate, format: "HH:mm, MMM d")
+        activeField.accessibilityLabel = DateHelper.dateToStringAccessible(date: newDate)
     }
 
     func dismissDatePicker() {
         view.endEditing(true)
     }
-}
 
-// MARK: TextField Setup
-extension FullRouteViewController {
-
-    // LOCALIZAR ISSO
-    func dateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm, MMM d"
-        return dateFormatter.string(from: date)
-    }
-
-    func dateToStringAccessible(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "pt_BR")
-
-        let dayString = dateFormatter.string(from: date)
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-
-        return "\(hour) horas e \(minute) minutos, " + "de " + dayString
-    }
 }
 
 // MARK: TextField Setup Extension
 extension FullRouteViewController: UITextFieldDelegate {
-    
-    func textFieldConfig() {
-        self.fromDateTextField.delegate = self
-        self.toDateTextField.delegate = self
-        self.fromDateTextField.tag = 0
-        self.toDateTextField.tag = 1
-        self.fromDateTextField.text = ""
-        self.toDateTextField.text = ""
-        
-        //Hiding the editing cursor
-        self.fromDateTextField.tintColor = .clear
-        self.toDateTextField.tintColor = .clear
-        
-        // Removing default design for text field
-        self.fromDateTextField.borderStyle = .none
-        self.toDateTextField.borderStyle = .none
+
+    func configTextFields() {
+        textFieldSetup(textField: fromDateTextField, textFieldTag: 0)
+        textFieldSetup(textField: toDateTextField, textFieldTag: 1)
+
+    }
+
+    func textFieldSetup(textField: UITextField, textFieldTag: Int) {
+
+        // Creates Identifier
+        textField.tag = textFieldTag
+
+        // Setup related DatePicker
+        textField.inputView = self.datePicker
+        self.dateManager?.createToolbar { (toolbar) in
+            textField.inputAccessoryView = toolbar
+        }
+
+        // Setup Delegate
+        textField.delegate = self
+
+        // Visual Design for TextField
+        textField.text = ""
+        textField.tintColor = .clear
+        textField.borderStyle = .none
     }
     
     // This function is called by the delegate when user taps a given text field
