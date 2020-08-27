@@ -17,14 +17,14 @@ class FullRouteViewController: UIViewController {
     var newJourney: Journey?
     var pathId: UUID?
     
-    var annotationA: MKPointAnnotation?
-    var annotationB: MKPointAnnotation?
+//    var annotationA: MKPointAnnotation?
+//    var annotationB: MKPointAnnotation?
     var earlierDate: Date? // To be decoupled
     var latestDate: Date? // To be decoupled
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8 // To be decoupled
-    var circleA: MKCircle?
-    var circleB: MKCircle?
+//    var circleA: MKCircle?
+//    var circleB: MKCircle?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -69,9 +69,44 @@ class FullRouteViewController: UIViewController {
 
         notificationCenter.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
-    
+
+    // MARK: UI Actions
+    @IBAction func confirmButton(_ sender: Any) {
+        if let earlier = self.earlierDate,
+            let latest = self.latestDate,
+            let userId = self.currentUser?.userId,
+            let newPath = self.newPath {
+
+            let journey = Journey(ownerId: userId, journeyId: UUID(), hasPath: newPath, initialHour: earlier, finalHour: latest)
+
+            JourneyServices.createJourney(journey: journey, { (error) in
+                if (error == nil) {
+                    DispatchQueue.main.async {
+                        self.newJourney = journey
+                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                    }
+                } else {
+                    print(error?.localizedDescription ?? "Error")
+                }
+            })
+
+        } else {
+            presentAlert()
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "checkForMatches" {
+            if let destination = segue.destination as? JourneyCompanionsViewController {
+                destination.journeyId = self.newJourney?.journeyId
+            }
+        }
+    }
+
+
+    // MARK: Data Retrieving
     func getDataFromDB() {
-        // MARK: Retrieving Path - Core Data
+        // Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil) {
                 self.newPath = path
@@ -81,7 +116,7 @@ class FullRouteViewController: UIViewController {
             }
         }
         
-        // MARK: Retrieving Authenticated User - Core Data
+        // Retrieving Authenticated User - Core Data
         UserServices.getAuthenticatedUser { (error, user) in
             if (error == nil && user != nil) {
                 self.currentUser = user
@@ -90,13 +125,15 @@ class FullRouteViewController: UIViewController {
             }
         }
     }
-    
+
+
+    // MARK: Accessibility
     private func setUpInterface() {
         adjustTextContent()
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
     
-    // MARK: Dynamic Type
+    // Dynamic Type
     // Listens to changes on Category Size Changes
     @objc func fontSizeChanged(_ notification: Notification) {
         adjustTextContent()
@@ -118,7 +155,7 @@ class FullRouteViewController: UIViewController {
         }
     }
     
-    // MARK: Acessibility setup
+    // Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
         //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
@@ -144,25 +181,6 @@ class FullRouteViewController: UIViewController {
         //6. Botão procurar companhias
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
-    }
-
-    // MARK: Displaying Map Data
-    func displayMapItems(path: Path?) {
-        let pathServices = PathServices()
-        
-        if let path = path {
-            self.circleA = pathServices.getCircle(path: path, stage: .origin)
-            self.circleB = pathServices.getCircle(path: path, stage: .destiny)
-        } else {
-            print("Path is null")
-        }
-        
-        self.addAnnotations()
-        
-        self.mapView.addAnnotations([annotationA!, annotationB!])
-        self.mapView.addOverlays([self.circleA!, self.circleB!])
-        
-        self.zoomTo(regionA: self.circleA!, regionB: self.circleB!)
     }
     
     func presentAlert() {
@@ -195,55 +213,40 @@ extension FullRouteViewController: MKMapViewDelegate {
         }
         return MKPolylineRenderer()
     }
-    
-    @IBAction func confirmButton(_ sender: Any) {
-        if let earlier = self.earlierDate,
-            let latest = self.latestDate,
-            let userId = self.currentUser?.userId,
-            let newPath = self.newPath {
-            
-            let journey = Journey(ownerId: userId, journeyId: UUID(), hasPath: newPath, initialHour: earlier, finalHour: latest)
-            
-            JourneyServices.createJourney(journey: journey, { (error) in
-                if (error == nil) {
-                    DispatchQueue.main.async {
-                        self.newJourney = journey
-                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
-                    }
-                } else {
-                    print(error?.localizedDescription ?? "Error")
-                }
-            })
-            
-        } else {
-            presentAlert()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "checkForMatches" {
-            if let destination = segue.destination as? JourneyCompanionsViewController {
-                destination.journeyId = self.newJourney?.journeyId
-            }
-        }
-    }
-    
+
     // Adds map annotations for start and destination of the route
-    private func addAnnotations() {
-        annotationA = MKPointAnnotation()
-        annotationA!.subtitle = "Starting Point"
-        annotationA!.coordinate = circleA!.coordinate
-        
-        annotationB = MKPointAnnotation()
-        annotationB!.subtitle = "Destination Point"
-        annotationB!.coordinate = circleB!.coordinate
+    private func addAnnotations(circle: MKCircle, subtitle: String) -> MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+        annotation.subtitle = subtitle
+        annotation.coordinate = circle.coordinate
+
+        return annotation
     }
-    
+
     // TODO: Zoom to fit all elements
-    private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
+    private func zoomTo(regionA: MKCircle, regionB: MKCircle) -> MKMapRect {
         let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
         let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
+        let newVisibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
+        return newVisibleMapRect
+    }
+
+    // MARK: Displaying Map Data
+    func displayMapItems(path: Path?) {
+
+        guard let path = path else {
+            print("Path is null")
+            return
+        }
+
+        let pathServices = PathServices()
+        let circleA = pathServices.getCircle(path: path, stage: .origin)
+        let circleB = pathServices.getCircle(path: path, stage: .destiny)
+        let annotationA = addAnnotations(circle: circleA, subtitle: "Starting Point")
+        let annotationB = addAnnotations(circle: circleB, subtitle: "Destination Point")
+        self.mapView.addAnnotations([annotationA, annotationB])
+        self.mapView.addOverlays([circleA, circleB])
+        self.mapView.visibleMapRect = self.zoomTo(regionA: circleA, regionB: circleB)
     }
     
 }
