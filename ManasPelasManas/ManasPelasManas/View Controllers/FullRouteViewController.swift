@@ -16,15 +16,11 @@ class FullRouteViewController: UIViewController {
     var newPath: Path?
     var newJourney: Journey?
     var pathId: UUID?
-    
-    var annotationA: MKPointAnnotation?
-    var annotationB: MKPointAnnotation?
+
     var earlierDate: Date? // To be decoupled
     var latestDate: Date? // To be decoupled
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8 // To be decoupled
-    var circleA: MKCircle?
-    var circleB: MKCircle?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -38,6 +34,7 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var toDateTextField: UITextField!
     var activeField: UITextField?
     var dateManager: DatePickerManager?
+    var mapViewManager: MapViewManager?
     
     override func viewDidLoad() {
         self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
@@ -48,6 +45,8 @@ class FullRouteViewController: UIViewController {
 
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+        self.mapViewManager = MapViewManager(mapView: self.mapView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,19 +68,58 @@ class FullRouteViewController: UIViewController {
 
         notificationCenter.removeObserver(self, name:  UIContentSizeCategory.didChangeNotification, object: nil)
     }
-    
+
+    // MARK: UI Actions
+    @IBAction func confirmButton(_ sender: Any) {
+        if let earlier = self.earlierDate,
+            let latest = self.latestDate,
+            let userId = self.currentUser?.userId,
+            let newPath = self.newPath {
+
+            let journey = Journey(ownerId: userId, journeyId: UUID(), hasPath: newPath, initialHour: earlier, finalHour: latest)
+
+            JourneyServices.createJourney(journey: journey, { (error) in
+                if (error == nil) {
+                    DispatchQueue.main.async {
+                        self.newJourney = journey
+                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
+                    }
+                } else {
+                    print(error?.localizedDescription ?? "Error")
+                }
+            })
+
+        } else {
+            presentAlert()
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "checkForMatches" {
+            if let destination = segue.destination as? JourneyCompanionsViewController {
+                destination.journeyId = self.newJourney?.journeyId
+            }
+        }
+    }
+
+    // MARK: Data Retrieving
     func getDataFromDB() {
-        // MARK: Retrieving Path - Core Data
+        guard let mapManager = self.mapViewManager else {
+            print("Map Manager is Nil")
+            return
+        }
+
+        // Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil) {
                 self.newPath = path
-                self.displayMapItems(path: path)
+                mapManager.displayMapItems(path: path)
             } else {
                 //treat error
             }
         }
         
-        // MARK: Retrieving Authenticated User - Core Data
+        // Retrieving Authenticated User - Core Data
         UserServices.getAuthenticatedUser { (error, user) in
             if (error == nil && user != nil) {
                 self.currentUser = user
@@ -90,13 +128,14 @@ class FullRouteViewController: UIViewController {
             }
         }
     }
-    
+
+    // MARK: Accessibility
     private func setUpInterface() {
         adjustTextContent()
         self.nextButton.layer.cornerRadius = self.nextButton.frame.height / 4
     }
     
-    // MARK: Dynamic Type
+    // Dynamic Type
     // Listens to changes on Category Size Changes
     @objc func fontSizeChanged(_ notification: Notification) {
         adjustTextContent()
@@ -118,14 +157,11 @@ class FullRouteViewController: UIViewController {
         }
     }
     
-    // MARK: Acessibility setup
+    // Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
-        //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
-        if UIAccessibility.isVoiceOverRunning {
-            self.mapView.accessibilityElementsHidden = true
-        }
-        
+        // Habilitar apenas quando a tapView tiver na mesma reagião da mapView
+
         //1. Botão voltar
         self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
         // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
@@ -145,25 +181,6 @@ class FullRouteViewController: UIViewController {
         self.nextButton.isAccessibilityElement = true
         self.nextButton.accessibilityLabel = "Procurar companhias. Botão."
     }
-
-    // MARK: Displaying Map Data
-    func displayMapItems(path: Path?) {
-        let pathServices = PathServices()
-        
-        if let path = path {
-            self.circleA = pathServices.getCircle(path: path, stage: .origin)
-            self.circleB = pathServices.getCircle(path: path, stage: .destiny)
-        } else {
-            print("Path is null")
-        }
-        
-        self.addAnnotations()
-        
-        self.mapView.addAnnotations([annotationA!, annotationB!])
-        self.mapView.addOverlays([self.circleA!, self.circleB!])
-        
-        self.zoomTo(regionA: self.circleA!, regionB: self.circleB!)
-    }
     
     func presentAlert() {
         let alertTitle = NSLocalizedString("Time Table Alert Title", comment: "Title of Alert")
@@ -180,72 +197,22 @@ class FullRouteViewController: UIViewController {
     
 }
 
-// MARK: Defining Map functions
+// MARK: MapView delegate
 extension FullRouteViewController: MKMapViewDelegate {
-    
+
     // Renders Map overlays
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
+
         if (overlay is MKCircle) {
             let circleRender = MKCircleRenderer(overlay: overlay)
             circleRender.fillColor = UIColor(hue: 9/360, saturation: 66/100, brightness: 92/100, alpha: 0.5)
             circleRender.lineWidth = 10
-            
+
             return circleRender
         }
         return MKPolylineRenderer()
     }
-    
-    @IBAction func confirmButton(_ sender: Any) {
-        if let earlier = self.earlierDate,
-            let latest = self.latestDate,
-            let userId = self.currentUser?.userId,
-            let newPath = self.newPath {
-            
-            let journey = Journey(ownerId: userId, journeyId: UUID(), hasPath: newPath, initialHour: earlier, finalHour: latest)
-            
-            JourneyServices.createJourney(journey: journey, { (error) in
-                if (error == nil) {
-                    DispatchQueue.main.async {
-                        self.newJourney = journey
-                        self.performSegue(withIdentifier: "checkForMatches", sender: sender)
-                    }
-                } else {
-                    print(error?.localizedDescription ?? "Error")
-                }
-            })
-            
-        } else {
-            presentAlert()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "checkForMatches" {
-            if let destination = segue.destination as? JourneyCompanionsViewController {
-                destination.journeyId = self.newJourney?.journeyId
-            }
-        }
-    }
-    
-    // Adds map annotations for start and destination of the route
-    private func addAnnotations() {
-        annotationA = MKPointAnnotation()
-        annotationA!.subtitle = "Starting Point"
-        annotationA!.coordinate = circleA!.coordinate
-        
-        annotationB = MKPointAnnotation()
-        annotationB!.subtitle = "Destination Point"
-        annotationB!.coordinate = circleB!.coordinate
-    }
-    
-    // TODO: Zoom to fit all elements
-    private func zoomTo(regionA: MKCircle, regionB: MKCircle) {
-        let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
-        let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        mapView.visibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
-    }
-    
+
 }
 
 // MARK: DatePicker Delegate Methods
