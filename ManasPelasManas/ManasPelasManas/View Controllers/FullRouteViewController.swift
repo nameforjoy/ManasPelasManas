@@ -16,15 +16,11 @@ class FullRouteViewController: UIViewController {
     var newPath: Path?
     var newJourney: Journey?
     var pathId: UUID?
-    
-//    var annotationA: MKPointAnnotation?
-//    var annotationB: MKPointAnnotation?
+
     var earlierDate: Date? // To be decoupled
     var latestDate: Date? // To be decoupled
     var selectedFirstCell: Bool = true
     let maxTimeDifferenceInHours: Double = 8 // To be decoupled
-//    var circleA: MKCircle?
-//    var circleB: MKCircle?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -38,6 +34,7 @@ class FullRouteViewController: UIViewController {
     @IBOutlet weak var toDateTextField: UITextField!
     var activeField: UITextField?
     var dateManager: DatePickerManager?
+    var mapViewManager: MapViewManager?
     
     override func viewDidLoad() {
         self.dateManager = DatePickerManager(datePicker: self.datePicker, parentView: self)
@@ -48,6 +45,8 @@ class FullRouteViewController: UIViewController {
 
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(fontSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
+
+        self.mapViewManager = MapViewManager(mapView: self.mapView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,14 +102,18 @@ class FullRouteViewController: UIViewController {
         }
     }
 
-
     // MARK: Data Retrieving
     func getDataFromDB() {
+        guard let mapManager = self.mapViewManager else {
+            print("Map Manager is Nil")
+            return
+        }
+
         // Retrieving Path - Core Data
         PathServices.findById(objectID: pathId!) { (error, path) in
             if (error == nil && path != nil) {
                 self.newPath = path
-                self.displayMapItems(path: path)
+                mapManager.displayMapItems(path: path)
             } else {
                 //treat error
             }
@@ -158,11 +161,8 @@ class FullRouteViewController: UIViewController {
     // Acessibility setup
     private func setupAccessibility() {
         // Disable map interaction with voiceOver
-        //Habilitar apenas quando a tapView tiver na mesma reagião da mapView
-        if UIAccessibility.isVoiceOverRunning {
-            self.mapView.accessibilityElementsHidden = true
-        }
-        
+        // Habilitar apenas quando a tapView tiver na mesma reagião da mapView
+
         //1. Botão voltar
         self.navigationController?.navigationBar.backItem?.isAccessibilityElement = true
         // TODO: PROBLEMA - acessibilityLabel do not change the voiceOver reading
@@ -198,57 +198,22 @@ class FullRouteViewController: UIViewController {
     
 }
 
-// MARK: Defining Map functions
+// MARK: MapView delegate
 extension FullRouteViewController: MKMapViewDelegate {
-    
+
     // Renders Map overlays
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
+
         if (overlay is MKCircle) {
             let circleRender = MKCircleRenderer(overlay: overlay)
             circleRender.fillColor = UIColor(hue: 9/360, saturation: 66/100, brightness: 92/100, alpha: 0.5)
             circleRender.lineWidth = 10
-            
+
             return circleRender
         }
         return MKPolylineRenderer()
     }
 
-    // Adds map annotations for start and destination of the route
-    private func addAnnotations(circle: MKCircle, subtitle: String) -> MKPointAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.subtitle = subtitle
-        annotation.coordinate = circle.coordinate
-
-        return annotation
-    }
-
-    // TODO: Zoom to fit all elements
-    private func zoomTo(regionA: MKCircle, regionB: MKCircle) -> MKMapRect {
-        let boundingArea = (regionA.boundingMapRect).union(regionB.boundingMapRect)
-        let padding = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        let newVisibleMapRect = mapView.mapRectThatFits(boundingArea, edgePadding: padding)
-        return newVisibleMapRect
-    }
-
-    // MARK: Displaying Map Data
-    func displayMapItems(path: Path?) {
-
-        guard let path = path else {
-            print("Path is null")
-            return
-        }
-
-        let pathServices = PathServices()
-        let circleA = pathServices.getCircle(path: path, stage: .origin)
-        let circleB = pathServices.getCircle(path: path, stage: .destiny)
-        let annotationA = addAnnotations(circle: circleA, subtitle: "Starting Point")
-        let annotationB = addAnnotations(circle: circleB, subtitle: "Destination Point")
-        self.mapView.addAnnotations([annotationA, annotationB])
-        self.mapView.addOverlays([circleA, circleB])
-        self.mapView.visibleMapRect = self.zoomTo(regionA: circleA, regionB: circleB)
-    }
-    
 }
 
 // MARK: DatePicker Delegate Methods

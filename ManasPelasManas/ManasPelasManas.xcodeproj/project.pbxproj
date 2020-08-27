@@ -43,6 +43,7 @@
 		8DC63D6B23E7DFF6008CD7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DC63D6D23E7DFF6008CD7E8 /* Localizable.strings */; };
 		B32CD34424EFFB6E00C334EE /* DatePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */; };
 		B32CD34624F6D3DC00C334EE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CD34524F6D3DC00C334EE /* DateHelper.swift */; };
+		B32CD34924F7E9D600C334EE /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CD34824F7E9D600C334EE /* MapViewManager.swift */; };
 		B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */; };
 		B376D07A230DEC86007BDA06 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D079230DEC86007BDA06 /* ProfileViewController.swift */; };
 		B376D07C230DECC7007BDA06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B376D07B230DECC7007BDA06 /* MapViewController.swift */; };
@@ -109,6 +110,7 @@
 		952D9E6B8C650B71BD850F28 /* Pods-ManasPelasManas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManasPelasManas.debug.xcconfig"; path = "Target Support Files/Pods-ManasPelasManas/Pods-ManasPelasManas.debug.xcconfig"; sourceTree = "<group>"; };
 		B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerManager.swift; sourceTree = "<group>"; };
 		B32CD34524F6D3DC00C334EE /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		B32CD34824F7E9D600C334EE /* MapViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
 		B32D288723F188E60097A79E /* UITextFieldAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAccessibility.swift; sourceTree = "<group>"; };
 		B376D079230DEC86007BDA06 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B376D07B230DECC7007BDA06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -277,15 +279,24 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		B32CD34724F7E95F00C334EE /* View Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
+				B32CD34824F7E9D600C334EE /* MapViewManager.swift */,
+			);
+			path = "View Managers";
+			sourceTree = "<group>";
+		};
 		B376D081230DECFD007BDA06 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B32CD34724F7E95F00C334EE /* View Managers */,
 				8D74B93D23162B650014FCDC /* Cells */,
 				B376D079230DEC86007BDA06 /* ProfileViewController.swift */,
 				B376D084230EE9F7007BDA06 /* LocationSearchTable.swift */,
 				B376D07B230DECC7007BDA06 /* MapViewController.swift */,
 				B376D08B2314114E007BDA06 /* FullRouteViewController.swift */,
-				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
 				B376D07F230DECF3007BDA06 /* RoutesViewController.swift */,
 				8D74B94C23164C230014FCDC /* JourneyCompanionsViewController.swift */,
 				8D74B95023164C8B0014FCDC /* CompanionProfileViewController.swift */,
@@ -519,6 +530,7 @@
 				15A31D61231557D6007241D2 /* PathDAO.swift in Sources */,
 				B3B9F68B23E9E1B900D246A0 /* UIButtonAccessibility.swift in Sources */,
 				1511D200230EF32500C0DF60 /* MatchServices.swift in Sources */,
+				B32CD34924F7E9D600C334EE /* MapViewManager.swift in Sources */,
 				1511D1FA230EB3AB00C0DF60 /* Journey.swift in Sources */,
 				8D74B94B23164A160014FCDC /* CompanionCell.swift in Sources */,
 				15A31D6423155EE1007241D2 /* UserServices.swift in Sources */,
