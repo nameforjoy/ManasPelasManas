@@ -30,6 +30,7 @@
 		15A6A8ED230C11A1004E537D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EC230C11A1004E537D /* Assets.xcassets */; };
 		15A6A8F0230C11A1004E537D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15A6A8EE230C11A1004E537D /* LaunchScreen.storyboard */; };
 		1F34AE66821B80E1B9ADBF0A /* Pods_ManasPelasManasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5AAFF0ED20A9420D5D2785 /* Pods_ManasPelasManasTests.framework */; };
+		8D0E9B7A24F7E7A400276AB9 /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E9B7924F7E7A400276AB9 /* TextFieldManager.swift */; };
 		8D5874C223CE3F650052F4AF /* MatchServicesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5874C123CE3F650052F4AF /* MatchServicesTest.swift */; };
 		8D5874C523E1BF7B0052F4AF /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5874C423E1BF7B0052F4AF /* TestData.swift */; };
 		8D74B94123162BFB0014FCDC /* JourneyTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74B94023162BFB0014FCDC /* JourneyTimeTableViewCell.swift */; };
@@ -91,6 +92,7 @@
 		15A6A8F1230C11A1004E537D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D5AAFF0ED20A9420D5D2785 /* Pods_ManasPelasManasTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ManasPelasManasTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B290088A8474A656B9664DB /* Pods-ManasPelasManas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManasPelasManas.release.xcconfig"; path = "Target Support Files/Pods-ManasPelasManas/Pods-ManasPelasManas.release.xcconfig"; sourceTree = "<group>"; };
+		8D0E9B7924F7E7A400276AB9 /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		8D5874B723CE3F160052F4AF /* ManasPelasManasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManasPelasManasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5874BB23CE3F160052F4AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D5874C123CE3F650052F4AF /* MatchServicesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchServicesTest.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */,
 				8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */,
 				8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */,
+				8D0E9B7924F7E7A400276AB9 /* TextFieldManager.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				15A31D6623155FBE007241D2 /* QueueManager.swift in Sources */,
 				B32D288823F188E60097A79E /* UITextFieldAccessibility.swift in Sources */,
 				15A31D5F231556B3007241D2 /* JourneyDAO.swift in Sources */,
+				8D0E9B7A24F7E7A400276AB9 /* TextFieldManager.swift in Sources */,
 				1511D1FC230EB47400C0DF60 /* Status.swift in Sources */,
 				15A31D5D23155656007241D2 /* Errors.swift in Sources */,
 				15A31D682315769D007241D2 /* JourneyServices.swift in Sources */,

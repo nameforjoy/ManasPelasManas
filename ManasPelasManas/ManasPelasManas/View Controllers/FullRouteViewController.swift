@@ -270,32 +270,24 @@ extension FullRouteViewController: DatePickerParentView {
 }
 
 // MARK: TextField Setup Extension
-extension FullRouteViewController: UITextFieldDelegate {
+extension FullRouteViewController: UITextFieldDelegate, TextFieldManagerDelegate {
 
-    func configTextFields() {
-        textFieldSetup(textField: fromDateTextField, textFieldTag: 0)
-        textFieldSetup(textField: toDateTextField, textFieldTag: 1)
-
-    }
-
-    func textFieldSetup(textField: UITextField, textFieldTag: Int) {
-
-        // Creates Identifier
-        textField.tag = textFieldTag
-
-        // Setup related DatePicker
+    func setFieldToDatePickerToolbar(textField: UITextField) {
         textField.inputView = self.datePicker
-        self.dateManager?.createToolbar { (toolbar) in
+        self.dateManager?.createToolbar({ (toolbar) in
             textField.inputAccessoryView = toolbar
-        }
-
-        // Setup Delegate
-        textField.delegate = self
-
-        // Visual Design for TextField
-        textField.text = ""
-        textField.tintColor = .clear
-        textField.borderStyle = .none
+        })
+    }
+    
+    func configTextFields() {
+        let textFieldManager = TextFieldManager()
+        textFieldManager.delegate = self
+        
+        textFieldManager.textFieldSetup(textField: self.fromDateTextField, tag: 0)
+        textFieldManager.textFieldSetup(textField: self.toDateTextField, tag: 1)
+        
+        self.toDateTextField.delegate = self
+        self.fromDateTextField.delegate = self
     }
     
     // This function is called by the delegate when user taps a given text field
@@ -308,8 +300,8 @@ extension FullRouteViewController: UITextFieldDelegate {
             self.latestDate = datePicker.date
             self.fromDateLabel.textColor = UIColor(named: "textColor")
             self.toDateLabel.textColor = UIColor(named: "actionColor")
-            
         }
+        
         self.activeField = textField
         datePicker.isHidden = false
     }
