@@ -61,18 +61,4 @@ class DatePickerManager {
         self.parentView.dismissDatePicker()
     }
 
-    // Non-Working-Code
-    // Expected behaviour:
-    // Define maximumm range between starting and final time  for security
-    func checkDateIntervalConsistency(selectedFirstCell: Bool, earlierDate: Date?, latestDate: Date?, datePicker: UIDatePicker) {
-        let maxTimeDifferenceInHours = 8
-
-        if selectedFirstCell && latestDate != nil {
-            datePicker.maximumDate = latestDate
-            datePicker.minimumDate = latestDate?.addingTimeInterval(TimeInterval(-maxTimeDifferenceInHours*60*60))
-        } else if !selectedFirstCell && earlierDate != nil {
-            datePicker.minimumDate = earlierDate
-            datePicker.maximumDate = earlierDate?.addingTimeInterval(TimeInterval(maxTimeDifferenceInHours*60*60))
-        }
-    }
 }
