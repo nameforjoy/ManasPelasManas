@@ -129,7 +129,6 @@ class FullRouteViewController: UIViewController {
         }
     }
 
-
     // MARK: Accessibility
     private func setUpInterface() {
         adjustTextContent()

@@ -286,6 +286,7 @@
 			children = (
 				B32CD34324EFFB6E00C334EE /* DatePickerManager.swift */,
 				B32CD34824F7E9D600C334EE /* MapViewManager.swift */,
+				8D0E9B7924F7E7A400276AB9 /* TextFieldManager.swift */,
 			);
 			path = "View Managers";
 			sourceTree = "<group>";
@@ -305,7 +306,6 @@
 				8DB94E7E23EC6E9600B2F91B /* MapViewController+Map.swift */,
 				8DB94E8023EC6F0F00B2F91B /* MapViewController+Location.swift */,
 				8DB94E8223EC6FB200B2F91B /* MapViewController+AddressSearch.swift */,
-				8D0E9B7924F7E7A400276AB9 /* TextFieldManager.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
