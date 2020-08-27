@@ -251,8 +251,8 @@ extension FullRouteViewController: UITextFieldDelegate, TextFieldManagerDelegate
         let textFieldManager = TextFieldManager()
         textFieldManager.delegate = self
         
-        textFieldManager.textFieldSetup(textField: self.fromDateTextField, tag: 0)
-        textFieldManager.textFieldSetup(textField: self.toDateTextField, tag: 1)
+        textFieldManager.textFieldSetup(textField: self.fromDateTextField)
+        textFieldManager.textFieldSetup(textField: self.toDateTextField)
         
         self.toDateTextField.delegate = self
         self.fromDateTextField.delegate = self
@@ -260,11 +260,11 @@ extension FullRouteViewController: UITextFieldDelegate, TextFieldManagerDelegate
     
     // This function is called by the delegate when user taps a given text field
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == 0 {
+        if textField == fromDateTextField {
             self.earlierDate = datePicker.date
             self.fromDateLabel.textColor = UIColor(named: "actionColor")
             self.toDateLabel.textColor = UIColor(named: "textColor")
-        } else if textField.tag == 1 {
+        } else if textField == toDateTextField {
             self.latestDate = datePicker.date
             self.fromDateLabel.textColor = UIColor(named: "textColor")
             self.toDateLabel.textColor = UIColor(named: "actionColor")

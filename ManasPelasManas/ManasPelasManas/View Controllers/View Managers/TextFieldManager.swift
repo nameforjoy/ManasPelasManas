@@ -18,9 +18,7 @@ class TextFieldManager: NSObject, UITextFieldDelegate {
     weak var delegate: TextFieldManagerDelegate?
 
     //swiftlint:disable identifier_name
-    func textFieldSetup(textField: UITextField, tag: Int) {
-        // Creates Identifier
-        textField.tag = tag
+    func textFieldSetup(textField: UITextField) {
 
         // Visual Design for TextField
         textField.text = ""
